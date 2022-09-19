@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chuyên Laptop, PC, phụ kiện Gaming</title>
+    <link
+      rel="icon"
+      href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
+      type="image/x-icon"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="header_navigation sticky-top">
+      <header>
+        <div class="container">
+          <div class="row">
+            <div class="col-2">
+              <div class="logo__shop">
+                <a href="./index.html" class="logo__shop-link">
+                  <img
+                    src="//theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=28697"
+                    alt=""
+                    class="logo__shop-link--image"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="action__info">
+                <div class="row">
+                  <div class="col-6">
+                    <form action="" class="search__form">
+                      <input
+                        type="text"
+                        placeholder="Nhập mã hoặc tên sản phẩm..."
+                      />
+                      <button type="submit" class="search__btn">
+                        <i class="bx bx-search"></i>
+                      </button>
+                    </form>
+                  </div>
+                  <div class="col-6">
+                    <div class="row action__info-user">
+                      <div class="col">
+                        <a th:href="@{/register}"
+                          ><i class="bx bxs-edit"></i>Đăng ký</a
+                        >
+                      </div>
+                      <div class="col">
+                        <a th:href="@{/login}"
+                          ><i class="bx bxs-user-circle"></i>Đăng nhập</a
+                        >
+                      </div>
+                      <div class="col">
+                        <a href=""><i class="bx bxs-discount"></i>Khuyến mãi</a>
+                      </div>
+                      <div class="col">
+                        <a href=""
+                          ><i class="bx bxs-cart"
+                            ><div class="number_product">0</div></i
+                          >Giỏ hàng</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="action__contact">
+                <ul class="action__contact_list">
+                  <li>
+                    <a href=""><i class="bx bxs-phone-call"></i>TỔNG ĐÀI</a>
+                  </li>
+                  <li>
+                    <a href=""><i class="bx bxl-youtube"></i>VIDEO</a>
+                  </li>
+                  <li>
+                    <a href=""><i class="bx bx-news"></i>TIN CÔNG NGHỆ</a>
+                  </li>
+                  <li>
+                    <a href=""><i class="bx bx-user"></i>TUYỂN DỤNG</a>
+                  </li>
+                  <li>
+                    <a href=""><i class="bx bxs-store"></i>HỆ THỐNG SHOWROOM</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- DONE HEADER -->
+      <div class="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-2">
+              <div class="col-2-container">
+                <a href=""><i class="bx bx-menu"></i>Danh mục sản phẩm</a>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="row">
+                <div class="col">
+                  <div class="col-container">
+                    <a href="./guidepayment.html"
+                      ><i class="bx bx-money-withdraw"></i>HƯỚNG DẪN THANH
+                      TOÁN</a
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="col-container">
+                    <a href="installment.html"
+                      ><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="col-container">
+                    <a href="warranty.html"
+                      ><i class="bx bx-check-shield"></i>CHÍNH SÁCH BẢO HÀNH</a
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="col-container">
+                    <a href="delivery.html"
+                      ><i class="bx bxs-package"></i>CHÍNH SÁCH VẬN CHUYỂN</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DONE HEADER NAVIGATION -->
+    <div class="main_content">
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+            <ul class="list_menu">
+              <li class="list_menu-item">
+                <i class="bx bx-laptop"></i>
+                <a href="./product_laptop.html">Laptop</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bx-laptop"></i>
+                <a href="">PC</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bx-slideshow"></i>
+                <a href="">Màn hình</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bx-mouse-alt"></i>
+                <a href="">Linh kiện</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bx-headphone"></i>
+                <a href="">Gaming Gear</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bxs-joystick"></i>
+                <a href="">Phụ kiện</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bxl-apple"></i>
+                <a href="">Apple</a>
+              </li>
+              <li class="list_menu-item">
+                <i class="bx bxs-microphone-alt"></i>
+                <a href="">Gear Corner</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-10">
+            <div class="row">
+              <div class="col-8">
+                <div
+                  id="carouselExampleIndicators"
+                  class="carousel slide"
+                  data-bs-ride="true"
+                >
+                  <div class="carousel-indicators">
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="0"
+                      class="active"
+                      aria-current="true"
+                      aria-label="Slide 1"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="1"
+                      aria-label="Slide 2"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="2"
+                      aria-label="Slide 3"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="3"
+                      aria-label="Slide 4"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="4"
+                      aria-label="Slide 5"
+                    ></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img
+                        src="./images/slideshow_1.png"
+                        class="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="carousel-item">
+                      <img
+                        src="./images/slideshow_2.png"
+                        class="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="carousel-item">
+                      <img
+                        src="./images/slideshow_3.png"
+                        class="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="carousel-item">
+                      <img
+                        src="./images/slideshow_4.png"
+                        class="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="carousel-item">
+                      <img
+                        src="./images/slideshow_5.png"
+                        class="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                  </div>
+                  <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev"
+                  >
+                    <span
+                      class="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next"
+                  >
+                    <span
+                      class="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="row banner_image">
+                  <a href=""><img src="./images/solid1.png" alt="" /></a>
+                </div>
+                <div class="row banner_image">
+                  <a href=""><img src="./images/solid2.png" alt="" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="product_banner">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <a href=""><img src="images/banner1.png" alt="" /></a>
+          </div>
+          <div class="col">
+            <a href=""><img src="images/banner2.png" alt="" /></a>
+          </div>
+          <div class="col">
+            <a href=""><img src="images/banner3.png" alt="" /></a>
+          </div>
+          <div class="col">
+            <a href=""><img src="images/banner4.png" alt="" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PRODUCT BANNER -->
+    <div class="product__list">
+      <div class="container">
+        <div class="row fixed_row">
+          <div class="product__list-heading">
+            <h4 class="product__list_heading-name">LAPTOP GAMING BÁN CHẠY</h4>
+            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+          </div>
+
+          <div class="product__list_card">
+            <div class="row">
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href="./product_detail.html"
+                      ><img src="./images/product-1.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-2.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-3.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-4.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-5.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-1.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-2.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-3.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-4.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/product-5.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END LIST LAPTOP GAMING -->
+    <div class="product__list">
+      <div class="container">
+        <div class="row fixed_row">
+          <div class="product__list-heading">
+            <h4 class="product__list_heading-name">LAPTOP VĂN PHÒNG</h4>
+            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+          </div>
+
+          <div class="product__list_card">
+            <div class="row">
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-office-1.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-office-2.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-office-3.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-office-4.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-office-5.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END LIST LAPTOP OFFICE -->
+    <div class="product__list">
+      <div class="container">
+        <div class="row fixed_row">
+          <div class="product__list-heading">
+            <h4 class="product__list_heading-name">MÀN HÌNH KHUYẾN MÃI HOT</h4>
+            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+          </div>
+
+          <div class="product__list_card">
+            <div class="row">
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-screen-1.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-screen-2.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-screen-3.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-screen-4.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img src="./images/product-screen-5.png" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END LIST MÀN HÌNH -->
+    <div class="product__list">
+      <div class="container">
+        <div class="row fixed_row">
+          <div class="product__list-heading">
+            <h4 class="product__list_heading-name">BÀN PHÍM HOT</h4>
+            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+          </div>
+
+          <div class="product__list_card">
+            <div class="row">
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/keyboard-1.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/keyboard-2.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/keyboard-3.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/keyboard-4.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/keyboard-1.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END LIST BÀN PHÍM -->
+    <div class="product__list" style="padding-bottom: 60px">
+      <div class="container">
+        <div class="row fixed_row">
+          <div class="product__list-heading">
+            <h4 class="product__list_heading-name">CHUỘT MÁY TÍNH</h4>
+            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+          </div>
+
+          <div class="product__list_card">
+            <div class="row">
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/mouse-1.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/mouse-2.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/mouse-3.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/mouse-4.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""><img src="./images/mouse-5.png" alt="" /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        18.000.000đ
+                      </div>
+                      <div class="discount">-20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END LIST MOUSE -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h4>Thông tin liên hệ</h4>
+            <div class="email_shop">
+              <p><a href="">sales@thenewxgear.com</a></p>
+              <p><a href="">support@thenewxgear.com</a></p>
+            </div>
+            <div class="schedule_working">
+              <p>HCM : Thứ 2 - Thứ 7 09h:00 - 20h:00</p>
+              <p>HCM : Chủ nhật 09h:00 - 19h:00</p>
+              <p>HN : Thứ 2 - Thứ 7 09h:00 - 20h:00</p>
+              <p>HN : Chủ nhật 09h:00 - 19h:00</p>
+            </div>
+            <div class="confirm_logo">
+              <a href=""><img src="./images/bocongthuong.png" alt="" /></a>
+              <a href=""><img src="./images/dmca.png" alt="" /></a>
+            </div>
+          </div>
+          <div class="col">
+            <h4>Hệ thống cửa hàng</h4>
+            <p class="location">
+              <i class="bx bxs-location-plus"></i>
+              78-80-82 Hoàng Hoa Thám, Phường 12, Quận Tân Bình.
+            </p>
+            <p class="location">
+              <i class="bx bxs-location-plus"></i>
+              905 Kha Vạn Cân, Phường Linh Tây, Thành phố Thủ Đức.
+            </p>
+            <p class="location">
+              <i class="bx bxs-location-plus"></i>
+              162 - 164 Thái Hà, Phường Trung Liệt, Quận Đống Đa, Hà Nội
+            </p>
+          </div>
+          <div class="col">
+            <h4>Đăng ký nhận bản tin</h4>
+            <form action="" class="email_contact_form">
+              <input type="email" placeholder="Nhập email của bạn" />
+              <button type="submit">Gửi</button>
+            </form>
+            <h4>Hỗ trợ thanh toán</h4>
+            <div class="support_pay">
+              <div class="row">
+                <div class="col"><img src="./images/visa.png" alt="" /></div>
+                <div class="col"><img src="./images/jcb.png" alt="" /></div>
+                <div class="col"><img src="./images/visa_2.png" alt="" /></div>
+                <div class="col"><img src="./images/atm.png" alt="" /></div>
+              </div>
+              <div class="row">
+                <div class="col"><img src="./images/grab.png" alt="" /></div>
+                <div class="col"><img src="./images/pay.png" alt="" /></div>
+                <div class="col"><img src="./images/momo.png" alt="" /></div>
+                <div class="col"><img src="./images/zalo.png" alt="" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="col contact_link">
+            <h4>Liên kết nhanh</h4>
+            <div class="row">
+              <div class="col"><a href="">Về chúng tôi</a></div>
+              <div class="col"><a href="">Sản phẩm</a></div>
+            </div>
+            <div class="row">
+              <div class="col"><a href="">Liên hệ</a></div>
+              <div class="col"><a href="">Tin Tức</a></div>
+            </div>
+            <h4>Hướng dẫn mua hàng</h4>
+            <p><a href="">Cách thức mua hàng</a></p>
+            <p><a href="">Chính sách thu hồi hàng hóa</a></p>
+            <p><a href="">Chính sách bảo hành</a></p>
+            <p><a href="">Hình thực thanh toán</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+  </body>
+  <script src="script.js"></script>
+</html>
