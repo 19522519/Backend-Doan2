@@ -1,15 +1,11 @@
 package com.example.demo.service.implement;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.UserDto;
-import com.example.demo.entity.AppRole;
 import com.example.demo.entity.AppUser;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;

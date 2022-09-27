@@ -18,7 +18,7 @@ import com.example.demo.service.UserRoleService;
 import com.example.demo.service.UserService;
 
 @Controller
-public class UserController {
+public class RegisterController {
     @Autowired
     UserService userService;
 

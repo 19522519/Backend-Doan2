@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import org.springframework.web.jsf.FacesContextUtils;
-
 import lombok.Data;
 
 @Entity

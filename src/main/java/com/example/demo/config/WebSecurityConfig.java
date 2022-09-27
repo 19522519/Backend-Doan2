@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.example.demo.handler.UserAuthenticationSuccessHandler;
 import com.example.demo.service.implement.UserDetailsServiceImpl;
 
 @Configuration
@@ -20,6 +21,9 @@ import com.example.demo.service.implement.UserDetailsServiceImpl;
 public class WebSecurityConfig {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    private UserAuthenticationSuccessHandler userAuthenticationSuccessHandler;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -50,33 +54,47 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/index", "/register/**").permitAll();
+        http.authorizeRequests().antMatchers("/index", "/register/**", "/").permitAll()
 
-        // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
-        // Nếu chưa login, nó sẽ redirect tới trang /login.
-        http.authorizeRequests().antMatchers("/customer").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        // Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+                .antMatchers("/manager").hasRole("MANAGER")
+                .antMatchers("/seller").hasRole("SELLER")
+                .antMatchers("/customer").hasRole("CUSTOMER")
 
-        // Khi người dùng đã login, với vai trò XX.
-        // Nhưng truy cập vào trang yêu cầu vai trò YY,
-        // Ngoại lệ AccessDeniedException sẽ ném ra.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+                // // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
+                // // Nếu chưa login, nó sẽ redirect tới trang /login.
+                // //
+                // http.authorizeRequests().antMatchers("/customer").access("hasAnyRole('ROLE_CUSTOMER',
+                // // 'ROLE_MANAGER')");
 
-        // Cấu hình cho Login Form.
-        http.authorizeRequests().and().formLogin()//
-                .loginPage("/login")//
-                .defaultSuccessUrl("/customer")//
+                // // Trang chỉ dành cho ADMIN
+                // http.authorizeRequests().antMatchers("/manager").access("hasRole('ROLE_MANAGER')");
+                // http.authorizeRequests().antMatchers("/seller").access("hasRole('ROLE_SELLER')");
+                // http.authorizeRequests().antMatchers("/customer").access("hasRole('ROLE_CUSTOMER')");
+
+                // // Khi người dùng đã login, với vai trò XX.
+                // // Nhưng truy cập vào trang yêu cầu vai trò YY,
+                // // Ngoại lệ AccessDeniedException sẽ ném ra.
+                // http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+                // Cấu hình cho Login Form.
+                .and().formLogin().loginPage("/login")
+                .successHandler(userAuthenticationSuccessHandler)
                 .failureUrl("/login?error=true")//
-                .usernameParameter("username")//
-                .passwordParameter("password");
+                .usernameParameter("username")
+                .passwordParameter("password").permitAll();
+        //
+        // .loginPage("/login")//
+        // /* .defaultSuccessUrl("/customer")// */
+        // .failureUrl("/login?error=true")//
+        // .usernameParameter("username")//
+        // .passwordParameter("password");
 
         // Cấu hình Remember Me.
         http.authorizeRequests().and() //
                 .rememberMe().tokenRepository(this.persistentTokenRepository()) //
                 .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
 
-        http.authenticationProvider(authenticationProvider());
+        // http.authenticationProvider(authenticationProvider());
         return http.build();
     }
 
