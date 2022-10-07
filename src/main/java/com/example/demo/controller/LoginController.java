@@ -16,11 +16,12 @@ public class LoginController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET)
     public String managerPage() {
         return "managerPage";
+
     }
 
     @GetMapping("/seller")
     public String sellerPage() {
-        return "sellerPage";
+        return "seller/SellerPage";
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.GET)
@@ -63,7 +64,7 @@ public class LoginController {
 
     @GetMapping("/forgotPassword")
     public String forgotPassword() {
-        return "forgotPasswordPage";
+        return "ForgotPasswordPage";
     }
 
 }

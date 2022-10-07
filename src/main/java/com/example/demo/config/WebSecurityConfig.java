@@ -56,8 +56,8 @@ public class WebSecurityConfig {
         // Các trang không yêu cầu login
         http.authorizeRequests().antMatchers("/index", "/register/**", "/").permitAll()
 
-                .antMatchers("/manager").hasRole("MANAGER")
-                .antMatchers("/seller").hasRole("SELLER")
+                .antMatchers("/manager/**").hasRole("MANAGER")
+                .antMatchers("/seller/**").hasRole("SELLER")
                 .antMatchers("/customer").hasRole("CUSTOMER")
 
                 // // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
