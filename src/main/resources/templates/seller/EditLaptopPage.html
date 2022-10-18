@@ -124,11 +124,12 @@
       </div>
       <div class="add_product_section">
         <form
-          th:action="@{/seller/laptop/save-new}"
+          th:action="@{/seller/laptop/save-exist}"
           th:object="${laptop}"
           enctype="multipart/form-data"
           method="post"
         >
+          <input type="hidden" th:field="*{laptopId}" />
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title">
               <p>1. Thông tin cơ bản</p>
@@ -187,7 +188,12 @@
                 <tr>
                   <td>CPU</td>
                   <td>
-                    <select th:field="*{cpu}" name="CPU" id="">
+                    <select
+                      th:field="*{cpu}"
+                      th:selected="${laptop.cpu}"
+                      name="CPU"
+                      id=""
+                    >
                       <option
                         th:each="cpu : ${cpuList}"
                         th:value="${cpu}"
@@ -324,6 +330,12 @@
                       placeholder=""
                       class="reset_padding"
                     />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Số lượng hàng còn lại</td>
+                  <td>
+                    <input th:field="*{inventory}" class="reset_padding" />
                   </td>
                 </tr>
               </table>

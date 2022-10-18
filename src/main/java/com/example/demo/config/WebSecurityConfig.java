@@ -81,7 +81,8 @@ public class WebSecurityConfig {
                 .successHandler(userAuthenticationSuccessHandler)
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")
-                .passwordParameter("password").permitAll();
+                .passwordParameter("password").permitAll()
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
         //
         // .loginPage("/login")//
         // /* .defaultSuccessUrl("/customer")// */

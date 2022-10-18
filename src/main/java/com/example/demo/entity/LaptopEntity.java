@@ -23,14 +23,6 @@ public class LaptopEntity {
 
     private String screen;
     private String keyboard;
-    private String audio;
-
-    @Column(name = "read_memory_card")
-    private String readMemoryCard;
-
-    private String wifi;
-    private String bluetooth;
-    private String webcam;
 
     @Column(name = "communication_port")
     private String communicationPort;
@@ -40,6 +32,9 @@ public class LaptopEntity {
 
     private String battery;
     private String lan;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false)

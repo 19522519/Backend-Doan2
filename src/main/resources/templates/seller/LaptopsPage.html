@@ -130,7 +130,6 @@
               <th scope="col">Image</th>
               <th scope="col">Product Name</th>
               <th scope="col">Price</th>
-              <!-- <th scope="col">Brand</th> -->
               <th scope="col">Insurance Date</th>
               <th scope="col">Create Date</th>
               <th scope="col">Action</th>
@@ -142,11 +141,16 @@
               <td><img th:src="${laptop.thumbnail}" /></td>
               <td th:text="${laptop.laptopName}"></td>
               <td th:text="${laptop.price}"></td>
-              <td th:text="${laptop.insuranceDate}"></td>
+              <td th:text="${laptop.insurance}"></td>
               <td th:text="${laptop.createDate}"></td>
               <td>
-                <a href=""><i class="fas fa-edit"></i> Edit</a>
-                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
+                <a th:href="@{/seller/laptop/edit/{id}(id=${laptop.laptopId})}"
+                  ><i class="fas fa-edit"></i> Edit</a
+                >
+                <a
+                  th:href="@{/seller/laptop/delete/{id}(id=${laptop.laptopId})}"
+                  ><i class="fas fa-trash-alt"></i> Delete</a
+                >
               </td>
             </tr>
           </tbody>

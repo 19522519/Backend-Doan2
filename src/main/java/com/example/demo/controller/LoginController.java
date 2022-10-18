@@ -56,12 +56,6 @@ public class LoginController {
         return "403Page";
     }
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String homePage() {
-
-        return "index";
-    }
-
     @GetMapping("/forgotPassword")
     public String forgotPassword() {
         return "ForgotPasswordPage";

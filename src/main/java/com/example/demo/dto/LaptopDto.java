@@ -17,7 +17,7 @@ public class LaptopDto {
     private String laptopName;
     private String description;
     private Double price;
-    private String discount;
+    private Double discount;
     private String cpu;
     private String graphicsCard;
     private String ram;
@@ -30,10 +30,12 @@ public class LaptopDto {
     private String size;
     private String weight;
     private String lan;
-    // @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate insuranceDate;
+    private String insurance;
     // @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate createDate;
-    private MultipartFile thumbnail;
-
+    private String thumbnail;
+    private String brand;
+    private Integer quantity;
+    private Integer inventory;
+    private Boolean isDeleted;
 }

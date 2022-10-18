@@ -124,8 +124,8 @@
       </div>
       <div class="add_product_section">
         <form
-          th:action="@{/seller/laptop/save-new}"
-          th:object="${laptop}"
+          th:action="@{/seller/pc/save}"
+          th:object="${pc}"
           enctype="multipart/form-data"
           method="post"
         >
@@ -135,11 +135,7 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Tên sản phẩm</p>
-              <input
-                th:field="*{laptopName}"
-                type="text"
-                placeholder="Laptop name"
-              />
+              <input th:field="*{name}" type="text" placeholder="Name" />
 
               <p>Mô tả</p>
               <textarea
@@ -148,11 +144,10 @@
                 id=""
                 cols="45"
                 rows="6"
-                placeholder="Describe"
               ></textarea>
             </div>
           </div>
-          <div class="row add_product_part">
+          <!-- <div class="row add_product_part">
             <div class="col-5 add_product_info_title">
               <p>2. Giá tiền</p>
             </div>
@@ -163,21 +158,7 @@
               <input th:field="*{discount}" type="number" placeholder="%" />
             </div>
           </div>
-          <div class="row add_product_part">
-            <div class="col-5 add_product_info_title">
-              <p>3. Phân loại</p>
-            </div>
-            <div class="col-7">
-              <p>Nhãn hiệu</p>
-              <select th:field="*{brand}" name="" id="">
-                <option
-                  th:each="cpu : ${brandList}"
-                  th:value="${cpu}"
-                  th:text="${cpu}"
-                ></option>
-              </select>
-            </div>
-          </div>
+          
           <div class="row add_product_part part_4">
             <div class="add_product_info_title">
               <p>4. Mô tả chi tiết</p>
@@ -234,7 +215,7 @@
                     <input
                       th:field="*{screen}"
                       type="text"
-                      placeholder="Type of screen"
+                      placeholder="Name"
                       class="reset_padding"
                     />
                   </td>
@@ -265,7 +246,7 @@
                     <input
                       th:field="*{communicationPort}"
                       type="text"
-                      placeholder="Type"
+                      placeholder="Name"
                       class="reset_padding"
                     />
                   </td>
@@ -276,7 +257,7 @@
                     <input
                       th:field="*{keyboard}"
                       type="text"
-                      placeholder="Type of keyboard"
+                      placeholder="Name"
                       class="reset_padding"
                     />
                   </td>
@@ -297,7 +278,7 @@
                     <input
                       th:field="*{size}"
                       type="text"
-                      placeholder="Size"
+                      placeholder="Name"
                       class="reset_padding"
                     />
                   </td>
@@ -312,18 +293,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Chế độ bảo hành</td>
+                  <td>Bảo hành (dd/mm/yyyy)</td>
                   <td>
-                    <input th:field="*{insurance}" class="reset_padding" />
-                  </td>
-                  <td>Số lượng</td>
-                  <td>
-                    <input
-                      th:field="*{quantity}"
-                      type="text"
-                      placeholder=""
-                      class="reset_padding"
-                    />
+                    <input th:field="*{insuranceDate}" class="reset_padding" />
                   </td>
                 </tr>
               </table>
@@ -335,25 +307,15 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Thêm hình ảnh</p>
-              <input
-                type="text"
-                th:field="*{thumbnail}"
-                placeholder="Image link"
-              />
+              <input type="file" th:field="*{thumbnail}" placeholder="Name" />
             </div>
-          </div>
+          </div> -->
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title"></div>
             <div class="col-7 add_product_info_input">
               <button type="reset">CANCEL</button>
               <button type="submit">Tạo sản phẩm</button>
             </div>
-            <div
-              class="alert alert-primary"
-              role="alert"
-              th:text="${success}"
-              th:if="${success}"
-            ></div>
           </div>
         </form>
       </div>

@@ -20,7 +20,8 @@ public class ProductEntity {
     private String name;
     private Double price;
     private String description;
-    private byte[] thumbnail;
+
+    private String thumbnail;
 
     // @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "create_date")
@@ -29,14 +30,22 @@ public class ProductEntity {
     private String weight;
     private String size;
     private String color;
+    private Double discount;
+    private String insurance;
+    private String brand;
+    private Integer quantity;
+    private Integer inventory;
 
-    private String discount;
-
-    // @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "insurance_date")
-    private LocalDate insuranceDate;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private LaptopEntity laptop;
 
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private PcEntity pc;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 }

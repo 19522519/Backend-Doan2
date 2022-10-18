@@ -37,7 +37,7 @@
           <div class="row">
             <div class="col-2">
               <div class="logo__shop">
-                <a href="./index.html" class="logo__shop-link">
+                <a th:href="@{/home}" class="logo__shop-link">
                   <img
                     src="//theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=28697"
                     alt=""
@@ -157,7 +157,6 @@
     <div class="login_content">
       <div class="container">
         <div class="row">
-          <p th:if="${param.error}" class="error">Invalid email or password</p>
           <p th:if="${param.logout}" class="success">
             You have been logged out
           </p>
@@ -182,7 +181,9 @@
                 require
               />
             </div>
-
+            <p th:if="${param.error}" class="error">
+              Invalid username or password
+            </p>
             <div>
               <span>Ghi nhớ mật khẩu?</span>
               <input type="checkbox" name="remember-me" />
