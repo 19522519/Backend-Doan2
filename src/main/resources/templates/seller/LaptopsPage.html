@@ -122,11 +122,12 @@
         <i class="bx bx-menu"></i>
         <span class="text">Danh sách sản phẩm</span>
       </div>
+      <!-- <th:block th:unless="$#lists.isEmpty(laptops.pageList)"> -->
       <div class="home_list_product">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col">No.</th>
               <th scope="col">Image</th>
               <th scope="col">Product Name</th>
               <th scope="col">Price</th>
@@ -136,8 +137,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="laptop : ${laptops}">
-              <td th:text="${laptop.laptopId}"></td>
+            <tr th:each="laptop, iterStat : ${laptops}">
+              <td hidden th:text="${laptop.laptopId}"></td>
+              <td th:text="${iterStat.count}"></td>
               <td><img th:src="${laptop.thumbnail}" /></td>
               <td th:text="${laptop.laptopName}"></td>
               <td th:text="${laptop.price}"></td>
@@ -156,7 +158,56 @@
           </tbody>
         </table>
       </div>
+
+      <!-- <ul class="pagination">
+          <li
+            th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'"
+          >
+            <a class="page-link" th:href="@{/seller/laptop/page/1" }>First</a>
+          </li>
+          <li
+            th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' "
+          >
+            <a
+              class="page-link"
+              aria-label="Previous"
+              th:href="@{|${baseUrl}${currentIndex - 1}|}"
+              title="Go to previous page"
+              ><span aria-hidden="true">«</span>
+              <span class="sr-only">Previous</span></a
+            >
+          </li>
+          <li
+            th:each="item : ${#numbers.sequence(beginIndex,endIndex)}"
+            th:class="${item == currentIndex ? 'page-item active' :'page-item' }"
+          >
+            <a class="page-link" th:href="@{|${baseUrl}${item}|}">
+              <span th:text="${item}">1</span>
+            </a>
+          </li>
+          <li
+            th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'"
+          >
+            <a
+              class="page-link"
+              aria-label="Next"
+              th:href="@{|${baseUrl}${currentIndex + 1}|}"
+              title="Go to next page"
+              ><span aria-hidden="true">»</span>
+              <span class="sr-only">Next</span></a
+            >
+          </li>
+          <li
+            th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'"
+          >
+            <a class="page-link" th:href="@{|${baseUrl}${totalPageCount}|}"
+              >Last</a
+            >
+          </li>
+        </ul> -->
+      <!-- </th:block> -->
     </section>
+
     <script>
       let arrow = document.querySelectorAll(".arrow");
       for (var i = 0; i < arrow.length; i++) {

@@ -177,6 +177,16 @@
                 ></option>
               </select>
             </div>
+            <div class="col-7">
+              <p>Phân loại</p>
+              <select th:field="*{category}" name="" id="">
+                <option
+                  th:each="cpu : ${categoryList}"
+                  th:value="${cpu}"
+                  th:text="${cpu}"
+                ></option>
+              </select>
+            </div>
           </div>
           <div class="row add_product_part part_4">
             <div class="add_product_info_title">

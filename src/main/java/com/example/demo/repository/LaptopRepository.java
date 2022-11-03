@@ -2,17 +2,18 @@ package com.example.demo.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.LaptopEntity;
+import com.example.demo.entity.ProductEntity;
 
 @Repository
 public interface LaptopRepository extends JpaRepository<LaptopEntity, Integer> {
-    List<LaptopEntity> findAll();
+    LaptopEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
 
-    @Query(value = "select e from LaptopEntity e limit?1", nativeQuery = true)
-    List<LaptopEntity> findAll(Integer limit);
+    List<LaptopEntity> findByIsDeletedIsFalse(Pageable pageable);
 }

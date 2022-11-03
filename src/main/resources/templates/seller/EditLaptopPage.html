@@ -178,6 +178,16 @@
                 ></option>
               </select>
             </div>
+            <div class="col-7">
+              <p>Nhãn hiệu</p>
+              <select th:field="*{category}" name="" id="">
+                <option
+                  th:each="cpu : ${categoryList}"
+                  th:value="${cpu}"
+                  th:text="${cpu}"
+                ></option>
+              </select>
+            </div>
           </div>
           <div class="row add_product_part part_4">
             <div class="add_product_info_title">
@@ -357,8 +367,8 @@
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title"></div>
             <div class="col-7 add_product_info_input">
-              <button type="reset">CANCEL</button>
-              <button type="submit">Tạo sản phẩm</button>
+              <button type="reset">HUỶ</button>
+              <button type="submit">LƯU</button>
             </div>
             <div
               class="alert alert-primary"

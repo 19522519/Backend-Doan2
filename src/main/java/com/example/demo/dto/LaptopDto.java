@@ -16,8 +16,8 @@ public class LaptopDto {
     private Integer laptopId;
     private String laptopName;
     private String description;
-    private Double price;
-    private Double discount;
+    private String price;
+    private String discount;
     private String cpu;
     private String graphicsCard;
     private String ram;
@@ -35,6 +35,7 @@ public class LaptopDto {
     private LocalDate createDate;
     private String thumbnail;
     private String brand;
+    private String category;
     private Integer quantity;
     private Integer inventory;
     private Boolean isDeleted;

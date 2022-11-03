@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ public class ProductEntity {
     private Integer id;
 
     private String name;
-    private Double price;
+    private String price;
     private String description;
 
     private String thumbnail;
@@ -30,9 +31,8 @@ public class ProductEntity {
     private String weight;
     private String size;
     private String color;
-    private Double discount;
+    private String discount;
     private String insurance;
-    private String brand;
     private Integer quantity;
     private Integer inventory;
 
@@ -48,4 +48,11 @@ public class ProductEntity {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brand;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ImageEntity> images;
 }

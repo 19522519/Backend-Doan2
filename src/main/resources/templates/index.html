@@ -337,149 +337,122 @@
         <div class="row fixed_row">
           <div class="product__list-heading">
             <h4 class="product__list_heading-name">LAPTOP GAMING BÁN CHẠY</h4>
-            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+            <a th:href="@{/collections/laptop-gaming}"
+              >Xem tất cả<i class="bx bx-chevron-right"></i
+            ></a>
           </div>
 
           <div class="product__list_card">
             <div class="row">
-              <th:block th:each="laptop : ${laptops}">
-                <div class="col">
-                  <div class="product_card">
-                    <div class="best_seller">Best Seller</div>
-                    <div class="product_card-image">
-                      <a th:href="@{/detail}"
-                        ><img th:src="${laptop.thumbnail}" alt=""
-                      /></a>
-                      <div class="product_detail">
-                        <p>Click để xem chi tiết</p>
-                        <button>Đặt hàng</button>
-                      </div>
+              <!-- <div th:each="laptop : ${laptopGamingPage.content}" class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                      ><img th:src="${laptop.thumbnail}" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
                     </div>
-                    <div class="product_card-description">
-                      <p hidden th:text="${laptop.laptopId}"></p>
-                      <p th:text="${laptop.laptopName}"></p>
-                      <div class="product_card-description-sale">
-                        <div class="product_card-description-sale--price">
-                          <span th:text="${laptop.price}"></span>
-                        </div>
-                        <div class="discount">
-                          <span th:text="${laptop.discount}"></span>
-                        </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p hidden th:text="${laptop.laptopId}"></p>
+                    <p th:text="${laptop.laptopName}"></p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        <span th:text="${laptop.price}+đ"></span>
+                      </div>
+                      <div class="discount">
+                        <span th:text="${laptop.discount}+'%'"></span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </th:block>
+              </div> -->
+              <div th:each="laptop : ${first}" class="col">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                      ><img th:src="${laptop.thumbnail}" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p hidden th:text="${laptop.laptopId}"></p>
+                    <p th:text="${laptop.laptopName}"></p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        <span th:text="${laptop.price}+đ"></span>
+                      </div>
+                      <div class="discount">
+                        <span th:text="${laptop.discount}+'%'"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
             <div class="row">
-              <div class="col">
+              <div th:each="laptop : ${second}" class="col">
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a href=""><img src="./images/product-1.png" alt="" /></a>
+                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                      ><img th:src="${laptop.thumbnail}" alt=""
+                    /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
                       <button>Đặt hàng</button>
                     </div>
                   </div>
                   <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <p hidden th:text="${laptop.laptopId}"></p>
+                    <p th:text="${laptop.laptopName}"></p>
                     <div class="product_card-description-sale">
                       <div class="product_card-description-sale--price">
-                        18.000.000đ
+                        <span th:text="${laptop.price}+đ"></span>
                       </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""><img src="./images/product-2.png" alt="" /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
+                      <div class="discount">
+                        <span th:text="${laptop.discount}+'%'"></span>
                       </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""><img src="./images/product-3.png" alt="" /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
-                      </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""><img src="./images/product-4.png" alt="" /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
-                      </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""><img src="./images/product-5.png" alt="" /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
-                      </div>
-                      <div class="discount">-20%</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Pagination Section -->
+          <!-- <div
+            th:if="${laptopGamingPage.totalPages > 0}"
+            class="pagination"
+            th:each="pageNumber : ${pageNumbers_Gaming}"
+          >
+            <a
+              th:href="@{/(size=${laptopGamingPage.size}, page=${pageNumber})}"
+              th:text="${pageNumber}"
+              th:class="${pageNumber==laptopGamingPage.number + 1} ? active"
+            ></a>
+          </div>
+          <div class="row pagination text-center">
+            <ul
+              th:each="pageNumber : ${pageNumbers_Gaming}"
+              class="pagination_list"
+            >
+              <li th:if="${laptopGamingPage.totalPages > 0}" class="page-link">
+                <a
+                  th:href="@{/(size=${laptopGamingPage.size}, page=${pageNumber})}"
+                  th:text="${pageNumber}"
+                  th:class="${pageNumber == laptopGamingPage.number + 1} ? active"
+                ></a>
+              </li>
+            </ul>
+          </div> -->
         </div>
       </div>
     </div>
@@ -489,17 +462,19 @@
         <div class="row fixed_row">
           <div class="product__list-heading">
             <h4 class="product__list_heading-name">LAPTOP VĂN PHÒNG</h4>
-            <a href="">Xem tất cả<i class="bx bx-chevron-right"></i></a>
+            <a th:href="@{/collections}"
+              >Xem tất cả<i class="bx bx-chevron-right"></i
+            ></a>
           </div>
 
           <div class="product__list_card">
             <div class="row">
-              <div class="col">
+              <div th:each="laptop : ${laptopDtosVanPhong}" class="col">
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a href=""
-                      ><img src="./images/product-office-1.png" alt=""
+                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                      ><img th:src="${laptop.thumbnail}" alt=""
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
@@ -507,110 +482,34 @@
                     </div>
                   </div>
                   <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
+                    <p hidden th:text="${laptop.laptopId}"></p>
+                    <p th:text="${laptop.laptopName}"></p>
                     <div class="product_card-description-sale">
                       <div class="product_card-description-sale--price">
-                        18.000.000đ
+                        <span th:text="${laptop.price}+đ"></span>
                       </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""
-                      ><img src="./images/product-office-2.png" alt=""
-                    /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
+                      <div class="discount">
+                        <span th:text="${laptop.discount}+'%'"></span>
                       </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""
-                      ><img src="./images/product-office-3.png" alt=""
-                    /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
-                      </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""
-                      ><img src="./images/product-office-4.png" alt=""
-                    /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
-                      </div>
-                      <div class="discount">-20%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a href=""
-                      ><img src="./images/product-office-5.png" alt=""
-                    /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
-                    </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p>Laptop gaming Acer Aspire 7 A715 43G R8GA</p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        18.000.000đ
-                      </div>
-                      <div class="discount">-20%</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Pagination Section -->
+          <!-- <div
+            th:if="${laptopOfficePage.totalPages > 0}"
+            class="pagination"
+            th:each="pageNumber : ${pageNumbers_Office}"
+          >
+            <a
+              th:href="@{/(size=${laptopOfficePage.size}, page=${pageNumber})}"
+              th:text="${pageNumber}"
+              th:class="${pageNumber==laptopOfficePage.number + 1} ? active"
+            ></a>
+          </div> -->
         </div>
       </div>
     </div>
@@ -1065,6 +964,6 @@
       </div>
     </footer>
     <!-- End Footer -->
+    <!-- <script th:src="@{/js/main.js}"></script> -->
   </body>
-  <script src="script.js"></script>
 </html>

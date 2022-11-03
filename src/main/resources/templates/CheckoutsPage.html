@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán đơn hàng</title>
+    <link
+      rel="icon"
+      href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
+      type="image/x-icon"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{css/seller_style.css}" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="checkout_section">
+      <div class="container">
+        <div class="row">
+          <div class="form_checkout">
+            <form action="">
+              <h2><a href="./index.html"> GEARVN</a></h2>
+              <h4>Thông tin thanh toán</h4>
+              <div class="row">
+                <div class="col-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Tên đăng nhập"
+                  />
+                </div>
+                <div class="col-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Họ tên"
+                  />
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-6">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email"
+                    id="staticEmail"
+                  />
+                </div>
+                <div class="col-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Số điện thoại"
+                  />
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Địa chỉ"
+                  />
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <select class="form-control">
+                    <option>Chọn tỉnh thành</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <select class="form-control">
+                    <option>Chọn phương thức thanh toán</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-2 mb-2 checkout_btn">
+                <a href="./cart.html">
+                  <i class="bx bxs-cart-alt"></i>Quay về</a
+                >
+
+                <button type="submit">Thanh toán</button>
+              </div>
+            </form>
+            <!-- END INFO FORM -->
+            <div class="cart_section">
+              <div class="container">
+                <div class="row">
+                  <!-- <h3>Giỏ hàng trống!</h3>
+                      <p>Thêm sản phẩm vào giỏ và quay lại trang này để thanh toán nhé</p>
+                      <div class="cart_empty_img">
+                        <img
+                          src="	https://omnisales.worldfone.vn/portal/upload/livechat/logo/G-bot-1-190x155.png"
+                          alt=""
+                        />
+                      </div> -->
+                  <!-- EMPTY CART -->
+
+                  <form action="">
+                    <table class="text-center">
+                      <thead>
+                        <tr>
+                          <th class="item">Sản phẩm</th>
+                          <th class="item_name">Tên sản phẩm</th>
+                          <th class="item_number">Số lượng</th>
+                          <th class="item_price">Giá tiền</th>
+                          <th class="item_delete">Xóa</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="item_img">
+                              <a href=""
+                                ><img
+                                  src="	https://product.hstatic.net/1000026716/product/i5-3060_94f31cf3740d4169b925ea1b318f2e38_small.png"
+                                  alt=""
+                                />
+                              </a>
+                            </div>
+                          </td>
+                          <td>
+                            <a href="" class="product_name"
+                              >Laptop gaming GIGABYTE G5 KD5JA</a
+                            >
+                          </td>
+                          <td>
+                            <input type="number" size="4" min="1" value="1" />
+                          </td>
+                          <td>
+                            <p>23,999,000đ</p>
+                          </td>
+                          <td>
+                            <a href="" class="delete_btn"
+                              ><i class="bx bxs-trash"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4">
+                            <p class="total_price">Tổng tiền:</p>
+                          </td>
+                          <td>
+                            <p class="total_price text-danger">23,999,000đ</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </form>
+                  <!-- END CART CHECKOUT -->
+                </div>
+              </div>
+            </div>
+            <!-- END CART SECTION -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>

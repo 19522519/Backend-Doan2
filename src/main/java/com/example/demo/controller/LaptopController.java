@@ -5,7 +5,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,13 +22,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.LaptopDto;
 import com.example.demo.entity.LaptopEntity;
+import com.example.demo.repository.LaptopRepository;
+import com.example.demo.service.BrandService;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.LaptopService;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 @RequestMapping("/seller/laptop")
 public class LaptopController {
     @Autowired
     LaptopService laptopService;
+
+    @Autowired
+    BrandService brandService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    LaptopRepository laptopRepository;
 
     // Save dto
     @GetMapping("/add")
@@ -68,14 +84,8 @@ public class LaptopController {
         lanList.add("Gigabit Ethernet");
 
         // Add list of brand
-        List<String> brandList = new ArrayList<>();
-        brandList.add("Acer");
-        brandList.add("Assus");
-        brandList.add("MSI");
-        brandList.add("Lenovo");
-        brandList.add("Dell");
-        brandList.add("HP");
-        brandList.add("Apple");
+        List<String> brandList = brandService.getAllBrands();
+        List<String> categoryList = categoryService.getAllCategories();
 
         LaptopDto laptopDto = new LaptopDto();
         model.addAttribute("laptop", laptopDto);
@@ -87,6 +97,7 @@ public class LaptopController {
         model.addAttribute("batteryList", batteryList);
         model.addAttribute("lanList", lanList);
         model.addAttribute("brandList", brandList);
+        model.addAttribute("categoryList", categoryList);
 
         return "seller/AddLaptopPage";
     }
@@ -116,6 +127,51 @@ public class LaptopController {
         model.addAttribute("laptops", laptopService.findAllLaptop());
         return "seller/LaptopsPage";
     }
+
+    // // Phân trang
+    // @GetMapping("/list")
+    // public String laptopPage(Model model, HttpServletRequest request) {
+    // request.getSession().setAttribute("laptopList", null);
+    // return "redirect:/seller/laptop/page/1";
+    // }
+
+    // @GetMapping("/page/{pageNumber}")
+    // public String showLaptopPage(HttpServletRequest request,
+    // @PathVariable("pageNumber") Integer pageNumber,
+    // Model model) {
+    // PagedListHolder<?> pages = (PagedListHolder<?>)
+    // request.getSession().getAttribute("laptopList");
+    // int pagesize = 3;
+    // List<LaptopDto> laptopDtos = new ArrayList<>();
+    // List<LaptopEntity> list = (List<LaptopEntity>) laptopRepository.findAll();
+    // for (LaptopEntity laptopEntity : list)
+    // laptopDtos.add(laptopService.toDto(laptopEntity));
+    // System.out.println(list.size());
+    // if (pages == null) {
+    // pages = new PagedListHolder<>(laptopDtos);
+    // pages.setPageSize(pagesize);
+    // } else {
+    // final int goToPage = pageNumber - 1;
+    // if (goToPage <= pages.getPageCount() && goToPage >= 0)
+    // pages.setPage(goToPage);
+    // }
+
+    // request.getSession().setAttribute("laptopList", pages);
+    // int current = pages.getPage() + 1;
+    // int begin = Math.max(1, current - laptopDtos.size());
+    // int end = Math.min(begin + 5, pages.getPageCount());
+    // int totalPageCount = pages.getPageCount();
+    // String baseUrl = "/seller/laptop/page/";
+
+    // model.addAttribute("beginIndex", begin);
+    // model.addAttribute("endIndex", end);
+    // model.addAttribute("currentIndex", current);
+    // model.addAttribute("totalPageCount", totalPageCount);
+    // model.addAttribute("baseUrl", baseUrl);
+    // model.addAttribute("laptops", pages);
+
+    // return "seller/LaptopsPage";
+    // }
 
     @GetMapping("/delete/{id}")
     public String deleteLaptop(@PathVariable("id") Integer id, Model model) {
@@ -163,14 +219,8 @@ public class LaptopController {
         lanList.add("Gigabit Ethernet");
 
         // Add list of brand
-        List<String> brandList = new ArrayList<>();
-        brandList.add("Acer");
-        brandList.add("Assus");
-        brandList.add("MSI");
-        brandList.add("Lenovo");
-        brandList.add("Dell");
-        brandList.add("HP");
-        brandList.add("Apple");
+        List<String> brandList = brandService.getAllBrands();
+        List<String> categoryList = categoryService.getAllCategories();
 
         LaptopDto laptopDto = laptopService.editLaptop(id);
         model.addAttribute("laptop", laptopDto);
@@ -182,6 +232,7 @@ public class LaptopController {
         model.addAttribute("batteryList", batteryList);
         model.addAttribute("lanList", lanList);
         model.addAttribute("brandList", brandList);
+        model.addAttribute("categoryList", categoryList);
 
         model.addAttribute("laptop", laptopService.editLaptop(id));
         return "seller/EditLaptopPage";
