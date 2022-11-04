@@ -38,6 +38,12 @@ public class RegisterController {
         return "registerPage";
     }
 
+    @GetMapping("/index")
+        public String homePage(){
+            return "index";
+        }
+    
+
     @PostMapping("/register/save")
     public String register(@Valid @ModelAttribute("user") UserDto userDto,
             BindingResult bindingResult, Model model) {

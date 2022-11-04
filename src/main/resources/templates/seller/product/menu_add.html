@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADMIN PAGE</title>
+    <!-- Boxicon link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- icon page -->
+    <link
+      rel="icon"
+      href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
+      type="image/x-icon"
+    />
+    <!-- css link -->
+    <link rel="stylesheet" th:href="@{/css/seller_style.css}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="sidebar close">
+      <div class="logo-details">
+        <i class="bx bx-laptop"></i>
+        <span class="logo_name">GEARVN</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="../admin_page.html">
+            <i class="bx bx-grid-alt"></i>
+            <span class="link_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <div class="iocn-link">
+            <a href="#">
+              <i class="bx bxs-box"></i>
+              <span class="link_name">Products</span>
+            </a>
+            <i class="bx bxs-chevron-down arrow"></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Products</a></li>
+            <li><a href="#">Create product</a></li>
+            <li><a href="./menu_product.html">Product management</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="../order/order_list.html">
+            <i class="bx bxs-cart-alt"></i>
+            <span class="link_name">Orders</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" href="../order/order_list.html">Orders</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="../customer/customer.html">
+            <i class="bx bxs-user"></i>
+            <span class="link_name">Customer</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" href="../customer/customer.html">Customer</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="../statistic/statistic.html">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="link_name">Statistic</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" href="../statistic/statistic.html"
+                >Statistic</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="../setting.html">
+            <i class="bx bx-cog"></i>
+            <span class="link_name">Setting</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="../setting.html">Setting</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <!--<img src="image/profile.jpg" alt="profileImg">-->
+            </div>
+            <div class="name-job">
+              <div class="job">Design By</div>
+              <div class="profile_name">@GEARVN.COM</div>
+            </div>
+            <i class="bx bx-log-out"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <section
+      class="home-section"
+      style="padding-bottom: 20px; background: white"
+    >
+      <div class="home-content">
+        <i class="bx bx-menu"></i>
+        <span class="text">Menu thêm sản phẩm</span>
+      </div>
+      <div class="menu_adding">
+        <div class="row text-center">
+          <h5 class="create_card_title">
+            <i class="bx bx-laptop"></i> Máy tính và màn hình
+          </h5>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/lenovo_legion_5_15arh7h_ct1_02_431a90b747424e58ab5365c2617cf2e4.png"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_product.html">Tạo laptop</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/gearvn-gvn-viper-plus-i3070-4_6478fde07aab4942b35579d196c0172a.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_pc.html">Tạo PC</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/4_-_copy_f87583806f54484abe6ac544561a9e47.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_screen.html">Tạo màn hình</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center">
+          <h5 class="create_card_title">
+            <i class="bx bx-mouse-alt"></i>Linh kiện
+          </h5>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/g502x-plus-gallery-2-black_1db5bbb43d2f443ea2eaf758a6f97e77.png"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_mouse.html">Tạo chuột máy tính</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/thumbphim_70ead74c39aa424d9d2eef014f2a05f5_e5917522d2f4436eb8d2dde2e2d8683b.png"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_keyboard.html">Tạo bàn phím</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/gearvn-tai-nghe-razer-kraken-kitty-edition-black-1_3a671aeeeb9b4de6b0904d935e767913.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_headphone.html">Tạo tai nghe</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center">
+          <h5 class="create_card_title">
+            <i class="bx bxs-joystick"></i>Phụ kiện gaming và Gear
+          </h5>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/a99035b-07e4-47b8-b896-b63e654af74f_2.14fd907615d123877dbcc58574f1296b_45511831fbad4735aea189d195c1423d.jpeg"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_console.html">Tạo tay cầm</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="create_card">
+              <div class="create_card_img">
+                <img
+                  src="https://product.hstatic.net/1000026716/product/gearvn_andaspirit.png"
+                  alt=""
+                />
+              </div>
+              <div class="create_card_btn">
+                <a href="./add/add_chair.html">Tạo ghế gaming</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      let arrow = document.querySelectorAll(".arrow");
+      for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+          let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+          arrowParent.classList.toggle("showMenu");
+        });
+      }
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".bx-menu");
+      console.log(sidebarBtn);
+      sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+      });
+    </script>
+  </body>
+</html>

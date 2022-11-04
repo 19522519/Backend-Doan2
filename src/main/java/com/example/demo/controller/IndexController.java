@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.LaptopDto;
@@ -29,27 +30,47 @@ public class IndexController {
     @Autowired
     LaptopService laptopService;
 
-    @GetMapping(" ")
+    @GetMapping("/")
     public String homePage(Model model) {
         // Laptop Gaming
-        List<LaptopDto> laptopDtosGaming = laptopService.findAllLaptopGaming();
-        int size = laptopDtosGaming.size();
-        List<LaptopDto> first = new ArrayList<>();
-        List<LaptopDto> second = new ArrayList<>();
-        for (int i = 0; i < size / 2; i++)
-            first.add(laptopDtosGaming.get(i));
-        for (int i = size / 2; i < size; i++)
-            second.add(laptopDtosGaming.get(i));
+        // List<LaptopDto> laptopDtosGaming = laptopService.findAllLaptopGaming();
+        // int size = laptopDtosGaming.size();
+        // List<LaptopDto> first = new ArrayList<>();
+        // List<LaptopDto> second = new ArrayList<>();
+        // for (int i = 0; i < size / 2; i++)
+        //     first.add(laptopDtosGaming.get(i));
+        // for (int i = size / 2; i < size; i++)
+        //     second.add(laptopDtosGaming.get(i));
 
-        // Laptop Van Phong
-        List<LaptopDto> laptopDtosVanPhong = laptopService.findAllLaptopVanPhong();
+        // // Laptop Van Phong
+        // List<LaptopDto> laptopDtosVanPhong = laptopService.findAllLaptopVanPhong();
 
-        model.addAttribute("first", first);
-        model.addAttribute("second", second);
-        model.addAttribute("laptopDtosVanPhong", laptopDtosVanPhong);
+        // model.addAttribute("first", first);
+        // model.addAttribute("second", second);
+        // model.addAttribute("laptopDtosVanPhong", laptopDtosVanPhong);
         return "index";
     }
 
+
+    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    public String cartPage() {
+        return "CartPage";
+    }
+
+    @RequestMapping(value = "/guidepayment", method = RequestMethod.GET)
+    public String guidePaymentPage() {
+        return "GuidePayMentPage";
+    }
+
+    @RequestMapping(value="/installment", method = RequestMethod.GET)
+    public String installmentPage(){
+        return "InstallmentPage";
+    }
+
+    @RequestMapping(value="/delivery", method = RequestMethod.GET)
+    public String deliveryPage(){
+        return "DeliveryPage";
+    }
     // @GetMapping("/")
     // public String index(Model model, HttpServletRequest request) {
     // request.getSession().setAttribute("laptopGaminglist", null);

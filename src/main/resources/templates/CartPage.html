@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng ký - GEAR</title>
+    <title>Giỏ hàng</title>
     <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
@@ -24,7 +24,7 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" th:href="@{css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
@@ -63,12 +63,12 @@
                   <div class="col-6">
                     <div class="row action__info-user">
                       <div class="col">
-                        <a th:href="@{/register}"
+                        <a th:href="@{register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
                       </div>
                       <div class="col">
-                        <a th:href="@{/login}"
+                        <a th:href="@{login}"
                           ><i class="bx bxs-user-circle"></i>Đăng nhập</a
                         >
                       </div>
@@ -76,7 +76,7 @@
                         <a href=""><i class="bx bxs-discount"></i>Khuyến mãi</a>
                       </div>
                       <div class="col">
-                        <a th:href="@{/cart}"
+                        <a th:href="@{cart}"
                           ><i class="bx bxs-cart"
                             ><div class="number_product">0</div></i
                           >Giỏ hàng</a
@@ -122,7 +122,7 @@
               <div class="row">
                 <div class="col">
                   <div class="col-container">
-                    <a th:href="@{/guidepayment}"
+                    <a th:href="@{guidepayment}"
                       ><i class="bx bx-money-withdraw"></i>HƯỚNG DẪN THANH
                       TOÁN</a
                     >
@@ -137,7 +137,7 @@
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a href="warranty.html"
                       ><i class="bx bx-check-shield"></i>CHÍNH SÁCH BẢO HÀNH</a
                     >
                   </div>
@@ -156,88 +156,78 @@
       </div>
     </div>
     <!-- DONE HEADER NAVIGATION -->
-    <div class="login_content">
+    <div class="cart_section">
       <div class="container">
         <div class="row">
-          <div th:if="${param.success}">Đăng ký thành công</div>
-          <form
-            th:action="@{/register/save}"
-            th:object="${user}"
-            method="POST"
-            id="login_form"
-          >
-            <h2 class="login_form-title">Tạo tài khoản</h2>
-            <div class="login_surName">
-              <span><i class="bx bxs-user"></i></span>
-              <input
-                th:field="*{lastName}"
-                name="lastName"
-                type="text"
-                placeholder="Họ"
-                required
-              />
-            </div>
-            <div class="login_firstName">
-              <span><i class="bx bxs-user"></i></span>
-              <input
-                th:field="*{firstName}"
-                name="firstName"
-                type="text"
-                placeholder="Tên"
-                required
-              />
-            </div>
-            <div class="login_email">
-              <span><i class="bx bxs-envelope"></i></span>
-              <input
-                th:field="*{email}"
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-              />
-            </div>
-            <div class="login_phone">
-              <span><i class="bx bxs-phone"></i></span>
-              <input
-                th:field="*{phone}"
-                name="phone"
-                type="text"
-                placeholder="SĐT"
-                required
-              />
-            </div>
-            <div class="login_username">
-              <span><i class="bx bxs-user"></i></span>
-              <input
-                th:field="*{userName}"
-                name="userName"
-                type="text"
-                placeholder="Tên người dùng"
-                required
-              />
-            </div>
-            <div class="login_password">
-              <span><i class="bx bxs-lock-alt"></i></span>
-              <input
-                th:field="*{encrytedPassword}"
-                name="encrytedPassword"
-                type="password"
-                placeholder="Mật khẩu"
-                require
-              />
-            </div>
-            <!-- <button type="submit" id="login_btn">Đăng ký</button> -->
-            <div>
-              <input name="submit" type="submit" value="Đăng ký" />
-              <a th:href="@{login}" class="back_btn">Quay về</a>
+          <!-- <h3>Giỏ hàng trống!</h3>
+          <p>Thêm sản phẩm vào giỏ và quay lại trang này để thanh toán nhé</p>
+          <div class="cart_empty_img">
+            <img
+              src="	https://omnisales.worldfone.vn/portal/upload/livechat/logo/G-bot-1-190x155.png"
+              alt=""
+            />
+          </div> -->
+          <!-- EMPTY CART -->
+          <h3>GIỎ HÀNG</h3>
+          <form action="">
+            <table class="text-center">
+              <thead>
+                <tr>
+                  <th class="item">Sản phẩm</th>
+                  <th class="item_name">Tên sản phẩm</th>
+                  <th class="item_number">Số lượng</th>
+                  <th class="item_price">Giá tiền</th>
+                  <th class="item_delete">Xóa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="item_img">
+                      <a href=""
+                        ><img
+                          src="	https://product.hstatic.net/1000026716/product/i5-3060_94f31cf3740d4169b925ea1b318f2e38_small.png"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  </td>
+                  <td>
+                    <a href="" class="product_name"
+                      >Laptop gaming GIGABYTE G5 KD5JA</a
+                    >
+                  </td>
+                  <td>
+                    <input type="number" size="4" min="1" value="1" />
+                  </td>
+                  <td>
+                    <p>23,999,000đ</p>
+                  </td>
+                  <td>
+                    <a href="" class="delete_btn"
+                      ><i class="bx bxs-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <p class="total_price">Tổng tiền:</p>
+                  </td>
+                  <td>
+                    <p class="total_price text-danger">23,999,000đ</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="cart_submit_btn">
+              <a th:href="@{checkout}">Điền thông tin thanh toán</a>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <!-- DONE LOGIN CONTENT -->
-    <footer style="margin-top: 0px">
+    <!-- END CART -->
+    <footer>
       <div class="container">
         <div class="row">
           <div class="col">
@@ -315,4 +305,5 @@
     </footer>
     <!-- End Footer -->
   </body>
+  <script src="script.js"></script>
 </html>

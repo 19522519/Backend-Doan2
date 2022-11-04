@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn thanh toán</title>
+    <link
+      rel="icon"
+      href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
+      type="image/x-icon"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="payment_header">
+      <div class="container header_container">
+        <div class="row">
+          <div class="col icon__shop">
+            <a
+              th:href="@{index}"
+              id="IMAGE4"
+              class="ladi-element"
+              data-replace-href="https://gearvn.com/"
+            >
+              <div class="ladi-image">
+                <div class="ladi-image-background"></div></div
+            ></a>
+          </div>
+          <div class="col-7">
+            <div class="row link_payment">
+              <div class="col"><a th:href="@{index}">Trang chủ</a></div>
+              <div class="col"><a href="">Tin tức</a></div>
+              <div class="col"><a href="">Bảo hành</a></div>
+              <div class="col"><a href="">Tuyển dụng</a></div>
+              <div class="col"><a href="">Liên hệ</a></div>
+            </div>
+          </div>
+          <div class="col-4"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT HEADER -->
+    <div class="payment_banner">
+      <div class="payment_banner_background">
+        <div class="container">
+          <div class="row">
+            <div class="payment_banner_title1">
+              <img
+                src="https://w.ladicdn.com/s850x450/5bf3dc7edc60303c34e4991f/thanh-toan-04-20210809022133.png"
+                alt=""
+              />
+            </div>
+            <div class="payment_banner_detail">
+              <p>
+                Trang nội dung mang đến cho quý khách hàng thông tin hướng dẫn
+                thanh toán khi mua hàng tại GEARVN
+              </p>
+            </div>
+            <div class="payment_banner_button">
+              <a href="#payment_list"
+                ><img
+                  src="	https://w.ladicdn.com/s550x400/5bf3dc7edc60303c34e4991f/thanh-toan-05-20210809024343.png"
+                  alt=""
+              /></a>
+            </div>
+            <div class="payment_banner_character">
+              <img
+                src="	https://w.ladicdn.com/s1100x850/5bf3dc7edc60303c34e4991f/thanh-toan-06-20210809022134.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT BANNER -->
+    <div id="payment_list" class="payment_list">
+      <div class="container">
+        <div class="background_payment">
+          <div class="payment-1 payment-hover">
+            <a href="#payment_momo"
+              ><img
+                src="https://w.ladicdn.com/s700x600/5bf3dc7edc60303c34e4991f/thanh-toan-landing-07-20210809085638.png"
+                alt=""
+            /></a>
+          </div>
+          <div class="payment-2 payment-hover">
+            <a href="#payment_direct"
+              ><img
+                src="https://w.ladicdn.com/s700x600/5bf3dc7edc60303c34e4991f/thanh-toan-landing-08-20210809085638.png"
+                alt=""
+            /></a>
+          </div>
+          <div class="payment-3 payment-hover">
+            <a href="#payment_delivery"
+              ><img
+                src="https://w.ladicdn.com/s700x600/5bf3dc7edc60303c34e4991f/thanh-toan-landing-11-20210809085638.png"
+                alt=""
+            /></a>
+          </div>
+          <div class="payment-4 payment-hover">
+            <a href="#payment_momo"
+              ><img
+                src="https://w.ladicdn.com/s700x600/5bf3dc7edc60303c34e4991f/thanh-toan-landing-09-20210809085638.png"
+                alt=""
+            /></a>
+          </div>
+          <div class="payment-5 payment-hover">
+            <a href="#payment_zalo"
+              ><img
+                src="https://w.ladicdn.com/s700x600/5bf3dc7edc60303c34e4991f/thanh-toan-landing-10-20210809085638.png"
+                alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT LIST -->
+    <div id="payment_direct" class="payment_direct">
+      <div class="container">
+        <div class="row title_fixed">
+          <div class="col">
+            <div class="payment_direct_title">
+              <h4>Direct payments</h4>
+              <h1>Thanh toán trực tiếp</h1>
+            </div>
+          </div>
+          <div class="col explain_paydirect">
+            <p>
+              Quý khách hàng có thể đến trực tiếp Showroom tại Hà Nội và TP. Hồ
+              Chí Minh để thanh toán bằng tiền mặt hoặc quẹt thẻ.
+            </p>
+          </div>
+
+          <div class="row showroom_location">
+            <div class="col">
+              <h5>Showroom Hoàng Hoa Thám - HCM</h5>
+              <p>
+                78-80-82 Hoàng Hoa Thám, P. 12, Q. Tân Bình, TP. Hồ Chí Minh.
+              </p>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1614942959873!2d106.64525751471861!3d10.798940392306278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175294a0c97a181%3A0x6aece518177f9a92!2sGEARVN%2078-80-82%20Ho%C3%A0ng%20Hoa%20Th%C3%A1m!5e0!3m2!1svi!2s!4v1663136481545!5m2!1svi!2s"
+                width="370"
+                height="260"
+                style="border: 4px solid white"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            <div class="col">
+              <h5>Showroom Thái Hà - Hà Nội</h5>
+              <p>
+                78-80-82 Hoàng Hoa Thám, P. 12, Q. Tân Bình, TP. Hồ Chí Minh.
+              </p>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1614942959873!2d106.64525751471861!3d10.798940392306278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175294a0c97a181%3A0x6aece518177f9a92!2sGEARVN%2078-80-82%20Ho%C3%A0ng%20Hoa%20Th%C3%A1m!5e0!3m2!1svi!2s!4v1663136481545!5m2!1svi!2s"
+                width="370"
+                height="260"
+                style="border: 4px solid white"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            <div class="col">
+              <h5>Showroom Kha Vạn Cân - Thủ Đức</h5>
+              <p>
+                78-80-82 Hoàng Hoa Thám, P. 12, Q. Tân Bình, TP. Hồ Chí Minh.
+              </p>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1614942959873!2d106.64525751471861!3d10.798940392306278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175294a0c97a181%3A0x6aece518177f9a92!2sGEARVN%2078-80-82%20Ho%C3%A0ng%20Hoa%20Th%C3%A1m!5e0!3m2!1svi!2s!4v1663136481545!5m2!1svi!2s"
+                width="370"
+                height="260"
+                style="border: 4px solid white"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT DIRECT -->
+    <div id="payment_momo" class="payment_momo">
+      <div class="container">
+        <div class="row">
+          <div class="col-7">
+            <div class="payment_momo_title">
+              <div class="row">
+                <div class="col-2 momo_icon">
+                  <img
+                    src="https://w.ladicdn.com/s400x400/5bf3dc7edc60303c34e4991f/thanh-toan-20-20210809034343.png"
+                    alt=""
+                  />
+                </div>
+                <div class="col-10">
+                  <h4>Momo digital wallet</h4>
+                  <h1>Thanh toán qua Ví MOMO</h1>
+                </div>
+              </div>
+            </div>
+            <div class="payment_momo_step">
+              <h5>Bước 1:</h5>
+              <p>
+                Sau khi chọn hình thức thanh toán qua ứng dụng MOMO, hệ thống sẽ
+                chuyển sang giao diện thanh toán của MOMO.
+              </p>
+              <h5>Bước 2:</h5>
+              <p>
+                Sau khi chọn hình thức thanh toán qua ứng dụng MOMO, hệ thống sẽ
+                chuyển sang giao diện thanh toán của MOMO.
+              </p>
+
+              <p class="result">
+                Vậy là bạn đã hoàn thành việc mua hàng online tại GEARVN thật dễ
+                dàng và tiện lợi.
+              </p>
+            </div>
+          </div>
+          <div class="col-5 momo_img">
+            <img
+              src="https://w.ladicdn.com/s1050x800/5bf3dc7edc60303c34e4991f/thanh-toan-18-20210809034343.png"
+              alt=""
+            />
+          </div>
+          <div class="line_break"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT MOMO -->
+    <div id="payment_zalo" class="payment_momo">
+      <div class="container">
+        <div class="row">
+          <div class="col-7">
+            <div class="payment_momo_title">
+              <div class="row">
+                <div class="col-2 momo_icon">
+                  <img
+                    src="https://w.ladicdn.com/s400x400/5bf3dc7edc60303c34e4991f/thanh-toan-21-20210809034343.png"
+                    alt=""
+                  />
+                </div>
+                <div class="col-10">
+                  <h4>ZaloPay digital wallet</h4>
+                  <h1>Thanh toán qua ZaloPay</h1>
+                </div>
+              </div>
+            </div>
+            <div class="payment_momo_step">
+              <h5 style="color: #0bbd79">Bước 1:</h5>
+              <p>
+                Sau khi chọn hình thức thanh toán qua ứng dụng ZaloPay, hệ thống
+                sẽ chuyển sang giao diện thanh toán của ZaloPay.
+              </p>
+              <h5 style="color: #0bbd79">Bước 2:</h5>
+              <p>
+                Mở ứng dụng ZaloPay của bạn quét mã QR được cho để hoàn tất việc
+                đặt hàng.
+              </p>
+
+              <p class="result">
+                Vậy là bạn đã hoàn thành việc mua hàng online tại GEARVN thật dễ
+                dàng và tiện lợi.
+              </p>
+            </div>
+          </div>
+          <div class="col-5 momo_img">
+            <img
+              src="https://w.ladicdn.com/s1050x800/5bf3dc7edc60303c34e4991f/thanh-toan-19-20210809034343.png"
+              alt=""
+            />
+          </div>
+          <div class="line_break"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT ZALO -->
+    <div id="payment_delivery" class="payment_momo">
+      <div class="container">
+        <div class="row">
+          <div class="col-7">
+            <div class="payment_momo_title">
+              <div class="row">
+                <h4 style="color: #ff3e4f">Payment on delivery</h4>
+                <h1>Thanh toán khi nhận hàng</h1>
+              </div>
+            </div>
+            <div class="payment_momo_step">
+              <h5 style="color: #ff3e4f">Cách thực hiện</h5>
+              <p>
+                Khi quý khách hàng nhận hàng sẽ thanh toán tổng giá trị đơn hàng
+                hoặc phần còn lại (sau khi khách hàng đã đặt cọc trước) bằng
+                tiền mặt hoặc quẹt thẻ (chỉ áp dụng đơn hàng ở nội thành Tp. Hồ
+                Chí Minh và Hà Nội). Quý khách sẽ thanh toán tại địa điểm nhận
+                hàng cho nhân viên giao nhận của GearVN hoặc đơn vị vận chuyển
+                mà GearVN sử dụng.
+              </p>
+
+              <p class="result">Vậy là xong, mua hàng ở GEARVN thật tiện lợi</p>
+            </div>
+          </div>
+          <div class="col-5 momo_img">
+            <img
+              src="https://w.ladicdn.com/s850x700/5bf3dc7edc60303c34e4991f/thanh-toan-25-20210809040641.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT DELIVERY -->
+    <div class="payment_contact">
+      <div class="container">
+        <div class="row">
+          <h5>Cần hỗ trợ thêm thông tin, Quý khách có thể liên hệ :</h5>
+          <h3>E-mail: cskh@gearvn.com <span> • </span>Hotline: 1800.6975</h3>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT CONTACT -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h4>Thông tin liên hệ</h4>
+            <div class="email_shop">
+              <p><a href="">sales@thenewxgear.com</a></p>
+              <p><a href="">support@thenewxgear.com</a></p>
+            </div>
+            <div class="schedule_working">
+              <p>HCM : Thứ 2 - Thứ 7 09h:00 - 20h:00</p>
+              <p>HCM : Chủ nhật 09h:00 - 19h:00</p>
+              <p>HN : Thứ 2 - Thứ 7 09h:00 - 20h:00</p>
+              <p>HN : Chủ nhật 09h:00 - 19h:00</p>
+            </div>
+            <div class="confirm_logo">
+              <a href=""><img src="./images/bocongthuong.png" alt="" /></a>
+              <a href=""><img src="./images/dmca.png" alt="" /></a>
+            </div>
+          </div>
+          <div class="col">
+            <h4>Hệ thống cửa hàng</h4>
+            <p class="location">
+              <i class="bx bxs-location-plus"></i>
+              78-80-82 Hoàng Hoa Thám, Phường 12, Quận Tân Bình.
+            </p>
+            <p class="location">
+              <i class="bx bxs-location-plus"></i>
+              905 Kha Vạn Cân, Phường Linh Tây, Thành phố Thủ Đức.
+            </p>
+            <p class="location">
+              <i class="bx bxs-location-plus"></i>
+              162 - 164 Thái Hà, Phường Trung Liệt, Quận Đống Đa, Hà Nội
+            </p>
+          </div>
+          <div class="col">
+            <h4>Đăng ký nhận bản tin</h4>
+            <form action="" class="email_contact_form">
+              <input type="email" placeholder="Nhập email của bạn" />
+              <button type="submit">Gửi</button>
+            </form>
+            <h4>Hỗ trợ thanh toán</h4>
+            <div class="support_pay">
+              <div class="row">
+                <div class="col"><img src="./images/visa.png" alt="" /></div>
+                <div class="col"><img src="./images/jcb.png" alt="" /></div>
+                <div class="col"><img src="./images/visa_2.png" alt="" /></div>
+                <div class="col"><img src="./images/atm.png" alt="" /></div>
+              </div>
+              <div class="row">
+                <div class="col"><img src="./images/grab.png" alt="" /></div>
+                <div class="col"><img src="./images/pay.png" alt="" /></div>
+                <div class="col"><img src="./images/momo.png" alt="" /></div>
+                <div class="col"><img src="./images/zalo.png" alt="" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="col contact_link">
+            <h4>Liên kết nhanh</h4>
+            <div class="row">
+              <div class="col"><a href="">Về chúng tôi</a></div>
+              <div class="col"><a href="">Sản phẩm</a></div>
+            </div>
+            <div class="row">
+              <div class="col"><a href="">Liên hệ</a></div>
+              <div class="col"><a href="">Tin Tức</a></div>
+            </div>
+            <h4>Hướng dẫn mua hàng</h4>
+            <p><a href="">Cách thức mua hàng</a></p>
+            <p><a href="">Chính sách thu hồi hàng hóa</a></p>
+            <p><a href="">Chính sách bảo hành</a></p>
+            <p><a href="">Hình thực thanh toán</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- END FOOTER -->
+  </body>
+</html>
