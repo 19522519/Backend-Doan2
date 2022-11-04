@@ -16,4 +16,24 @@ public class MenuController {
     public String menuListProduct(){
         return "seller/product/menu_product";
     }
+
+    @GetMapping("/order")
+    public String orderPage(){
+        return "seller/order/order_list";
+    }
+
+    @GetMapping("/customer")
+    public String customerPage(){
+        return "seller/customer/customer";
+    }
+
+    @GetMapping("/statistic")
+    public String statisticPage(){
+        return "seller/statistic/statistic";
+    }
+
+    @GetMapping("/setting")
+    public String settingPage(){
+        return "seller/setting";
+    }
 }

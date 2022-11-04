@@ -29,7 +29,7 @@ import com.example.demo.service.LaptopService;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
-@RequestMapping("/seller/laptop")
+@RequestMapping("/seller/menu_add")
 public class LaptopController {
     @Autowired
     LaptopService laptopService;
@@ -44,7 +44,7 @@ public class LaptopController {
     LaptopRepository laptopRepository;
 
     // Save dto
-    @GetMapping("/add")
+    @GetMapping("/add_laptop")
     public String addLaptop(Model model, MultipartFile file) {
         // Add list of cpu
         List<String> cpuList = new ArrayList<>();
@@ -99,7 +99,7 @@ public class LaptopController {
         model.addAttribute("brandList", brandList);
         model.addAttribute("categoryList", categoryList);
 
-        return "seller/AddLaptopPage";
+        return "seller/product/add/add_laptop";
     }
 
     @PostMapping("/save-new")
