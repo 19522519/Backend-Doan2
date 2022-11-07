@@ -29,7 +29,7 @@ import com.example.demo.service.LaptopService;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
-@RequestMapping("/seller/menu_add")
+@RequestMapping("/seller")
 public class LaptopController {
     @Autowired
     LaptopService laptopService;
@@ -44,7 +44,7 @@ public class LaptopController {
     LaptopRepository laptopRepository;
 
     // Save dto
-    @GetMapping("/add_laptop")
+    @GetMapping("/menu_add/add_laptop")
     public String addLaptop(Model model, MultipartFile file) {
         // Add list of cpu
         List<String> cpuList = new ArrayList<>();
@@ -102,7 +102,7 @@ public class LaptopController {
         return "seller/product/add/add_laptop";
     }
 
-    @PostMapping("/save-new")
+    @PostMapping("/menu_add/save-new")
     public String saveNewLaptop(@ModelAttribute("laptop") LaptopDto laptopDto,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
@@ -112,17 +112,17 @@ public class LaptopController {
         LaptopEntity laptopEntity = laptopService.saveNewLaptop(laptopDto);
         // redirectAttributes.addFlashAttribute("success", "Insert new laptop
         // successfully!");
-        return "redirect:/seller/laptop/add?success";
+        return "redirect:/seller/menu_add/add_laptop";
     }
 
     // Insert into db
-    @PostMapping("/save-exist")
+    @PostMapping("/menu_add/save-exist")
     public String saveLaptop(@ModelAttribute("laptop") LaptopDto laptopDto, Model model) {
         LaptopEntity laptopEntity = laptopService.saveExistLaptop(laptopDto);
-        return "redirect:/seller/laptop/all";
+        return "redirect:/seller/menu_add/add_laptop";
     }
 
-    @GetMapping("/all")
+    @GetMapping("/LaptopsPage")
     public String showLaptopList(@ModelAttribute LaptopDto laptopDto, Model model) {
         model.addAttribute("laptops", laptopService.findAllLaptop());
         return "seller/LaptopsPage";

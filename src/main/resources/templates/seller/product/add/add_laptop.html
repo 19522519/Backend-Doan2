@@ -124,7 +124,7 @@
       </div>
       <div class="add_product_section">
         <form
-          th:action="@{/seller/laptop/save-new}"
+          th:action="@{/seller/menu_add/save-new}"
           th:object="${laptop}"
           enctype="multipart/form-data"
           method="post"
@@ -276,6 +276,7 @@
                       type="text"
                       placeholder="Type"
                       class="reset_padding"
+                      style="margin-bottom: 0px"
                     />
                   </td>
                 </tr>
@@ -362,7 +363,9 @@
               role="alert"
               th:text="${success}"
               th:if="${success}"
-            ></div>
+            >
+              Thêm sản phẩm thành công
+            </div>
           </div>
         </form>
       </div>
