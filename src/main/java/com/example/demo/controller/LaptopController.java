@@ -116,16 +116,16 @@ public class LaptopController {
     }
 
     // Insert into db
-    @PostMapping("/menu_add/save-exist")
+    @PostMapping("/LaptopsPage/save-exist")
     public String saveLaptop(@ModelAttribute("laptop") LaptopDto laptopDto, Model model) {
         LaptopEntity laptopEntity = laptopService.saveExistLaptop(laptopDto);
-        return "redirect:/seller/menu_add/add_laptop";
+        return "redirect:/seller/LaptopsPage";
     }
 
     @GetMapping("/LaptopsPage")
     public String showLaptopList(@ModelAttribute LaptopDto laptopDto, Model model) {
         model.addAttribute("laptops", laptopService.findAllLaptop());
-        return "seller/LaptopsPage";
+        return "/seller/product/list/list_laptop";
     }
 
     // // Phân trang
@@ -173,13 +173,13 @@ public class LaptopController {
     // return "seller/LaptopsPage";
     // }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("LaptopsPage/delete/{id}")
     public String deleteLaptop(@PathVariable("id") Integer id, Model model) {
         laptopService.deleteLaptop(id);
-        return "redirect:/seller/laptops"; // Đường dẫn get all laptops
+        return "redirect:/seller/LaptopsPage"; // Đường dẫn get all laptops
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("LaptopsPage/edit/{id}")
     public String editLaptop(@PathVariable("id") Integer id, Model model) {
         // Add list of cpu
         List<String> cpuList = new ArrayList<>();
@@ -235,6 +235,6 @@ public class LaptopController {
         model.addAttribute("categoryList", categoryList);
 
         model.addAttribute("laptop", laptopService.editLaptop(id));
-        return "seller/EditLaptopPage";
+        return "seller/product/edit/EditLaptopPage";
     }
 }

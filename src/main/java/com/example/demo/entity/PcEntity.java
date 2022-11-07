@@ -12,6 +12,20 @@ public class PcEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String cpu;
+    private String ram;
+    private String mainboard;
+    private String cooler;
+    
+    @Column(name="graphics_card")
+    private String graphicsCard;
+
+    private String ssd;
+
+    
+    @Column(name="computer_case")
+    private String Case;
+
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 

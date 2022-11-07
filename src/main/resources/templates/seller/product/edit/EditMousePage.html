@@ -40,7 +40,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a th:href="@{/seller}">
+          <a href="../admin_page.html">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -54,53 +54,53 @@
             <i class="bx bxs-chevron-down arrow"></i>
           </div>
           <ul class="sub-menu">
-            <li><a class="link_name" href="#">Products</a></li>
-            <li><a th:href="@{/seller/menu_add}">Create product</a></li>
-            <li><a th:href="@{/seller/menu_product}">Product management</a></li>
+            <li><a class="link_name" href="#">Laptops</a></li>
+            <li><a th:href="@{/seller/add-laptop}">Add laptop</a></li>
+            <li><a th:href="@{/seller/laptops}">Laptop list</a></li>
           </ul>
         </li>
         <li>
-          <a th:href="@{/seller/order}">
+          <a href="../order/order_list.html">
             <i class="bx bxs-cart-alt"></i>
             <span class="link_name">Orders</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" th:href="@{/seller/order}">Orders</a>
+              <a class="link_name" href="../order/order_list.html">Orders</a>
             </li>
           </ul>
         </li>
         <li>
-          <a th:href="@{/seller/customer}">
+          <a href="../customer/customer.html">
             <i class="bx bxs-user"></i>
             <span class="link_name">Customer</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" th:href="@{/seller/customer}">Customer</a>
+              <a class="link_name" href="../customer/customer.html">Customer</a>
             </li>
           </ul>
         </li>
         <li>
-          <a th:href="@{/seller/statistic}">
+          <a href="../statistic/statistic.html">
             <i class="bx bx-pie-chart-alt-2"></i>
             <span class="link_name">Statistic</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" th:href="@{/seller/statistic}">Statistic</a>
+              <a class="link_name" href="../statistic/statistic.html"
+                >Statistic</a
+              >
             </li>
           </ul>
         </li>
         <li>
-          <a th:href="@{/seller/setting}">
+          <a href="../setting.html">
             <i class="bx bx-cog"></i>
             <span class="link_name">Setting</span>
           </a>
           <ul class="sub-menu blank">
-            <li>
-              <a class="link_name" th:href="@{/seller/setting}">Setting</a>
-            </li>
+            <li><a class="link_name" href="../setting.html">Setting</a></li>
           </ul>
         </li>
         <li>
@@ -120,15 +120,16 @@
     <section class="home-section">
       <div class="home-content">
         <i class="bx bx-menu"></i>
-        <span class="text">Tạo Laptop</span>
+        <span class="text">Thêm sản phẩm</span>
       </div>
       <div class="add_product_section">
         <form
-          th:action="@{/seller/menu_add/save-new}"
+          th:action="@{/seller/LaptopsPage/save-exist}"
           th:object="${laptop}"
           enctype="multipart/form-data"
           method="post"
         >
+          <input type="hidden" th:field="*{laptopId}" />
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title">
               <p>1. Thông tin cơ bản</p>
@@ -138,7 +139,7 @@
               <input
                 th:field="*{laptopName}"
                 type="text"
-                placeholder="Tên laptop"
+                placeholder="Laptop name"
               />
 
               <p>Mô tả</p>
@@ -148,7 +149,7 @@
                 id=""
                 cols="45"
                 rows="6"
-                placeholder="Mô tả"
+                placeholder="Describe"
               ></textarea>
             </div>
           </div>
@@ -176,8 +177,9 @@
                   th:text="${cpu}"
                 ></option>
               </select>
-
-              <p>Phân loại</p>
+            </div>
+            <div class="col-7">
+              <p>Nhãn hiệu</p>
               <select th:field="*{category}" name="" id="">
                 <option
                   th:each="cpu : ${categoryList}"
@@ -196,7 +198,12 @@
                 <tr>
                   <td>CPU</td>
                   <td>
-                    <select th:field="*{cpu}" name="CPU" id="">
+                    <select
+                      th:field="*{cpu}"
+                      th:selected="${laptop.cpu}"
+                      name="CPU"
+                      id=""
+                    >
                       <option
                         th:each="cpu : ${cpuList}"
                         th:value="${cpu}"
@@ -276,7 +283,6 @@
                       type="text"
                       placeholder="Type"
                       class="reset_padding"
-                      style="margin-bottom: 0px"
                     />
                   </td>
                 </tr>
@@ -336,6 +342,12 @@
                     />
                   </td>
                 </tr>
+                <tr>
+                  <td>Số lượng hàng còn lại</td>
+                  <td>
+                    <input th:field="*{inventory}" class="reset_padding" />
+                  </td>
+                </tr>
               </table>
             </div>
           </div>
@@ -355,17 +367,15 @@
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title"></div>
             <div class="col-7 add_product_info_input">
-              <button type="reset">CANCEL</button>
-              <button type="submit">Tạo sản phẩm</button>
+              <button type="reset">HUỶ</button>
+              <button type="submit">LƯU</button>
             </div>
             <div
               class="alert alert-primary"
               role="alert"
               th:text="${success}"
               th:if="${success}"
-            >
-              Thêm sản phẩm thành công
-            </div>
+            ></div>
           </div>
         </form>
       </div>
