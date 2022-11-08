@@ -409,3 +409,32 @@
   color: red;
 }
 /* END MENU ADDING */
+
+table {
+  text-align: center;
+}
+
+#edit_ListBtn {
+  text-decoration: none;
+  background: rgb(0, 110, 254);
+  color: white;
+  padding: 4px 20px;
+  border-radius: 10px;
+}
+
+#delete_ListBtn {
+  text-decoration: none;
+  background: rgb(254, 25, 0);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 10px;
+}
+
+#edit_ListBtn:hover {
+  background: rgb(0, 66, 151);
+}
+
+#delete_ListBtn:hover {
+  background: rgb(180, 18, 0);
+}
+/* Edit,delete Button */

@@ -40,7 +40,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a href="../admin_page.html">
+          <a th:href="@{/seller}">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -54,53 +54,55 @@
             <i class="bx bxs-chevron-down arrow"></i>
           </div>
           <ul class="sub-menu">
-            <li><a class="link_name" href="#">Laptops</a></li>
-            <li><a th:href="@{/seller/add-laptop}">Add laptop</a></li>
-            <li><a th:href="@{/seller/laptops}">Laptop list</a></li>
+            <li><a class="link_name" href="#">Products</a></li>
+            <li><a th:href="@{/seller/menu_add}">Create product</a></li>
+            <li>
+              <a th:href="@{/seller/menu_list_product}">Product management</a>
+            </li>
           </ul>
         </li>
         <li>
-          <a href="../order/order_list.html">
+          <a th:href="@{/seller/order}">
             <i class="bx bxs-cart-alt"></i>
             <span class="link_name">Orders</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="../order/order_list.html">Orders</a>
+              <a class="link_name" th:href="@{/seller/order}">Orders</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="../customer/customer.html">
+          <a th:href="@{/seller/customer}">
             <i class="bx bxs-user"></i>
             <span class="link_name">Customer</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="../customer/customer.html">Customer</a>
+              <a class="link_name" th:href="@{/seller/customer}">Customer</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="../statistic/statistic.html">
+          <a th:href="@{/seller/statistic}">
             <i class="bx bx-pie-chart-alt-2"></i>
             <span class="link_name">Statistic</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="../statistic/statistic.html"
-                >Statistic</a
-              >
+              <a class="link_name" th:href="@{/seller/statistic}">Statistic</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="../setting.html">
+          <a th:href="@{/seller/setting}">
             <i class="bx bx-cog"></i>
             <span class="link_name">Setting</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="../setting.html">Setting</a></li>
+            <li>
+              <a class="link_name" th:href="@{/seller/setting}">Setting</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -124,12 +126,12 @@
       </div>
       <div class="add_product_section">
         <form
-          th:action="@{/seller/LaptopsPage/save-exist}"
-          th:object="${laptop}"
+          th:action="@{/seller/KeyBoardsPage/save-exist}"
+          th:object="${keyboard}"
           enctype="multipart/form-data"
           method="post"
         >
-          <input type="hidden" th:field="*{laptopId}" />
+          <input type="hidden" th:field="*{KeyBoardId}" />
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title">
               <p>1. Thông tin cơ bản</p>
@@ -137,9 +139,9 @@
             <div class="col-7 add_product_info_input">
               <p>Tên sản phẩm</p>
               <input
-                th:field="*{laptopName}"
+                th:field="*{KeyBoardname}"
                 type="text"
-                placeholder="Laptop name"
+                placeholder="Tên bàn phím"
               />
 
               <p>Mô tả</p>
@@ -149,7 +151,7 @@
                 id=""
                 cols="45"
                 rows="6"
-                placeholder="Describe"
+                placeholder="Mô tả"
               ></textarea>
             </div>
           </div>
@@ -159,7 +161,7 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Giá</p>
-              <input th:field="*{price}" type="text" placeholder="Price" />
+              <input th:field="*{price}" type="text" placeholder="Giá tiền" />
               <p>Khuyến mãi</p>
               <input th:field="*{discount}" type="number" placeholder="%" />
             </div>
@@ -170,21 +172,11 @@
             </div>
             <div class="col-7">
               <p>Nhãn hiệu</p>
-              <select th:field="*{brand}" name="" id="">
+              <select th:field="*{brand}" name="brand" id="">
                 <option
-                  th:each="cpu : ${brandList}"
-                  th:value="${cpu}"
-                  th:text="${cpu}"
-                ></option>
-              </select>
-            </div>
-            <div class="col-7">
-              <p>Nhãn hiệu</p>
-              <select th:field="*{category}" name="" id="">
-                <option
-                  th:each="cpu : ${categoryList}"
-                  th:value="${cpu}"
-                  th:text="${cpu}"
+                  th:each="brand : ${brandList}"
+                  th:value="${brand}"
+                  th:text="${brand}"
                 ></option>
               </select>
             </div>
@@ -196,156 +188,56 @@
             <div class="add_product_info_input">
               <table>
                 <tr>
-                  <td>CPU</td>
+                  <td>Loại bàn phím</td>
                   <td>
-                    <select
-                      th:field="*{cpu}"
-                      th:selected="${laptop.cpu}"
-                      name="CPU"
-                      id=""
-                    >
+                    <select th:field="*{type}" name="type" id="">
                       <option
-                        th:each="cpu : ${cpuList}"
-                        th:value="${cpu}"
-                        th:text="${cpu}"
+                        th:each="type : ${typeList}"
+                        th:value="${type}"
+                        th:text="${type}"
                       ></option>
                     </select>
                   </td>
-                  <td>Card đồ họa</td>
-                  <td>
-                    <select th:field="*{graphicsCard}" name="VGA" id="">
-                      <option
-                        th:each="cpu : ${graphicsCardList}"
-                        th:value="${cpu}"
-                        th:text="${cpu}"
-                      ></option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Bộ nhớ RAM</td>
-                  <td>
-                    <select th:field="*{ram}" name="Ram" id="">
-                      <option
-                        th:each="ram : ${ramList}"
-                        th:value="${ram}"
-                        th:text="${ram}"
-                      ></option>
-                    </select>
-                  </td>
-                  <td>Ổ cứng SSD</td>
-                  <td>
-                    <select th:field="*{storageDrive}" name="SSD" id="">
-                      <option
-                        th:each="ram : ${storageDriveList}"
-                        th:value="${ram}"
-                        th:text="${ram}"
-                      ></option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Màn hình</td>
+                  <td>Led</td>
                   <td>
                     <input
-                      th:field="*{screen}"
+                      th:field="*{led}"
                       type="text"
-                      placeholder="Type of screen"
+                      placeholder="Led"
                       class="reset_padding"
-                    />
-                  </td>
-                  <td>Hệ điều hành</td>
-                  <td>
-                    <select th:field="*{operatingSystem}" name="OS" id="">
-                      <option
-                        th:each="ram : ${operatingSystemList}"
-                        th:value="${ram}"
-                        th:text="${ram}"
-                      ></option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>LAN</td>
-                  <td>
-                    <select th:field="*{lan}" name="LAN" id="">
-                      <option
-                        th:each="ram : ${lanList}"
-                        th:value="${ram}"
-                        th:text="${ram}"
-                      ></option>
-                    </select>
-                  </td>
-                  <td>Cổng kết nối</td>
-                  <td>
-                    <input
-                      th:field="*{communicationPort}"
-                      type="text"
-                      placeholder="Type"
-                      class="reset_padding"
+                      style="margin-bottom: 0px"
                     />
                   </td>
                 </tr>
                 <tr>
-                  <td>Bàn phím</td>
-                  <td>
-                    <input
-                      th:field="*{keyboard}"
-                      type="text"
-                      placeholder="Type of keyboard"
-                      class="reset_padding"
-                    />
-                  </td>
-                  <td>Pin</td>
-                  <td>
-                    <select th:field="*{battery}" name="Pin" id="">
-                      <option
-                        th:each="ram : ${batteryList}"
-                        th:value="${ram}"
-                        th:text="${ram}"
-                      ></option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Kích thước</td>
-                  <td>
-                    <input
-                      th:field="*{size}"
-                      type="text"
-                      placeholder="Size"
-                      class="reset_padding"
-                    />
-                  </td>
                   <td>Trọng lượng</td>
                   <td>
                     <input
                       th:field="*{weight}"
                       type="text"
-                      placeholder="KG"
+                      placeholder="Trọng lượng"
+                      class="reset_padding"
+                      style="margin-bottom: 0px"
+                    />
+                  </td>
+                  <td>Bảo hành</td>
+                  <td>
+                    <input
+                      type="text"
+                      th:field="*{insurance}"
                       class="reset_padding"
                     />
                   </td>
                 </tr>
                 <tr>
-                  <td>Chế độ bảo hành</td>
-                  <td>
-                    <input th:field="*{insurance}" class="reset_padding" />
-                  </td>
                   <td>Số lượng</td>
                   <td>
                     <input
                       th:field="*{quantity}"
-                      type="text"
+                      type="number"
                       placeholder=""
                       class="reset_padding"
                     />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Số lượng hàng còn lại</td>
-                  <td>
-                    <input th:field="*{inventory}" class="reset_padding" />
                   </td>
                 </tr>
               </table>
@@ -367,15 +259,9 @@
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title"></div>
             <div class="col-7 add_product_info_input">
-              <button type="reset">HUỶ</button>
-              <button type="submit">LƯU</button>
+              <button type="reset">Hủy</button>
+              <button type="submit">Lưu</button>
             </div>
-            <div
-              class="alert alert-primary"
-              role="alert"
-              th:text="${success}"
-              th:if="${success}"
-            ></div>
           </div>
         </form>
       </div>

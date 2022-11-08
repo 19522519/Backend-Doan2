@@ -98,7 +98,7 @@ public class GamingChairController {
         model.addAttribute("brandList", brandList);
 
         model.addAttribute("GamingChair", GamingChairService.editGamingChair(id));
-        return "seller/product/edit/EditGamingChairPage";
+        return "seller/product/edit/EditChairPage";
     }
 }
 

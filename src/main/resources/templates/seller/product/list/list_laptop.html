@@ -139,7 +139,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="laptop, iterStat : ${laptops}">
+            <tr class="align-middle" th:each="laptop, iterStat : ${laptops}">
               <td hidden th:text="${laptop.laptopId}"></td>
               <td th:text="${iterStat.count}"></td>
               <td>
@@ -154,12 +154,14 @@
               <td th:text="${laptop.createDate}"></td>
               <td>
                 <a
+                  id="edit_ListBtn"
                   th:href="@{/seller/LaptopsPage/edit/{id}(id=${laptop.laptopId})}"
-                  ><i class="fas fa-edit"></i> Edit</a
+                  ><i class="bx bx-edit-alt"></i> Edit</a
                 >
                 <a
+                  id="delete_ListBtn"
                   th:href="@{/seller/LaptopsPage/delete/{id}(id=${laptop.laptopId})}"
-                  ><i class="fas fa-trash-alt"></i> Delete</a
+                  ><i class="bx bx-trash"></i> Delete</a
                 >
               </td>
             </tr>

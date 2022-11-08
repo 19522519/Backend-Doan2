@@ -98,7 +98,7 @@ public class GamingHandleController {
         model.addAttribute("brandList", brandList);
 
         model.addAttribute("GamingHandle", GamingHandleService.editGamingHandle(id));
-        return "seller/product/edit/EditGamingHandlePage";
+        return "seller/product/edit/EditConsolePage";
     }
 }
 

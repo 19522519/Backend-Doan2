@@ -139,7 +139,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="mouse, iterStat : ${mouses}">
+            <tr class="align-middle" th:each="mouse, iterStat : ${mouses}">
               <td hidden th:text="${mouse.mouseId}"></td>
               <td th:text="${iterStat.count}"></td>
               <td>
@@ -154,12 +154,14 @@
               <td th:text="${mouse.createDate}"></td>
               <td>
                 <a
+                  id="edit_ListBtn"
                   th:href="@{/seller/MousesPage/edit/{id}(id=${mouse.MouseId})}"
-                  ><i class="fas fa-edit"></i> Edit</a
+                  ><i class="bx bx-edit-alt"></i> Edit</a
                 >
                 <a
+                  id="delete_ListBtn"
                   th:href="@{/seller/MousesPage/delete/{id}(id=${mouse.MouseId})}"
-                  ><i class="fas fa-trash-alt"></i> Delete</a
+                  ><i class="bx bx-trash"></i> Delete</a
                 >
               </td>
             </tr>

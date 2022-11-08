@@ -40,7 +40,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a href="../../admin_page.html">
+          <a th:href="@{/seller}">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -55,54 +55,54 @@
           </div>
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Products</a></li>
-            <li><a href="../menu_add.html">Create product</a></li>
-            <li><a href="../menu_product.html">Product management</a></li>
+            <li><a th:href="@{/seller/menu_add}">Create product</a></li>
+            <li>
+              <a th:href="@{/seller/menu_list_product}">Product management</a>
+            </li>
           </ul>
         </li>
         <li>
-          <a href="../../order/order_list.html">
+          <a th:href="@{/seller/order}">
             <i class="bx bxs-cart-alt"></i>
             <span class="link_name">Orders</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="../../order/order_list.html">Orders</a>
+              <a class="link_name" th:href="@{/seller/order}">Orders</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="../../customer/customer.html">
+          <a th:href="@{/seller/customer}">
             <i class="bx bxs-user"></i>
             <span class="link_name">Customer</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="../../customer/customer.html"
-                >Customer</a
-              >
+              <a class="link_name" th:href="@{/seller/customer}">Customer</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="../../statistic/statistic.html">
+          <a th:href="@{/seller/statistic}">
             <i class="bx bx-pie-chart-alt-2"></i>
             <span class="link_name">Statistic</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="../../statistic/statistic.html"
-                >Statistic</a
-              >
+              <a class="link_name" th:href="@{/seller/statistic}">Statistic</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="../../setting.html">
+          <a th:href="@{/seller/setting}">
             <i class="bx bx-cog"></i>
             <span class="link_name">Setting</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="../../setting.html">Setting</a></li>
+            <li>
+              <a class="link_name" th:href="@{/seller/setting}">Setting</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -125,17 +125,33 @@
         <span class="text">Tạo bàn phím</span>
       </div>
       <div class="add_product_section">
-        <form action="">
+        <form
+          th:action="@{/seller/menu_add/save-new-keyboard}"
+          th:object="${keyboard}"
+          enctype="multipart/form-data"
+          method="post"
+        >
           <div class="row add_product_part">
             <div class="col-5 add_product_info_title">
               <p>1. Thông tin cơ bản</p>
             </div>
             <div class="col-7 add_product_info_input">
               <p>Tên sản phẩm</p>
-              <input type="text" placeholder="Name" />
+              <input
+                th:field="*{KeyBoardname}"
+                type="text"
+                placeholder="Tên bàn phím"
+              />
 
               <p>Mô tả</p>
-              <textarea name="" id="" cols="45" rows="6"></textarea>
+              <textarea
+                th:field="*{description}"
+                name=""
+                id=""
+                cols="45"
+                rows="6"
+                placeholder="Mô tả"
+              ></textarea>
             </div>
           </div>
           <div class="row add_product_part">
@@ -144,9 +160,9 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Giá</p>
-              <input type="text" placeholder="Name" />
+              <input th:field="*{price}" type="text" placeholder="Giá tiền" />
               <p>Khuyến mãi</p>
-              <input type="number" placeholder="%" />
+              <input th:field="*{discount}" type="number" placeholder="%" />
             </div>
           </div>
           <div class="row add_product_part">
@@ -155,14 +171,12 @@
             </div>
             <div class="col-7">
               <p>Nhãn hiệu</p>
-              <select name="" id="">
-                <option value="">Logitech</option>
-                <option value="">Razer</option>
-                <option value="">Corsair</option>
-                <option value="">Rapoo</option>
-                <option value="">Asus</option>
-                <option value="">Cooler Master</option>
-                <option value="">Apple</option>
+              <select th:field="*{brand}" name="brand" id="">
+                <option
+                  th:each="brand : ${brandList}"
+                  th:value="${brand}"
+                  th:text="${brand}"
+                ></option>
               </select>
             </div>
           </div>
@@ -175,43 +189,55 @@
                 <tr>
                   <td>Loại bàn phím</td>
                   <td>
-                    <select name="" id="">
-                      <option value="">Bàn phím cơ</option>
-                      <option value="">Bàn phím giả cơ</option>
-                      <option value="">Bàn phím văn phòng</option>
+                    <select th:field="*{type}" name="type" id="">
+                      <option
+                        th:each="type : ${typeList}"
+                        th:value="${type}"
+                        th:text="${type}"
+                      ></option>
                     </select>
                   </td>
-                  <td>Kiểu bản phím</td>
-                  <td>
-                    <select name="" id="">
-                      <option value="">98 phím</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
                   <td>Led</td>
                   <td>
                     <input
+                      th:field="*{led}"
                       type="text"
-                      placeholder="Name"
-                      class="reset_padding"
-                      style="margin-bottom: 0px"
-                    />
-                  </td>
-                  <td>Trọng lượng</td>
-                  <td>
-                    <input
-                      type="text"
-                      placeholder="Name"
+                      placeholder="Led"
                       class="reset_padding"
                       style="margin-bottom: 0px"
                     />
                   </td>
                 </tr>
-
                 <tr>
+                  <td>Trọng lượng</td>
+                  <td>
+                    <input
+                      th:field="*{weight}"
+                      type="text"
+                      placeholder="Trọng lượng"
+                      class="reset_padding"
+                      style="margin-bottom: 0px"
+                    />
+                  </td>
                   <td>Bảo hành</td>
-                  <td><input type="date" class="reset_padding" /></td>
+                  <td>
+                    <input
+                      type="text"
+                      th:field="*{insurance}"
+                      class="reset_padding"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Số lượng</td>
+                  <td>
+                    <input
+                      th:field="*{quantity}"
+                      type="number"
+                      placeholder=""
+                      class="reset_padding"
+                    />
+                  </td>
                 </tr>
               </table>
             </div>
@@ -222,9 +248,11 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Thêm hình ảnh</p>
-              <input type="file" placeholder="Name" />
-              <p>Ngày tạo sản phẩm</p>
-              <input type="date" />
+              <input
+                type="text"
+                th:field="*{thumbnail}"
+                placeholder="Image link"
+              />
             </div>
           </div>
           <div class="row add_product_part">
