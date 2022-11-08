@@ -56,7 +56,9 @@
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Products</a></li>
             <li><a th:href="@{/seller/menu_add}">Create product</a></li>
-            <li><a th:href="@{/seller/menu_product}">Product management</a></li>
+            <li>
+              <a th:href="@{/seller/menu_list_product}">Product management</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -137,26 +139,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="laptop, iterStat : ${laptops}">
-              <td hidden th:text="${laptop.laptopId}"></td>
+            <tr th:each="mouse, iterStat : ${mouses}">
+              <td hidden th:text="${mouse.mouseId}"></td>
               <td th:text="${iterStat.count}"></td>
               <td>
                 <img
-                  th:src="${laptop.thumbnail}"
+                  th:src="${mouse.thumbnail}"
                   style="width: 100px; height: 100px"
                 />
               </td>
-              <td th:text="${laptop.laptopName}"></td>
-              <td th:text="${laptop.price}"></td>
-              <td th:text="${laptop.insurance}"></td>
-              <td th:text="${laptop.createDate}"></td>
+              <td th:text="${mouse.Mousename}"></td>
+              <td th:text="${mouse.price}"></td>
+              <td th:text="${mouse.insurance}"></td>
+              <td th:text="${mouse.createDate}"></td>
               <td>
                 <a
-                  th:href="@{/seller/LaptopsPage/edit/{id}(id=${laptop.laptopId})}"
+                  th:href="@{/seller/MousesPage/edit/{id}(id=${mouse.MouseId})}"
                   ><i class="fas fa-edit"></i> Edit</a
                 >
                 <a
-                  th:href="@{/seller/LaptopsPage/delete/{id}(id=${laptop.laptopId})}"
+                  th:href="@{/seller/MousesPage/delete/{id}(id=${mouse.MouseId})}"
                   ><i class="fas fa-trash-alt"></i> Delete</a
                 >
               </td>

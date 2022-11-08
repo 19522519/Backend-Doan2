@@ -35,7 +35,7 @@
   <body>
     <div class="sidebar close">
       <div class="logo-details">
-        <i class="bx bx-laptop"></i>
+        <i class="bx bx-screen"></i>
         <span class="logo_name">GEARVN</span>
       </div>
       <ul class="nav-links">
@@ -56,7 +56,9 @@
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Products</a></li>
             <li><a th:href="@{/seller/menu_add}">Create product</a></li>
-            <li><a th:href="@{/seller/menu_product}">Product management</a></li>
+            <li>
+              <a th:href="@{/seller/menu_list_product}">Product management</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -122,7 +124,7 @@
         <i class="bx bx-menu"></i>
         <span class="text">Danh sách sản phẩm</span>
       </div>
-      <!-- <th:block th:unless="$#lists.isEmpty(laptops.pageList)"> -->
+      <!-- <th:block th:unless="$#lists.isEmpty(screens.pageList)"> -->
       <div class="home_list_product">
         <table class="table table-striped">
           <thead>
@@ -137,26 +139,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="laptop, iterStat : ${laptops}">
-              <td hidden th:text="${laptop.laptopId}"></td>
+            <tr th:each="screen, iterStat : ${screens}">
+              <td hidden th:text="${screen.ScreenId}"></td>
               <td th:text="${iterStat.count}"></td>
               <td>
                 <img
-                  th:src="${laptop.thumbnail}"
+                  th:src="${screen.thumbnail}"
                   style="width: 100px; height: 100px"
                 />
               </td>
-              <td th:text="${laptop.laptopName}"></td>
-              <td th:text="${laptop.price}"></td>
-              <td th:text="${laptop.insurance}"></td>
-              <td th:text="${laptop.createDate}"></td>
+              <td th:text="${screen.Screenname}"></td>
+              <td th:text="${screen.price}"></td>
+              <td th:text="${screen.insurance}"></td>
+              <td th:text="${screen.createDate}"></td>
               <td>
                 <a
-                  th:href="@{/seller/LaptopsPage/edit/{id}(id=${laptop.laptopId})}"
+                  th:href="@{/seller/ScreensPage/edit/{id}(id=${screen.ScreenId})}"
                   ><i class="fas fa-edit"></i> Edit</a
                 >
                 <a
-                  th:href="@{/seller/LaptopsPage/delete/{id}(id=${laptop.laptopId})}"
+                  th:href="@{/seller/ScreensPage/delete/{id}(id=${screen.ScreenId})}"
                   ><i class="fas fa-trash-alt"></i> Delete</a
                 >
               </td>
@@ -169,7 +171,7 @@
           <li
             th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'"
           >
-            <a class="page-link" th:href="@{/seller/laptop/page/1" }>First</a>
+            <a class="page-link" th:href="@{/seller/screen/page/1" }>First</a>
           </li>
           <li
             th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' "

@@ -24,6 +24,7 @@ public class ScreenDto {
     private String insurance;
     private LocalDate createDate;
     private String thumbnail;
+    private String weight;
     private Integer quantity;
     private Integer inventory;
     private Boolean isDeleted;
