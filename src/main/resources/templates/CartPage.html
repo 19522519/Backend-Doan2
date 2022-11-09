@@ -169,7 +169,7 @@
           </div> -->
           <!-- EMPTY CART -->
           <h3>GIỎ HÀNG</h3>
-          <form action="">
+          <form action="" method="post">
             <table class="text-center">
               <thead>
                 <tr>
@@ -181,27 +181,25 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr th:each="item : ${cart_items}">
                   <td>
                     <div class="item_img">
-                      <a href=""
-                        ><img
-                          src="	https://product.hstatic.net/1000026716/product/i5-3060_94f31cf3740d4169b925ea1b318f2e38_small.png"
-                          alt=""
-                        />
-                      </a>
+                      <a href=""><img th:src="${item.imageUrl}" alt="" /> </a>
                     </div>
                   </td>
                   <td>
-                    <a href="" class="product_name"
-                      >Laptop gaming GIGABYTE G5 KD5JA</a
-                    >
+                    <a href="" class="product_name" th:text="${item.name}"></a>
                   </td>
                   <td>
-                    <input type="number" size="4" min="1" value="1" />
+                    <input
+                      type="number"
+                      size="4"
+                      min="1"
+                      th:value="${item.quantity}"
+                    />
                   </td>
                   <td>
-                    <p>23,999,000đ</p>
+                    <p th:text="${item.price}"></p>
                   </td>
                   <td>
                     <a href="" class="delete_btn"

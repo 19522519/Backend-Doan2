@@ -16,4 +16,6 @@ public interface LaptopRepository extends JpaRepository<LaptopEntity, Integer> {
     LaptopEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
 
     List<LaptopEntity> findByIsDeletedIsFalse(Pageable pageable);
+
+    LaptopEntity findByIdAndIsDeletedIsFalse(Integer id);
 }

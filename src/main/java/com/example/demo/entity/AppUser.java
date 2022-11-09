@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -41,6 +41,16 @@ public class AppUser {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "appUser", cascade = CascadeType.ALL)
-    private List<UserRole> userRoles;
+    private Set<UserRole> userRoles;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appUser", cascade = CascadeType.ALL)
+    private Set<OrderEntity> orders;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appUser", cascade = CascadeType.ALL)
+    private Set<CartItemEntity> cartItems;
 }

@@ -379,7 +379,12 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
+                      <button>
+                        <a
+                          th:href="@{/shopping-cart/add/{id}(id=${laptop.laptopId})}"
+                          >Đặt hàng</a
+                        >
+                      </button>
                     </div>
                   </div>
                   <div class="product_card-description">
@@ -407,7 +412,12 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
+                      <button>
+                        <a
+                          th:href="@{/shopping-cart/add/{id}(id=${laptop.laptopId})}"
+                          >Đặt hàng</a
+                        >
+                      </button>
                     </div>
                   </div>
                   <div class="product_card-description">

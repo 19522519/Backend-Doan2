@@ -7,12 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.LaptopDto;
 import com.example.demo.entity.LaptopEntity;
 
 public interface LaptopService {
-    LaptopEntity saveNewLaptop(LaptopDto laptopDto);
+    LaptopEntity saveNewLaptop(LaptopDto laptopDto, MultipartFile img);
 
     LaptopDto toDto(LaptopEntity laptopEntity);
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -103,16 +104,16 @@ public class LaptopController {
     }
 
     @PostMapping("/menu_add/save-new")
-    public String saveNewLaptop(@ModelAttribute("laptop") LaptopDto laptopDto,
+    public String saveNewLaptop(@ModelAttribute("laptop") LaptopDto laptopDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("laptop", laptopDto);
         // return "/seller/add-laptop";
         // }
-        LaptopEntity laptopEntity = laptopService.saveNewLaptop(laptopDto);
+        LaptopEntity laptopEntity = laptopService.saveNewLaptop(laptopDto, img);
         // redirectAttributes.addFlashAttribute("success", "Insert new laptop
         // successfully!");
-        return "redirect:/seller/menu_add/add_laptop";
+        return "redirect:/seller/menu_add/add_laptop?success";
     }
 
     // Insert into db
