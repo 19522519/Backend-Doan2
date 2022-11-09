@@ -56,7 +56,9 @@
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Products</a></li>
             <li><a th:href="@{/seller/menu_add}">Create product</a></li>
-            <li><a th:href="@{/seller/menu_product}">Product management</a></li>
+            <li>
+              <a th:href="@{/seller/menu_list_product}">Product management</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -138,7 +140,7 @@
               <input
                 th:field="*{laptopName}"
                 type="text"
-                placeholder="Laptop name"
+                placeholder="Tên laptop"
               />
 
               <p>Mô tả</p>
@@ -148,7 +150,7 @@
                 id=""
                 cols="45"
                 rows="6"
-                placeholder="Describe"
+                placeholder="Mô tả"
               ></textarea>
             </div>
           </div>
