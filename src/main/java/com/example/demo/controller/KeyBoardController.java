@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 @RequestMapping("/seller")
 public class KeyBoardController {
     @Autowired
-    KeyBoardService KeyBoardService;
+    KeyBoardService keyBoardService;
 
     @Autowired
     BrandService brandService;
@@ -41,17 +41,16 @@ public class KeyBoardController {
     CategoryService categoryService;
 
     @Autowired
-    KeyBoardRepository KeyBoardRepository;
+    KeyBoardRepository keyBoardRepository;
 
     // Save dto
     @GetMapping("/menu_add/add_keyboard")
     public String addKeyBoard(Model model, MultipartFile file) {
-        
+
         List<String> typeList = new ArrayList<>();
         typeList.add("Bàn phím cơ");
         typeList.add("Bàn phím giả cơ");
         typeList.add("Bàn phím văn phòng");
-
 
         List<String> brandList = brandService.getAllBrands();
         KeyBoardDto KeyBoardDto = new KeyBoardDto();
@@ -69,7 +68,7 @@ public class KeyBoardController {
         // model.addAttribute("KeyBoard", KeyBoardDto);
         // return "/seller/add-KeyBoard";
         // }
-        KeyBoardEntity KeyBoardEntity = KeyBoardService.saveNewKeyBoard(KeyBoardDto);
+        KeyBoardEntity KeyBoardEntity = keyBoardService.saveNewKeyBoard(KeyBoardDto);
         // redirectAttributes.addFlashAttribute("success", "Insert new KeyBoard
         // successfully!");
         return "redirect:/seller/menu_add/add_keyboard";
@@ -78,19 +77,19 @@ public class KeyBoardController {
     // Insert into db
     @PostMapping("/KeyBoardsPage/save-exist")
     public String saveKeyBoard(@ModelAttribute("keyboard") KeyBoardDto KeyBoardDto, Model model) {
-        KeyBoardEntity KeyBoardEntity = KeyBoardService.saveExistKeyBoard(KeyBoardDto);
+        KeyBoardEntity KeyBoardEntity = keyBoardService.saveExistKeyBoard(KeyBoardDto);
         return "redirect:/seller/KeyBoardsPage";
     }
 
     @GetMapping("/KeyBoardsPage")
     public String showKeyBoardList(@ModelAttribute KeyBoardDto KeyBoardDto, Model model) {
-        model.addAttribute("keyboards", KeyBoardService.findAllKeyBoard());
+        model.addAttribute("keyboards", keyBoardService.findAllKeyBoard());
         return "/seller/product/list/list_keyboard";
     }
 
     @GetMapping("KeyBoardsPage/delete/{id}")
     public String deleteKeyBoard(@PathVariable("id") Integer id, Model model) {
-        KeyBoardService.deleteKeyBoard(id);
+        keyBoardService.deleteKeyBoard(id);
         return "redirect:/seller/KeyBoardsPage"; // Đường dẫn get all KeyBoards
     }
 
@@ -101,17 +100,13 @@ public class KeyBoardController {
         typeList.add("Bàn phím giả cơ");
         typeList.add("Bàn phím văn phòng");
         List<String> brandList = brandService.getAllBrands();
-       
 
-        KeyBoardDto KeyBoardDto = KeyBoardService.editKeyBoard(id);
+        KeyBoardDto KeyBoardDto = keyBoardService.editKeyBoard(id);
         model.addAttribute("keyboard", KeyBoardDto);
         model.addAttribute("typeList", typeList);
         model.addAttribute("brandList", brandList);
 
-        model.addAttribute("keyboard", KeyBoardService.editKeyBoard(id));
+        model.addAttribute("keyboard", keyBoardService.editKeyBoard(id));
         return "seller/product/edit/EditKeyBoardPage";
     }
 }
-
-
-

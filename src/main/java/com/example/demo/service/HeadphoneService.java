@@ -12,9 +12,9 @@ import com.example.demo.dto.HeadPhoneDto;
 import com.example.demo.entity.HeadPhoneEntity;
 
 public interface HeadPhoneService {
-    HeadPhoneEntity saveNewHeadPhone(HeadPhoneDto HeadPhoneDto);
+    HeadPhoneEntity saveNewHeadPhone(HeadPhoneDto headPhoneDto);
 
-    HeadPhoneDto toDto(HeadPhoneEntity HeadPhoneEntity);
+    HeadPhoneDto toDto(HeadPhoneEntity headPhoneEntity);
 
     List<HeadPhoneDto> findAllHeadPhone();
 
@@ -22,6 +22,6 @@ public interface HeadPhoneService {
 
     HeadPhoneDto editHeadPhone(Integer id);
 
-    HeadPhoneEntity saveExistHeadPhone(HeadPhoneDto HeadPhoneDto);
+    HeadPhoneEntity saveExistHeadPhone(HeadPhoneDto headPhoneDto);
 
 }

@@ -18,4 +18,6 @@ public interface LaptopRepository extends JpaRepository<LaptopEntity, Integer> {
     List<LaptopEntity> findByIsDeletedIsFalse(Pageable pageable);
 
     LaptopEntity findByIdAndIsDeletedIsFalse(Integer id);
+
+    List<LaptopEntity> findByIsDeletedIsFalseOrderByIdAsc();
 }

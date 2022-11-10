@@ -23,9 +23,11 @@ public interface LaptopService {
 
     LaptopDto editLaptop(Integer id);
 
-    LaptopEntity saveExistLaptop(LaptopDto laptopDto);
+    LaptopEntity saveExistLaptop(LaptopDto laptopDto, MultipartFile img);
 
     List<LaptopDto> findAllLaptopGaming();
+
+    Page<LaptopDto> findLaptopPaginated(Pageable pageable);
 
     Page<LaptopDto> findLaptopGamingPaginated(Pageable pageable);
 

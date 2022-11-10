@@ -4,11 +4,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -118,16 +123,47 @@ public class LaptopController {
 
     // Insert into db
     @PostMapping("/LaptopsPage/save-exist")
-    public String saveLaptop(@ModelAttribute("laptop") LaptopDto laptopDto, Model model) {
-        LaptopEntity laptopEntity = laptopService.saveExistLaptop(laptopDto);
+    public String saveLaptop(@ModelAttribute("laptop") LaptopDto laptopDto, @RequestParam MultipartFile img,
+            Model model) {
+        LaptopEntity laptopEntity = laptopService.saveExistLaptop(laptopDto, img);
         return "redirect:/seller/LaptopsPage";
     }
 
+    // Pagination Section
     @GetMapping("/LaptopsPage")
-    public String showLaptopList(@ModelAttribute LaptopDto laptopDto, Model model) {
-        model.addAttribute("laptops", laptopService.findAllLaptop());
+    public String showLaptop(
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size,
+            Model model) {
+
+        // Laptop Pagination
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(20);
+
+        Page<LaptopDto> laptopDtos = laptopService
+                .findLaptopPaginated(PageRequest.of(currentPage - 1,
+                        pageSize));
+        model.addAttribute("laptopPage", laptopDtos);
+
+        int totalPages = laptopDtos.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,
+                    totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         return "/seller/product/list/list_laptop";
     }
+
+    // List Laptop old version
+    // @GetMapping("/LaptopsPage")
+    // public String showLaptopList(@ModelAttribute LaptopDto laptopDto, Model
+    // model) {
+    // model.addAttribute("laptops", laptopService.findAllLaptop());
+    // return "/seller/product/list/list_laptop";
+    // }
 
     // // Phân trang
     // @GetMapping("/list")

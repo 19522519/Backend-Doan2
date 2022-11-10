@@ -2,6 +2,7 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.StackWalker.Option;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,6 +91,19 @@ public class LaptopServiceImpl implements LaptopService {
         laptopEntity.setIsDeleted(false);
 
         productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
+        // if (productEntity.getThumbnail() != null) {
+        // try {
+        // File saveFile = new ClassPathResource("static/images").getFile();
+        // Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +
+        // img.getOriginalFilename());
+        // System.out.println(path);
+        // productEntity.setThumbnail(path.toString());
+        // Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        // }
 
         // MultipartFile multipartFile = laptopDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -104,17 +118,19 @@ public class LaptopServiceImpl implements LaptopService {
         laptopEntity.setProduct(productEntity);
         laptopRepository.save(laptopEntity);
 
-        if (productEntity.getThumbnail() != null) {
+        return laptopEntity;
+    }
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
             try {
                 File saveFile = new ClassPathResource("static/images").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
-                System.out.println(path);
                 Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return laptopEntity;
     }
 
     @Override
@@ -148,22 +164,6 @@ public class LaptopServiceImpl implements LaptopService {
         return laptopDto;
     }
 
-    // byte[] byteObjects;
-
-    // private byte[] convertToBytes(MultipartFile file) {
-    // try {
-    // byteObjects = new byte[file.getBytes().length];
-    // int i = 0;
-    // for (byte b : file.getBytes()) {
-    // byteObjects[i++] = b;
-    // }
-    // } catch (Exception ex) {
-    // System.out.println("Image not upload successfully!");
-    // }
-
-    // return byteObjects;
-    // }
-
     // Limit 10 product in a page
     @Override
     public List<LaptopDto> findAllLaptop() {
@@ -188,7 +188,7 @@ public class LaptopServiceImpl implements LaptopService {
     }
 
     @Override
-    public LaptopEntity saveExistLaptop(LaptopDto laptopDto) {
+    public LaptopEntity saveExistLaptop(LaptopDto laptopDto, MultipartFile img) {
         LaptopEntity laptopEntity = laptopRepository.findById(laptopDto.getLaptopId()).get();
         ProductEntity productEntity = productRepository.findById(laptopEntity.getProduct().getId()).get();
 
@@ -220,7 +220,8 @@ public class LaptopServiceImpl implements LaptopService {
         productEntity.setIsDeleted(false);
         laptopEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(laptopDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         laptopEntity.setProduct(productEntity);
         laptopRepository.save(laptopEntity);
@@ -348,5 +349,30 @@ public class LaptopServiceImpl implements LaptopService {
             lists.add(laptopDtos.get(i - 1));
 
         return lists;
+    }
+
+    @Override
+    public Page<LaptopDto> findLaptopPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<LaptopDto> laptopDtos = new ArrayList<>();
+        List<LaptopDto> list = new ArrayList<>();
+
+        for (LaptopEntity laptopEntity : laptopRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
+            if (laptopEntity != null)
+                laptopDtos.add(toDto(laptopEntity));
+        }
+
+        if (laptopDtos.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, laptopDtos.size());
+            list = laptopDtos.subList(startItem, toIndex);
+        }
+
+        Page<LaptopDto> laptopPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), laptopDtos.size());
+        return laptopPage;
     }
 }

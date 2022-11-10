@@ -12,9 +12,9 @@ import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.entity.KeyBoardEntity;
 
 public interface KeyBoardService {
-    KeyBoardEntity saveNewKeyBoard(KeyBoardDto KeyBoardDto);
+    KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto);
 
-    KeyBoardDto toDto(KeyBoardEntity KeyBoardEntity);
+    KeyBoardDto toDto(KeyBoardEntity keyBoardEntity);
 
     List<KeyBoardDto> findAllKeyBoard();
 
@@ -22,6 +22,6 @@ public interface KeyBoardService {
 
     KeyBoardDto editKeyBoard(Integer id);
 
-    KeyBoardEntity saveExistKeyBoard(KeyBoardDto KeyBoardDto);
+    KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto);
 
 }

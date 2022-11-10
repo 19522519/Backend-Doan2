@@ -38,7 +38,7 @@ public class KeyBoardServiceImpl implements KeyBoardService {
     private final Integer pageSizeDefault = 5;
 
     @Autowired
-    KeyBoardRepository KeyBoardRepository;
+    KeyBoardRepository keyBoardRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -52,30 +52,30 @@ public class KeyBoardServiceImpl implements KeyBoardService {
     // private String fileUpload;
 
     @Override
-    public KeyBoardEntity saveNewKeyBoard(KeyBoardDto KeyBoardDto) {
-        KeyBoardEntity KeyBoardEntity = new KeyBoardEntity();
+    public KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto) {
+        KeyBoardEntity keyBoardEntity = new KeyBoardEntity();
         ProductEntity productEntity = new ProductEntity();
 
-        KeyBoardEntity.setId(KeyBoardDto.getKeyBoardId());
-        productEntity.setName(KeyBoardDto.getKeyBoardname());
-        productEntity.setDescription(KeyBoardDto.getDescription());
-        productEntity.setPrice(KeyBoardDto.getPrice());
-        productEntity.setDiscount(KeyBoardDto.getDiscount());
-        BrandEntity brandEntity = brandRepository.findByName(KeyBoardDto.getBrand());
+        keyBoardEntity.setId(keyBoardDto.getKeyBoardId());
+        productEntity.setName(keyBoardDto.getKeyBoardname());
+        productEntity.setDescription(keyBoardDto.getDescription());
+        productEntity.setPrice(keyBoardDto.getPrice());
+        productEntity.setDiscount(keyBoardDto.getDiscount());
+        BrandEntity brandEntity = brandRepository.findByName(keyBoardDto.getBrand());
         productEntity.setBrand(brandEntity);
-        KeyBoardEntity.setType(KeyBoardDto.getType());
-        KeyBoardEntity.setLed(KeyBoardDto.getLed());
-        
-        productEntity.setWeight(KeyBoardDto.getWeight());
-        productEntity.setInsurance(KeyBoardDto.getInsurance());
+        keyBoardEntity.setType(keyBoardDto.getType());
+        keyBoardEntity.setLed(keyBoardDto.getLed());
+
+        productEntity.setWeight(keyBoardDto.getWeight());
+        productEntity.setInsurance(keyBoardDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
-        productEntity.setQuantity(KeyBoardDto.getQuantity());
-        productEntity.setIsDeleted(false);
-        KeyBoardEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(KeyBoardDto.getThumbnail());
+        productEntity.setQuantity(keyBoardDto.getQuantity());
+        productEntity.setIsDeleted(false);
+        keyBoardEntity.setIsDeleted(false);
+
+        productEntity.setThumbnail(keyBoardDto.getThumbnail());
 
         // MultipartFile multipartFile = KeyBoardDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -87,31 +87,31 @@ public class KeyBoardServiceImpl implements KeyBoardService {
         // }
         // productEntity.setThumbnail(fileName);
 
-        KeyBoardEntity.setProduct(productEntity);
-        KeyBoardRepository.save(KeyBoardEntity);
-        return KeyBoardEntity;
+        keyBoardEntity.setProduct(productEntity);
+        keyBoardRepository.save(keyBoardEntity);
+        return keyBoardEntity;
     }
 
     @Override
-    public KeyBoardDto toDto(KeyBoardEntity KeyBoardEntity) {
-        KeyBoardDto KeyBoardDto = new KeyBoardDto();
+    public KeyBoardDto toDto(KeyBoardEntity keyBoardEntity) {
+        KeyBoardDto keyBoardDto = new KeyBoardDto();
 
-        KeyBoardDto.setKeyBoardId(KeyBoardEntity.getId());
-        KeyBoardDto.setKeyBoardname(KeyBoardEntity.getProduct().getName());
-        KeyBoardDto.setDescription(KeyBoardEntity.getProduct().getDescription());
-        KeyBoardDto.setPrice(KeyBoardEntity.getProduct().getPrice());
-        KeyBoardDto.setDiscount(KeyBoardEntity.getProduct().getDiscount());
-        KeyBoardDto.setBrand(KeyBoardEntity.getProduct().getBrand().getName());
-        KeyBoardDto.setType(KeyBoardEntity.getType());
-        KeyBoardDto.setLed(KeyBoardEntity.getLed());
-       
-        KeyBoardDto.setWeight(KeyBoardEntity.getProduct().getWeight());
-        KeyBoardDto.setInsurance(KeyBoardEntity.getProduct().getInsurance());
-        KeyBoardDto.setCreateDate(KeyBoardEntity.getProduct().getCreateDate());
-        KeyBoardDto.setThumbnail(KeyBoardEntity.getProduct().getThumbnail());
-        KeyBoardDto.setQuantity(KeyBoardEntity.getProduct().getQuantity());
+        keyBoardDto.setKeyBoardId(keyBoardEntity.getId());
+        keyBoardDto.setKeyBoardname(keyBoardEntity.getProduct().getName());
+        keyBoardDto.setDescription(keyBoardEntity.getProduct().getDescription());
+        keyBoardDto.setPrice(keyBoardEntity.getProduct().getPrice());
+        keyBoardDto.setDiscount(keyBoardEntity.getProduct().getDiscount());
+        keyBoardDto.setBrand(keyBoardEntity.getProduct().getBrand().getName());
+        keyBoardDto.setType(keyBoardEntity.getType());
+        keyBoardDto.setLed(keyBoardEntity.getLed());
 
-        return KeyBoardDto;
+        keyBoardDto.setWeight(keyBoardEntity.getProduct().getWeight());
+        keyBoardDto.setInsurance(keyBoardEntity.getProduct().getInsurance());
+        keyBoardDto.setCreateDate(keyBoardEntity.getProduct().getCreateDate());
+        keyBoardDto.setThumbnail(keyBoardEntity.getProduct().getThumbnail());
+        keyBoardDto.setQuantity(keyBoardEntity.getProduct().getQuantity());
+
+        return keyBoardDto;
     }
 
     // byte[] byteObjects;
@@ -133,19 +133,19 @@ public class KeyBoardServiceImpl implements KeyBoardService {
     // Limit 10 product in a page
     @Override
     public List<KeyBoardDto> findAllKeyBoard() {
-        List<KeyBoardDto> KeyBoardDtos = new ArrayList<>();
-        for (KeyBoardEntity KeyBoardEntity : KeyBoardRepository.findByIsDeletedIsFalse(
+        List<KeyBoardDto> keyBoardDtos = new ArrayList<>();
+        for (KeyBoardEntity keyBoardEntity : keyBoardRepository.findByIsDeletedIsFalse(
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id")))) {
-            KeyBoardDtos.add(toDto(KeyBoardEntity));
+            keyBoardDtos.add(toDto(keyBoardEntity));
         }
-        return KeyBoardDtos;
+        return keyBoardDtos;
     }
 
     @Override
     public void deleteKeyBoard(Integer id) {
-        KeyBoardEntity KeyBoard = KeyBoardRepository.findById(id).get();
+        KeyBoardEntity KeyBoard = keyBoardRepository.findById(id).get();
         KeyBoard.setIsDeleted(true);
-        KeyBoardRepository.save(KeyBoard);
+        keyBoardRepository.save(KeyBoard);
 
         Integer productId = KeyBoard.getProduct().getId();
         ProductEntity productEntity = productRepository.findById(productId).get();
@@ -154,28 +154,28 @@ public class KeyBoardServiceImpl implements KeyBoardService {
     }
 
     @Override
-    public KeyBoardEntity saveExistKeyBoard(KeyBoardDto KeyBoardDto) {
-        KeyBoardEntity KeyBoardEntity = KeyBoardRepository.findById(KeyBoardDto.getKeyBoardId()).get();
-        ProductEntity productEntity = productRepository.findById(KeyBoardEntity.getProduct().getId()).get();
+    public KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto) {
+        KeyBoardEntity keyBoardEntity = keyBoardRepository.findById(keyBoardDto.getKeyBoardId()).get();
+        ProductEntity productEntity = productRepository.findById(keyBoardEntity.getProduct().getId()).get();
 
-        productEntity.setName(KeyBoardDto.getKeyBoardname());
-        productEntity.setDescription(KeyBoardDto.getDescription());
-        productEntity.setPrice(KeyBoardDto.getPrice());
-        productEntity.setDiscount(KeyBoardDto.getDiscount());
-        BrandEntity brandEntity = brandRepository.findByName(KeyBoardDto.getBrand());
+        productEntity.setName(keyBoardDto.getKeyBoardname());
+        productEntity.setDescription(keyBoardDto.getDescription());
+        productEntity.setPrice(keyBoardDto.getPrice());
+        productEntity.setDiscount(keyBoardDto.getDiscount());
+        BrandEntity brandEntity = brandRepository.findByName(keyBoardDto.getBrand());
         productEntity.setBrand(brandEntity);
-        KeyBoardEntity.setType(KeyBoardDto.getType());
-        KeyBoardEntity.setLed(KeyBoardDto.getLed());
-        productEntity.setWeight(KeyBoardDto.getWeight());
-        productEntity.setInsurance(KeyBoardDto.getInsurance());
+        keyBoardEntity.setType(keyBoardDto.getType());
+        keyBoardEntity.setLed(keyBoardDto.getLed());
+        productEntity.setWeight(keyBoardDto.getWeight());
+        productEntity.setInsurance(keyBoardDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
-        productEntity.setQuantity(KeyBoardDto.getQuantity());
-        productEntity.setIsDeleted(false);
-        KeyBoardEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(KeyBoardDto.getThumbnail());
+        productEntity.setQuantity(keyBoardDto.getQuantity());
+        productEntity.setIsDeleted(false);
+        keyBoardEntity.setIsDeleted(false);
+
+        productEntity.setThumbnail(keyBoardDto.getThumbnail());
 
         // MultipartFile multipartFile = KeyBoardDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -187,17 +187,15 @@ public class KeyBoardServiceImpl implements KeyBoardService {
         // }
         // productEntity.setThumbnail(fileName);
 
-        KeyBoardEntity.setProduct(productEntity);
-        KeyBoardRepository.save(KeyBoardEntity);
-        return KeyBoardEntity;
+        keyBoardEntity.setProduct(productEntity);
+        keyBoardRepository.save(keyBoardEntity);
+        return keyBoardEntity;
     }
 
     @Override
     public KeyBoardDto editKeyBoard(Integer id) {
-        KeyBoardEntity KeyBoardEntity = KeyBoardRepository.findById(id).get();
-        KeyBoardDto KeyBoardDto = toDto(KeyBoardEntity);
-        return KeyBoardDto;
+        KeyBoardEntity keyBoardEntity = keyBoardRepository.findById(id).get();
+        KeyBoardDto keyBoardDto = toDto(keyBoardEntity);
+        return keyBoardDto;
     }
 }
-
-
