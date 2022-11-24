@@ -6,23 +6,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.LaptopDto;
-import com.example.demo.dto.Pager;
 import com.example.demo.service.LaptopService;
 
 @Controller
@@ -32,6 +29,7 @@ public class IndexController {
 
     @GetMapping({ "/", "/index" })
     public String homePage(Model model) {
+
         // Laptop Gaming
         List<LaptopDto> laptopDtosGaming = laptopService.findAllLaptopGaming();
         int size = laptopDtosGaming.size();
@@ -48,13 +46,9 @@ public class IndexController {
         model.addAttribute("first", first);
         model.addAttribute("second", second);
         model.addAttribute("laptopDtosVanPhong", laptopDtosVanPhong);
+
         return "index";
     }
-
-    // @RequestMapping(value = "/cart", method = RequestMethod.GET)
-    // public String cartPage() {
-    // return "CartPage";
-    // }
 
     @RequestMapping(value = "/guidepayment", method = RequestMethod.GET)
     public String guidePaymentPage() {
@@ -144,12 +138,12 @@ public class IndexController {
 
     @GetMapping("/detail/{id}")
     public String detailPage(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("laptop", laptopService.editLaptop(id));
+        model.addAttribute("laptop", laptopService.detailLaptop(id));
         return "LaptopDetailPage";
     }
 
     @GetMapping("/collections/laptop-gaming")
-    public String collectionsPage(@RequestParam("page") Optional<Integer> page,
+    public String collectionsGamingLaptopPage(@RequestParam("page") Optional<Integer> page,
             @RequestParam("size") Optional<Integer> size, Model model) {
         int currentPage_Gaming = page.orElse(1);
         int pageSize_Gaming = size.orElse(16);
@@ -157,7 +151,7 @@ public class IndexController {
         Page<LaptopDto> laptopDtos_Gaming = laptopService
                 .findLaptopGamingPaginated(PageRequest.of(currentPage_Gaming - 1,
                         pageSize_Gaming));
-        model.addAttribute("laptopGamingPage", laptopDtos_Gaming);
+        model.addAttribute("laptopPage", laptopDtos_Gaming);
 
         int totalPages_Gaming = laptopDtos_Gaming.getTotalPages();
         if (totalPages_Gaming > 0) {
@@ -165,8 +159,28 @@ public class IndexController {
                     totalPages_Gaming)
                     .boxed()
                     .collect(Collectors.toList());
-            model.addAttribute("pageNumbers_Gaming", pageNumbers_Gaming);
+            model.addAttribute("pageNumbers", pageNumbers_Gaming);
         }
-        return "AllLaptopGamingPage";
+        return "CollectionPage/GamingLaptopsList";
+    }
+
+    @GetMapping("/collections/laptop-van-phong")
+    public String collectionsOfficeLaptopPage(@RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size, Model model) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(16);
+
+        Page<LaptopDto> laptopDtos = laptopService
+                .findLaptopOfficePaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("laptopPage", laptopDtos);
+
+        int totalPages = laptopDtos.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "CollectionPage/OfficeLaptopsList";
     }
 }

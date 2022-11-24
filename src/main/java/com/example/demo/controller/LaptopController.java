@@ -8,8 +8,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
@@ -32,7 +30,6 @@ import com.example.demo.repository.LaptopRepository;
 import com.example.demo.service.BrandService;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.LaptopService;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 @RequestMapping("/seller")
@@ -259,7 +256,7 @@ public class LaptopController {
         List<String> brandList = brandService.getAllBrands();
         List<String> categoryList = categoryService.getAllCategories();
 
-        LaptopDto laptopDto = laptopService.editLaptop(id);
+        LaptopDto laptopDto = laptopService.detailLaptop(id);
         model.addAttribute("laptop", laptopDto);
         model.addAttribute("cpuList", cpuList);
         model.addAttribute("ramList", ramList);
@@ -271,7 +268,7 @@ public class LaptopController {
         model.addAttribute("brandList", brandList);
         model.addAttribute("categoryList", categoryList);
 
-        model.addAttribute("laptop", laptopService.editLaptop(id));
+        model.addAttribute("laptop", laptopService.detailLaptop(id));
         return "seller/product/edit/EditLaptopPage";
     }
 }

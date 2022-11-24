@@ -1,23 +1,33 @@
 package com.example.demo.service;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.example.demo.dto.CartItemDto;
+import com.example.demo.entity.AppUser;
 
 public interface ShoppingCartService {
-    void add(CartItemDto cartItemDto);
+    void createCartItem(AppUser appUser, Integer productId);
 
-    void remove(Integer id);
+    List<CartItemDto> showListCartItems(AppUser appUser);
 
-    CartItemDto update(Integer id, Integer quantity);
+    Integer calculateTotalMoney(AppUser appUser);
 
-    void clear();
+    void removeCartItem(AppUser appUser, Integer cartItemId);
 
-    Collection<CartItemDto> getAllItems();
+    void updateQuantityProduct(List<CartItemDto> cartItemDtos);
+    // void add(CartItemDto cartItemDto);
 
-    Integer getCount();
+    // void remove(Integer id);
 
-    Double getTotalPrice();
+    // CartItemDto update(Integer id, Integer quantity);
 
-    void addToCart(Integer id);
+    // void clear();
+
+    // Collection<CartItemDto> getAllItems();
+
+    // Integer getCount();
+
+    // Double getTotalPrice();
+
+    // void addToCart(Integer id);
 }

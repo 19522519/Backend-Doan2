@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.AppUser;
 

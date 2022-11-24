@@ -20,7 +20,7 @@ public class AppRole {
     @Column(name = "Role_Name", length = 30, nullable = false)
     private String roleName;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appRole", cascade = CascadeType.ALL)
+    @OneToMany
     private List<UserRole> userRoles;
 
     public Long getRoleId() {

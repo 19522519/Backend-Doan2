@@ -17,7 +17,10 @@ import com.example.demo.repository.UserRoleRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRoleRepository userRoleRepository;
@@ -27,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AppUser appUser = this.appUserRepository.findByUserName(userName);
+        AppUser appUser = this.appUserRepository.findByUserNameAndIsDeletedIsFalse(userName);
 
         if (appUser == null) {
             System.out.println("User not found! " + userName);

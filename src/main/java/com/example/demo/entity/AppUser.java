@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "App_User") //
+@Table(name = "App_User")
 // uniqueConstraints = { //
 // @UniqueConstraint(name = "APP_USER_UK", columnNames = "User_Name") })
 public class AppUser {
@@ -41,16 +41,16 @@ public class AppUser {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appUser", cascade = CascadeType.ALL)
+    @OneToMany
     private Set<UserRole> userRoles;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<OrderEntity> orders;
+    @OneToMany(mappedBy = "appUser")
+    private List<CartItemEntity> cartItems;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<CartItemEntity> cartItems;
+    @OneToOne(mappedBy = "appUser")
+    private OrderEntity order;
 }

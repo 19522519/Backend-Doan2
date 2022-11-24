@@ -13,8 +13,6 @@ public class AddressEntity {
     private Integer id;
 
     private String street;
-    private String ward;
-    private String city;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted;
@@ -22,6 +20,6 @@ public class AddressEntity {
     @OneToOne(mappedBy = "address")
     private AppUser appUser;
 
-    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "address")
     private ShippingEntity shipping;
 }

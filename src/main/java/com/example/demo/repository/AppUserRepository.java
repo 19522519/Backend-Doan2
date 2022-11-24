@@ -7,7 +7,9 @@ import com.example.demo.entity.AppUser;
 
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
-    AppUser findByUserName(String userName);
+    AppUser findByUserNameAndIsDeletedIsFalse(String userName);
 
-    AppUser findByEmail(String email);
+    AppUser findByEmailAndIsDeletedIsFalse(String email);
+
+    AppUser findByUserIdAndIsDeletedIsFalse(Integer id);
 }

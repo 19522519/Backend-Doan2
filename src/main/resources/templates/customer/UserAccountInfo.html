@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin tài khoản</title>
+    <link
+      rel="icon"
+      href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald:bold,regular&amp;display=swap"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="payment_header" style="border-bottom: 1px solid #eeee">
+      <div class="container header_container">
+        <div class="row">
+          <div class="col icon__shop">
+            <a
+              href="./index.html"
+              id="IMAGE4"
+              class="ladi-element"
+              data-replace-href="https://gearvn.com/"
+            >
+              <div class="ladi-image">
+                <div class="ladi-image-background"></div></div
+            ></a>
+          </div>
+          <div class="col-7">
+            <div class="row link_payment">
+              <div class="col"><a href="./index.html">Trang chủ</a></div>
+              <div class="col"><a href="">Tin tức</a></div>
+              <div class="col"><a href="./warranty.html">Bảo hành</a></div>
+              <div class="col"><a href="">Tuyển dụng</a></div>
+              <div class="col"><a href="">Liên hệ</a></div>
+            </div>
+          </div>
+          <div class="col-4"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END USER PAGE HEADER -->
+    <div class="account_setting_section">
+      <div class="row pb-2 border-bottom d-flex align-items-center">
+        <a href="./user_page.html" style="color: red; text-decoration: none"
+          ><i class="bx bx-arrow-back"></i> Quay về menu</a
+        >
+        <h3>Account settings</h3>
+      </div>
+      <form action="">
+        <div class="row mt-3">
+          <div class="col-md-3">
+            <div class="avatar_user">
+              <img
+                src="https://khoinguonsangtao.vn/wp-content/uploads/2022/07/avatar-gau-cute.jpg"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="action">
+              <p class="user_name text-danger fw-bold">Võ Thành Phát</p>
+
+              <input type="file" />
+            </div>
+          </div>
+        </div>
+        <div class="py-2">
+          <div class="row py-2">
+            <div class="col-md-6">
+              <label for="firstname">Họ</label>
+              <input
+                type="text"
+                class="bg-light form-control"
+                placeholder="Nguyễn Văn"
+              />
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+              <label for="lastname">Tên</label>
+              <input
+                type="text"
+                class="bg-light form-control"
+                placeholder="Tuấn"
+              />
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-md-6">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                class="bg-light form-control"
+                placeholder="vmas@email.com"
+              />
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+              <label for="phone">Số điện thoại</label>
+              <input
+                type="tel"
+                class="bg-light form-control"
+                placeholder="+1 213-548-6015"
+              />
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-md-6">
+              <label for="country">Đất nước</label>
+              <select name="country" id="country" class="bg-light">
+                <option value="" selected="">Việt Nam</option>
+                <option value="">Hàn Quốc</option>
+                <option value="">Nhật Bản</option>
+                <option value="">Mỹ</option>
+              </select>
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3" id="lang">
+              <label for="language">Ngôn ngữ</label>
+              <div class="arrow">
+                <select name="language" id="language" class="bg-light">
+                  <option value="" selected="">Tiếng Việt</option>
+                  <option value="">English (United States)</option>
+                  <option value="">English UK</option>
+                  <option value="">Japan</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="py-3 pb-4 border-bottom">
+            <button class="btn btn-primary mr-3">Save Changes</button>
+            <input class="btn border button" type="reset" value="Cancel" />
+          </div>
+          <div class="d-sm-flex align-items-center pt-3" id="deactivate">
+            <div>
+              <b>Deactivate your account</b>
+              <p>Details about your company account and password</p>
+            </div>
+            <div class="ml-auto">
+              <button class="dangerbtn">Deactivate</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="p-2"></div>
+  </body>
+</html>

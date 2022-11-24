@@ -229,7 +229,7 @@ public class LaptopServiceImpl implements LaptopService {
     }
 
     @Override
-    public LaptopDto editLaptop(Integer id) {
+    public LaptopDto detailLaptop(Integer id) {
         LaptopEntity laptopEntity = laptopRepository.findById(id).get();
         LaptopDto laptopDto = toDto(laptopEntity);
         return laptopDto;
@@ -239,22 +239,25 @@ public class LaptopServiceImpl implements LaptopService {
     public List<LaptopDto> findAllLaptopGaming() {
         List<LaptopDto> laptopDtos = new ArrayList<>();
         List<LaptopEntity> laptopEntities = new ArrayList<>();
+        List<LaptopDto> lists = new ArrayList<>();
 
         CategoryEntity categoryEntity = categoryRepository.findByName("Gaming");
-        List<ProductEntity> productEntities = productRepository
-                .findByCategoryAndIsDeletedIsFalseOrderByCreateDateDesc(categoryEntity);
-        for (ProductEntity productEntity : productEntities)
-            laptopEntities.add(laptopRepository.findByProductAndIsDeletedIsFalse(productEntity));
+        if (categoryEntity != null) {
+            List<ProductEntity> productEntities = productRepository
+                    .findByCategoryAndIsDeletedIsFalseOrderByCreateDateDesc(categoryEntity);
+            if (productEntities != null) {
+                for (ProductEntity productEntity : productEntities)
+                    laptopEntities.add(laptopRepository.findByProductAndIsDeletedIsFalse(productEntity));
 
-        for (LaptopEntity laptopEntity : laptopEntities) {
-            if (laptopEntity != null)
-                laptopDtos.add(toDto(laptopEntity));
+                for (LaptopEntity laptopEntity : laptopEntities) {
+                    if (laptopEntity != null)
+                        laptopDtos.add(toDto(laptopEntity));
+                }
+
+                for (int i = 1; i <= 10; i++)
+                    lists.add(laptopDtos.get(i - 1));
+            }
         }
-
-        List<LaptopDto> lists = new ArrayList<>();
-        for (int i = 1; i <= 10; i++)
-            lists.add(laptopDtos.get(i - 1));
-
         return lists;
     }
 
@@ -302,37 +305,6 @@ public class LaptopServiceImpl implements LaptopService {
         List<LaptopEntity> laptopEntities = new ArrayList<>();
         List<LaptopDto> list = new ArrayList<>();
 
-        CategoryEntity categoryEntity = categoryRepository.findByName("Gaming");
-        List<ProductEntity> productEntities = productRepository
-                .findByCategoryAndIsDeletedIsFalseOrderByCreateDateDesc(categoryEntity);
-        for (ProductEntity productEntity : productEntities)
-            laptopEntities.add(laptopRepository.findByProductAndIsDeletedIsFalse(productEntity));
-
-        for (LaptopEntity laptopEntity : laptopEntities) {
-            if (laptopEntity != null)
-                laptopDtos.add(toDto(laptopEntity));
-        }
-
-        List<LaptopDto> lists = new ArrayList<>();
-        for (int i = 1; i <= 15; i++)
-            lists.add(laptopDtos.get(i - 1));
-
-        if (lists.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, lists.size());
-            list = lists.subList(startItem, toIndex);
-        }
-
-        Page<LaptopDto> laptopPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), lists.size());
-        return laptopPage;
-    }
-
-    @Override
-    public List<LaptopDto> findAllLaptopVanPhong() {
-        List<LaptopDto> laptopDtos = new ArrayList<>();
-        List<LaptopEntity> laptopEntities = new ArrayList<>();
-
         CategoryEntity categoryEntity = categoryRepository.findByName("Office");
         List<ProductEntity> productEntities = productRepository
                 .findByCategoryAndIsDeletedIsFalseOrderByCreateDateDesc(categoryEntity);
@@ -344,9 +316,40 @@ public class LaptopServiceImpl implements LaptopService {
                 laptopDtos.add(toDto(laptopEntity));
         }
 
+        if (laptopDtos.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, laptopDtos.size());
+            list = laptopDtos.subList(startItem, toIndex);
+        }
+
+        Page<LaptopDto> laptopPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), laptopDtos.size());
+        return laptopPage;
+    }
+
+    @Override
+    public List<LaptopDto> findAllLaptopVanPhong() {
+        List<LaptopDto> laptopDtos = new ArrayList<>();
+        List<LaptopEntity> laptopEntities = new ArrayList<>();
         List<LaptopDto> lists = new ArrayList<>();
-        for (int i = 1; i <= 5; i++)
-            lists.add(laptopDtos.get(i - 1));
+
+        CategoryEntity categoryEntity = categoryRepository.findByName("Office");
+        if (categoryEntity != null) {
+            List<ProductEntity> productEntities = productRepository
+                    .findByCategoryAndIsDeletedIsFalseOrderByCreateDateDesc(categoryEntity);
+            if (productEntities != null) {
+                for (ProductEntity productEntity : productEntities)
+                    laptopEntities.add(laptopRepository.findByProductAndIsDeletedIsFalse(productEntity));
+
+                for (LaptopEntity laptopEntity : laptopEntities) {
+                    if (laptopEntity != null)
+                        laptopDtos.add(toDto(laptopEntity));
+                }
+
+                for (int i = 1; i <= 5; i++)
+                    lists.add(laptopDtos.get(i - 1));
+            }
+        }
 
         return lists;
     }

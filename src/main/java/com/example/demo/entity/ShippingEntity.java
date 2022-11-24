@@ -15,14 +15,17 @@ public class ShippingEntity {
 
     private String receiver;
 
+    private String phone;
+    private String email;
+
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 }

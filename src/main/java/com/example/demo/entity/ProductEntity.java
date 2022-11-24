@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
@@ -40,6 +40,7 @@ public class ProductEntity {
     private Boolean isDeleted;
 
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     private LaptopEntity laptop;
 
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -53,9 +54,9 @@ public class ProductEntity {
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
     private List<ImageEntity> images;
 
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product")
     private CartItemEntity cartItem;
 }

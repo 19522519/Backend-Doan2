@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chuyên Laptop, PC, phụ kiện Gaming</title>
+    <title>Giỏ hàng</title>
     <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
@@ -37,7 +41,7 @@
           <div class="row">
             <div class="col-2">
               <div class="logo__shop">
-                <a href="./index.html" class="logo__shop-link">
+                <a th:href="@{/index}" class="logo__shop-link">
                   <img
                     src="//theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=28697"
                     alt=""
@@ -63,20 +67,25 @@
                   <div class="col-6">
                     <div class="row action__info-user">
                       <div class="col">
-                        <a href="./signup.html"
+                        <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
                       </div>
                       <div class="col">
-                        <a href="./login.html"
-                          ><i class="bx bxs-user-circle"></i>Đăng nhập</a
-                        >
+                        <div sec:authorize="isAuthenticated()">
+                          <a th:href="@{/customer}"
+                            ><p>
+                              Hi
+                              <span sec:authentication="name"></span>!
+                            </p></a
+                          >
+                        </div>
                       </div>
                       <div class="col">
                         <a href=""><i class="bx bxs-discount"></i>Khuyến mãi</a>
                       </div>
                       <div class="col">
-                        <a href=""
+                        <a th:href="@{cart}"
                           ><i class="bx bxs-cart"
                             ><div class="number_product">0</div></i
                           >Giỏ hàng</a
@@ -122,7 +131,7 @@
               <div class="row">
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a th:href="@{guidepayment}"
                       ><i class="bx bx-money-withdraw"></i>HƯỚNG DẪN THANH
                       TOÁN</a
                     >
@@ -130,19 +139,21 @@
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a>
+                    <a th:href="@{installment}"
+                      ><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a
+                    >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a href="warranty.html"
                       ><i class="bx bx-check-shield"></i>CHÍNH SÁCH BẢO HÀNH</a
                     >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a th:href="@{delivery}"
                       ><i class="bx bxs-package"></i>CHÍNH SÁCH VẬN CHUYỂN</a
                     >
                   </div>
@@ -154,75 +165,85 @@
       </div>
     </div>
     <!-- DONE HEADER NAVIGATION -->
-
-    <div class="product__list">
+    <div class="cart_section">
       <div class="container">
-        <div class="row fixed_row">
-          <div class="product__list-heading">
-            <h4 class="product__list_heading-name">LAPTOP GAMING</h4>
-            <span
-              >Sắp xếp theo:
-              <select name="" id="">
-                <option value="" selected>Bán chạy nhất</option>
-                <option value="">Giá: tăng dần</option>
-                <option value="">Giá: giảm dần</option>
-                <option value="">Tên A -> Z</option>
-                <option value="">Tên Z -> A</option>
-                <option value="">Cũ Nhất</option>
-                <option value="">Mới Nhất</option>
-              </select>
-            </span>
-          </div>
-
-          <div class="product__list_card">
-            <div class="row">
-              <div th:each="laptop : ${laptopGamingPage.content}" class="col-3">
-                <div class="product_card">
-                  <div class="best_seller">Best Seller</div>
-                  <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
-                      ><img th:src="${laptop.thumbnail}" alt=""
-                    /></a>
-                    <div class="product_detail">
-                      <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
+        <div class="row">
+          <!-- <h3>Giỏ hàng trống!</h3>
+          <p>Thêm sản phẩm vào giỏ và quay lại trang này để thanh toán nhé</p>
+          <div class="cart_empty_img">
+            <img
+              src="	https://omnisales.worldfone.vn/portal/upload/livechat/logo/G-bot-1-190x155.png"
+              alt=""
+            />
+          </div> -->
+          <!-- EMPTY CART -->
+          <h3>GIỎ HÀNG</h3>
+          <form action="" method="post">
+            <table class="text-center">
+              <thead>
+                <tr>
+                  <th class="item">Sản phẩm</th>
+                  <th class="item_name">Tên sản phẩm</th>
+                  <th class="item_number">Số lượng</th>
+                  <th class="item_price">Giá tiền</th>
+                  <th class="item_delete">Xóa</th>
+                </tr>
+              </thead>
+              <!-- <tbody>
+                <tr th:each="item : ${cartItems}">
+                  <td>
+                    <div class="item_img">
+                      <a href=""
+                        ><img
+                          th:src="@{'/images/' + ${item.imageUrl}}"
+                          alt=""
+                        />
+                      </a>
                     </div>
-                  </div>
-                  <div class="product_card-description">
-                    <p hidden th:text="${laptop.laptopId}"></p>
-                    <p th:text="${laptop.laptopName}"></p>
-                    <div class="product_card-description-sale">
-                      <div class="product_card-description-sale--price">
-                        <span th:text="${laptop.price}+đ"></span>
-                      </div>
-                      <div class="discount">
-                        <span th:text="${laptop.discount}+'%'"></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </td>
+                  <td>
+                    <a href="" class="product_name" th:text="${item.name}"></a>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      size="4"
+                      min="1"
+                      th:value="${item.quantity}"
+                    />
+                  </td>
+                  <td>
+                    <p th:text="${item.price}"></p>
+                  </td>
+                  <td>
+                    <a
+                      th:href="@{/shopping-cart/remove-item/{id}/{username}(id=${laptop.laptopId}, username=${#authentication.name})}"
+                      class="delete_btn"
+                      ><i class="bx bxs-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <p class="total_price">Tổng tiền:</p>
+                  </td>
+                  <td>
+                    <p
+                      class="total_price text-danger"
+                      th:text="${total_money}"
+                    ></p>
+                  </td>
+                </tr>
+              </tbody> -->
+            </table>
+            <div id="cart_submit_btn">
+              <a th:href="@{/}">Tiếp tục mua hàng</a>
             </div>
-          </div>
-          <div class="row pagination text-center">
-            <ul
-              th:each="pageNumber : ${pageNumbers_Gaming}"
-              class="pagination_list"
-            >
-              <li th:if="${laptopGamingPage.totalPages > 0}" class="page-link">
-                <a
-                  th:href="@{/collections/laptop-gaming(size=${laptopGamingPage.size}, page=${pageNumber})}"
-                  th:text="${pageNumber}"
-                  th:class="${pageNumber == laptopGamingPage.number + 1} ? active"
-                ></a>
-              </li>
-            </ul>
-          </div>
+          </form>
         </div>
       </div>
     </div>
-    <!-- END LIST LAPTOP -->
-
+    <!-- END CART -->
     <footer>
       <div class="container">
         <div class="row">

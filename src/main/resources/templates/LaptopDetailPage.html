@@ -165,7 +165,7 @@
           <div class="row">
             <div class="col">
               <div class="image_product_big">
-                <img th:src="${laptop.thumbnail}" alt="" />
+                <img th:src="@{'/images/' + ${laptop.thumbnail}}" alt="" />
               </div>
               <div class="multiple-items"></div>
             </div>

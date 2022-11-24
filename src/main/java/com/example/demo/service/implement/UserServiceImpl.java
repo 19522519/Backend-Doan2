@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AppUser findUserByEmail(String email) {
-        return appUserRepository.findByEmail(email);
+        return appUserRepository.findByEmailAndIsDeletedIsFalse(email);
     }
 
 }

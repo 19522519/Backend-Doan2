@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 @Entity
@@ -38,5 +40,6 @@ public class LaptopEntity {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonManagedReference
     private ProductEntity product;
 }

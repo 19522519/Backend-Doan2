@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     SimpleUrlAuthenticationSuccessHandler managerSuccessHandler = new SimpleUrlAuthenticationSuccessHandler("/manager");
     SimpleUrlAuthenticationSuccessHandler customerSuccessHandler = new SimpleUrlAuthenticationSuccessHandler(
-            "/customer");
+            "/");
     SimpleUrlAuthenticationSuccessHandler sellerSuccessHandler = new SimpleUrlAuthenticationSuccessHandler("/seller");
 
     @Override

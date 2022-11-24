@@ -21,17 +21,22 @@ public interface LaptopService {
 
     void deleteLaptop(Integer id);
 
-    LaptopDto editLaptop(Integer id);
+    LaptopDto detailLaptop(Integer id);
 
     LaptopEntity saveExistLaptop(LaptopDto laptopDto, MultipartFile img);
 
+    // Index Page
     List<LaptopDto> findAllLaptopGaming();
 
+    // Seller Page
     Page<LaptopDto> findLaptopPaginated(Pageable pageable);
 
+    // Collection Page
     Page<LaptopDto> findLaptopGamingPaginated(Pageable pageable);
 
+    // Collection Page
     Page<LaptopDto> findLaptopOfficePaginated(Pageable pageable);
 
+    // Index Page
     List<LaptopDto> findAllLaptopVanPhong();
 }

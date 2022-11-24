@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET)
     public String managerPage() {
-        return "managerPage";
-
+        return "seller/SellerPage";
     }
 
     @GetMapping("/seller")
@@ -24,7 +23,7 @@ public class LoginController {
         return "seller/SellerPage";
     }
 
-    @RequestMapping(value = "/customer", method = RequestMethod.GET)
+    @GetMapping("/customer")
     public String customerPage() {
         return "customerPage";
     }

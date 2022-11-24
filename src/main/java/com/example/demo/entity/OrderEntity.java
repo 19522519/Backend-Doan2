@@ -30,16 +30,16 @@ public class OrderEntity {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order")
     private List<CartItemEntity> cartItems;
 
-    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order")
     private ShippingEntity shipping;
 
-    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order")
     private PaymentEntity payment;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;
 }

@@ -24,7 +24,7 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" th:href="@{css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
@@ -35,26 +35,35 @@
       <div class="container">
         <div class="row">
           <div class="form_checkout">
-            <form action="">
-              <h2><a th:href="@{index}"> GEARVN</a></h2>
+            <form
+              th:action="@{/order/purchase}"
+              th:object="${customerInfo}"
+              method="post"
+            >
+              <h2><a th:href="@{/index}"> GEARVN</a></h2>
               <h4>Thông tin thanh toán</h4>
+              <input hidden th:field="*{orderId}"></input>
               <div class="row">
                 <div class="col-6">
                   <input
+                    th:field="*{receiverName}"
                     type="text"
                     class="form-control"
-                    placeholder="Tên đăng nhập"
+                    placeholder="Họ và tên"
+                    required
                   />
                 </div>
                 <div class="col-6">
                   <input
+                    th:field="*{receiverPhone}"
                     type="text"
                     class="form-control"
-                    placeholder="Họ tên"
+                    placeholder="Số điện thoại"
+                    required
                   />
                 </div>
               </div>
-              <div class="row mt-2">
+              <!-- <div class="row mt-2">
                 <div class="col-6">
                   <input
                     type="email"
@@ -70,32 +79,66 @@
                     placeholder="Số điện thoại"
                   />
                 </div>
+              </div> -->
+              <div class="row mt-2">
+                <div class="col">
+                  <input
+                    th:field="*{email}"
+                    type="email"
+                    class="form-control"
+                    placeholder="Email"
+                    id="staticEmail"
+                    required
+                  />
+                </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <input
-                    type="email"
+                    th:field="*{street}"
+                    type="text"
                     class="form-control"
-                    placeholder="Địa chỉ"
+                    placeholder="Số nhà, Tên đường"
+                    required
                   />
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <select class="form-control">
-                    <option>Chọn tỉnh thành</option>
+                    <option>-Chọn Tỉnh/Thành phố-</option>
                   </select>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <select class="form-control">
-                    <option>Chọn phương thức thanh toán</option>
+                    <option>-Chọn Quận/Huyện-</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <select class="form-control">
+                    <option>-Chọn Phường/Xã-</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <select th:field="*{paymentMethod}" class="form-control">
+                    <option
+                      th:each="paymentMethod : ${paymentMethod}"
+                      th:value="${paymentMethod}"
+                      th:text="${paymentMethod}"
+                    ></option>
                   </select>
                 </div>
               </div>
               <div class="mt-2 mb-2 checkout_btn">
-                <a th:href="@{cart}"> <i class="bx bxs-cart-alt"></i>Quay về</a>
+                <a th:href="@{/shopping-cart/views}">
+                  <i class="bx bxs-cart-alt"></i>Quay về</a
+                >
 
                 <button type="submit">Thanh toán</button>
               </div>
@@ -114,7 +157,7 @@
                       </div> -->
                   <!-- EMPTY CART -->
 
-                  <form action="">
+                  <!-- <form action="">
                     <table class="text-center">
                       <thead>
                         <tr>
@@ -131,7 +174,7 @@
                             <div class="item_img">
                               <a href=""
                                 ><img
-                                  src="	https://product.hstatic.net/1000026716/product/i5-3060_94f31cf3740d4169b925ea1b318f2e38_small.png"
+                                  th:src="@{'/images/' + ${item.imageUrl}}"
                                   alt=""
                                 />
                               </a>
@@ -164,7 +207,51 @@
                         </tr>
                       </tbody>
                     </table>
-                  </form>
+                  </form> -->
+                  <table class="text-center">
+                    <thead>
+                      <tr>
+                        <th class="item">Sản phẩm</th>
+                        <th class="item_name">Tên sản phẩm</th>
+                        <th class="item_number">Số lượng</th>
+                        <th class="item_price">Giá tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="item : ${cartItems}">
+                        <td>
+                          <div class="item_img">
+                            <a href=""
+                              ><img
+                                th:src="@{'/images/' + ${item.imageUrl}}"
+                                alt=""
+                              />
+                            </a>
+                          </div>
+                        </td>
+                        <td th:text="${item.name}">
+                          <a href="" class="product_name"></a>
+                        </td>
+                        <td th:text="${item.quantity}">
+                          <input type="number" size="4" min="1" />
+                        </td>
+                        <td>
+                          <p th:text="${item.price}+đ"></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">
+                          <p class="total_price">Tổng tiền:</p>
+                        </td>
+                        <td>
+                          <p
+                            th:text="${totalMoney}+đ"
+                            class="total_price text-danger"
+                          ></p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <!-- END CART CHECKOUT -->
                 </div>
               </div>

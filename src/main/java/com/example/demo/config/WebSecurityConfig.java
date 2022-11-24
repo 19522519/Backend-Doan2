@@ -54,11 +54,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/index", "/register/**", "/").permitAll()
+        http.authorizeRequests().antMatchers("/**").permitAll()
 
                 .antMatchers("/manager/**").hasRole("MANAGER")
                 .antMatchers("/seller/**").hasRole("SELLER")
-                .antMatchers("/customer").hasRole("CUSTOMER")
+                .antMatchers("/customer/**").hasRole("CUSTOMER")
 
                 // // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
                 // // Nếu chưa login, nó sẽ redirect tới trang /login.
@@ -82,7 +82,8 @@ public class WebSecurityConfig {
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")
                 .passwordParameter("password").permitAll()
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .and().exceptionHandling().accessDeniedPage("/403");
         //
         // .loginPage("/login")//
         // /* .defaultSuccessUrl("/customer")// */
