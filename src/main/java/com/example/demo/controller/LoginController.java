@@ -23,10 +23,10 @@ public class LoginController {
         return "seller/SellerPage";
     }
 
-    @GetMapping("/customer")
-    public String customerPage() {
-        return "customerPage";
-    }
+    // @GetMapping("/customer")
+    // public String customerPage() {
+    // return "customerPage";
+    // }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {

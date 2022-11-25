@@ -33,7 +33,7 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
@@ -70,45 +70,50 @@
     <!-- END USER PAGE HEADER -->
     <div class="account_setting_section">
       <div class="row pb-2 border-bottom d-flex align-items-center">
-        <a href="./user_page.html" style="color: red; text-decoration: none"
+        <a th:href="@{/personal-info}" style="color: red; text-decoration: none"
           ><i class="bx bx-arrow-back"></i> Quay về menu</a
         >
         <h3>Account settings</h3>
       </div>
-      <form action="">
+      <form
+        th:action="@{/personal-info/save-user}"
+        th:object="${user}"
+        enctype="multipart/form-data"
+        method="post"
+      >
         <div class="row mt-3">
           <div class="col-md-3">
             <div class="avatar_user">
-              <img
-                src="https://khoinguonsangtao.vn/wp-content/uploads/2022/07/avatar-gau-cute.jpg"
-                alt=""
-              />
+              <img th:src="@{'/images/' + ${user.avatar}}" alt="" />
             </div>
           </div>
           <div class="col-md-9">
             <div class="action">
               <p class="user_name text-danger fw-bold">Võ Thành Phát</p>
 
-              <input type="file" />
+              <input name="img" type="file" />
             </div>
           </div>
         </div>
+        <input hidden th:field="*{userId}" type="text" />
         <div class="py-2">
           <div class="row py-2">
             <div class="col-md-6">
-              <label for="firstname">Họ</label>
+              <label for="lastname">Họ</label>
               <input
+                th:field="*{lastName}"
                 type="text"
                 class="bg-light form-control"
-                placeholder="Nguyễn Văn"
+                placeholder=""
               />
             </div>
             <div class="col-md-6 pt-md-0 pt-3">
-              <label for="lastname">Tên</label>
+              <label for="firstname">Tên</label>
               <input
+                th:field="*{firstName}"
                 type="text"
                 class="bg-light form-control"
-                placeholder="Tuấn"
+                placeholder=""
               />
             </div>
           </div>
@@ -116,29 +121,38 @@
             <div class="col-md-6">
               <label for="email">Email</label>
               <input
+                th:field="*{email}"
                 type="text"
                 class="bg-light form-control"
-                placeholder="vmas@email.com"
+                placeholder=""
               />
             </div>
             <div class="col-md-6 pt-md-0 pt-3">
               <label for="phone">Số điện thoại</label>
               <input
+                th:field="*{phone}"
                 type="tel"
                 class="bg-light form-control"
-                placeholder="+1 213-548-6015"
+                placeholder=""
               />
             </div>
           </div>
           <div class="row py-2">
             <div class="col-md-6">
-              <label for="country">Đất nước</label>
+              <!-- <label for="country">Đất nước</label>
               <select name="country" id="country" class="bg-light">
                 <option value="" selected="">Việt Nam</option>
                 <option value="">Hàn Quốc</option>
                 <option value="">Nhật Bản</option>
                 <option value="">Mỹ</option>
-              </select>
+              </select> -->
+              <label for="phone">Username</label>
+              <input
+                th:field="*{userName}"
+                type="text"
+                class="bg-light form-control"
+                placeholder=""
+              />
             </div>
             <div class="col-md-6 pt-md-0 pt-3" id="lang">
               <label for="language">Ngôn ngữ</label>
@@ -153,7 +167,9 @@
             </div>
           </div>
           <div class="py-3 pb-4 border-bottom">
-            <button class="btn btn-primary mr-3">Save Changes</button>
+            <button type="submit" class="btn btn-primary mr-3">
+              Save Changes
+            </button>
             <input class="btn border button" type="reset" value="Cancel" />
           </div>
           <div class="d-sm-flex align-items-center pt-3" id="deactivate">

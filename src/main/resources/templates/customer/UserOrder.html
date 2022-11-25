@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menu cá nhân</title>
+    <title>Thông tin đơn hàng</title>
     <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
@@ -40,7 +40,7 @@
     />
   </head>
   <body>
-    <div id="payment_header">
+    <div id="payment_header" style="border-bottom: 1px solid #eeee">
       <div class="container header_container">
         <div class="row">
           <div class="col icon__shop">
@@ -63,47 +63,78 @@
               <div class="col"><a href="">Liên hệ</a></div>
             </div>
           </div>
-          <div class="col-4"></div>
+          <div class="col-4 d-flex align-items-center">
+            <div class="comeback_btn">
+              <a
+                th:href="@{/personal-info}"
+                style="
+                  text-decoration: none;
+                  color: white;
+                  font-weight: bold;
+                  padding: 10px;
+                  background: red;
+                  border-radius: 10px;
+                "
+                >Quay về</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- END USER PAGE HEADER -->
-    <div class="user_menu text-center">
-      <div class="container">
-        <h1>Hi, <span th:text="${username}"></span></h1>
-        <h4>Hôm nay là ngày <span th:text="${today}"></span></h4>
-        <div class="row py-5">
-          <div class="col-md-4">
-            <div class="order_user_page">
-              <div class="icon_user">
-                <i class="bx bxs-cart-download text-warning"></i>
-              </div>
-              <a th:href="@{personal-info/orders}">Thông tin các đơn hàng</a>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="account_user_page">
-              <div class="icon_user">
-                <i class="bx bxs-user-circle text-info"></i>
-              </div>
-              <a th:href="@{/personal-info/account}"
-                >Quản lý tài khoản cá nhân</a
-              >
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="logout">
-              <div class="icon_user">
-                <i
-                  class="bx bx-log-out text-danger"
-                  style="margin-left: 18px; transform: rotate(180deg)"
-                ></i>
-              </div>
-              <a th:href="@{/logout}">Đăng xuất</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="user_order_title">
+      <h3 class="p-3">Lịch sử mua hàng</h3>
     </div>
+
+    <table class="table table-striped text-center align-middle">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Hình ảnh</th>
+          <th scope="col">Tên sản phẩm</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Giá tiền</th>
+          <th scope="col">Ngày mua hàng</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>
+            <img
+              style="width: 100px; height: 100px"
+              src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR5aux5HN_3KJC1YHxCYu2mtxOaLNkYKY1PbYEtYq2WrbOh0e10KQWGzcSLb824HflUxSE2vdHjhwvBLdy2Ox--tIANe_zAosOJPR_X86FUhkUyPtgWYJUZVA&usqp=CAE"
+              alt=""
+            />
+          </td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@fat</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="p-2"></div>
   </body>
 </html>

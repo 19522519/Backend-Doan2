@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/seller")
 public class MenuController {
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "seller/Dashboard";
+    }
+
     @GetMapping("/menu_add")
     public String menuAdd() {
         return "seller/product/menu_add";
@@ -50,11 +55,11 @@ public class MenuController {
                 return "redirect:/403";
             }
         }
-        return "seller/statistic/statistic";
+        return "seller/statistic/Statistic";
     }
 
     @GetMapping("/setting")
     public String settingPage() {
-        return "seller/setting";
+        return "seller/Setting";
     }
 }

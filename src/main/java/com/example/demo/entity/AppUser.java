@@ -38,6 +38,8 @@ public class AppUser {
     @Column(nullable = false)
     private String phone;
 
+    private String avatar;
+
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 

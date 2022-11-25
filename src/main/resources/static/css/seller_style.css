@@ -410,31 +410,281 @@
 }
 /* END MENU ADDING */
 
-table {
+.dashboard_section {
+  padding: 24px 0;
+  height: 100%;
+}
+
+.dashboard_section .box {
+  min-height: 120px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.dashboard_section .box .box_title {
+  display: flex;
+  justify-content: space-between;
+}
+.col-md-3 {
+  margin-bottom: 10px;
+}
+.box .box_title h6 {
+  margin: 0;
+  color: gray;
+}
+
+.box .box_title .box_rate {
+  display: flex;
+  color: green;
+}
+
+.box .box_title .box_rate i {
+  font-size: 30px;
+}
+
+.box .box_action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box_action a {
+  color: red;
+  text-decoration: none;
+}
+
+.box_action a:hover {
+  color: rgb(44, 225, 80);
+}
+
+.box_action .icon {
+  padding: 6px;
+  background: blue;
+  border-radius: 6px;
+}
+
+.box_action .user_icon {
+  background: #f8d8db;
+  color: #a3666c;
+}
+
+.box_action .order_icon {
+  background: #fcedcf;
+  color: #d7b858;
+}
+
+.box_action .product_icon {
+  background: #b3edb5;
+  color: #4a984b;
+}
+.box_action .money_icon {
+  background: #e8cde8;
+  color: #b35db6;
+}
+
+.row_payment {
+  margin-top: 40px !important;
+}
+
+.recent_payment,
+.recent_user {
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.recent_payment_title,
+.recent_user_title {
+  border-bottom: 2px solid gray;
+}
+
+.recent_payment_title h3,
+.recent_user_title h3 {
+  margin: 2px;
+  color: gray;
+}
+
+.recent_user_table,
+.recent_payment_table {
+  margin-top: 10px;
+}
+
+.recent_user_table--avatar {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.recent_user_table--avatar img {
+  object-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.recent_user_table td a,
+.recent_payment_table td a {
+  text-decoration: none;
+  padding: 4px 8px;
+  background: red;
+  color: white;
+  border-radius: 6px;
+}
+
+.recent_user_table td a:hover,
+.recent_payment_table td a:hover {
+  background: rgba(10, 80, 200, 0.87);
+}
+/* END DASHBOARD SECTION */
+.account_setting_section {
+  padding: 30px 50px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  margin: 10px auto;
+  max-width: 600px;
+  background: white;
+}
+
+.avatar_user {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+}
+
+.avatar_user img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+label {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #777;
+  padding-left: 3px;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+input[placeholder] {
+  font-weight: 500;
+}
+.form-control:focus {
+  box-shadow: none;
+  border: 1.5px solid #0779e4;
+}
+select {
+  display: block;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  height: 40px;
+  padding: 5px 10px;
+  /* -webkit-appearance: none; */
+}
+
+select:focus {
+  outline: none;
+}
+.button {
+  background-color: #fff;
+  color: #0779e4;
+}
+.button:hover {
+  background-color: #0779e4 !important;
+  color: #fff !important;
+}
+
+.btn-primary {
+  background-color: #0779e4;
+}
+.dangerbtn {
+  background-color: #fff;
+  color: #e20404;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  transition: 0.4s;
+}
+.dangerbtn:hover {
+  background-color: #e20404;
+  color: #fff;
+}
+@media (max-width: 576px) {
+  .wrapper {
+    padding: 25px 20px;
+  }
+  #deactivate {
+    line-height: 18px;
+  }
+}
+/* END SETTING SECTION */
+.statistic_section {
+  max-width: 1300px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px 40px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+}
+
+.total_revenue_section {
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  padding: 20px 40px;
+  border-radius: 15px;
+  height: 100%;
+}
+
+.total_revenue_section h4 {
+  color: gray;
+}
+
+.value_info {
+  padding: 40px 0;
+}
+
+.value_info .value {
+  font-size: 30px;
+  border-radius: 50%;
+  border: 4px solid #0779e4;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+}
+.value_info .value span {
+  line-height: 100px;
   text-align: center;
+  color: #0779e4;
 }
 
-#edit_ListBtn {
-  text-decoration: none;
-  background: rgb(0, 110, 254);
-  color: white;
-  padding: 4px 20px;
-  border-radius: 10px;
+.value_statement {
+  font-size: 18px;
 }
 
-#delete_ListBtn {
-  text-decoration: none;
-  background: rgb(254, 25, 0);
-  color: white;
-  padding: 4px 16px;
-  border-radius: 10px;
+.value_money {
+  font-size: 40px;
+  font-weight: bold;
 }
 
-#edit_ListBtn:hover {
-  background: rgb(0, 66, 151);
+.value_description {
+  color: gray;
 }
 
-#delete_ListBtn:hover {
-  background: rgb(180, 18, 0);
+.target_info {
+  color: #0779e4 !important;
+  font-weight: bold;
 }
-/* Edit,delete Button */
+
+#statisChart {
+  margin: auto;
+}
+/* END STATISTIC SECTION */

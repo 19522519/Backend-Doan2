@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -46,6 +49,23 @@ public class RegisterController {
                 !existingUser.getEmail().isEmpty()) {
             bindingResult.rejectValue("email", null,
                     "There is already an account registered with the same email");
+        }
+
+        // Check existing username
+        Boolean isExistUsername = false;
+        String username = userDto.getUserName();
+        List<AppUser> appUsers = appUserRepository.findAll();
+        for (AppUser appUser : appUsers) {
+            if (username.equals(appUser.getUserName()))
+                isExistUsername = true;
+        }
+        if (isExistUsername == true)
+            model.addAttribute("existUsername", "Username đã tồn tại!");
+
+        // Check valid email address
+        String email = userDto.getEmail();
+        if (!EmailValidator.getInstance().isValid(email)) {
+            model.addAttribute("invalidEmail", "Email không hợp lệ!");
         }
 
         if (bindingResult.hasErrors()) {

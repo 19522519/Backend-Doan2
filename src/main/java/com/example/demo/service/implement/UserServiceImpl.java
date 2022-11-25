@@ -1,9 +1,19 @@
 package com.example.demo.service.implement;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import javax.transaction.UserTransaction;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.AppUser;
@@ -55,4 +65,43 @@ public class UserServiceImpl implements UserService {
         return appUserRepository.findByEmailAndIsDeletedIsFalse(email);
     }
 
+    @Override
+    public UserDto showUserInfo(AppUser appUser) {
+        UserDto userDto = new UserDto();
+
+        userDto.setUserId(appUser.getUserId());
+        userDto.setAvatar(appUser.getAvatar());
+        userDto.setLastName(appUser.getLastName());
+        userDto.setFirstName(appUser.getFirstName());
+        userDto.setEmail(appUser.getEmail());
+        userDto.setPhone(appUser.getPhone());
+        userDto.setUserName(appUser.getUserName());
+
+        return userDto;
+    }
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void saveUser(AppUser appUser, UserDto userDto, MultipartFile img) {
+        appUser.setFirstName(userDto.getFirstName());
+        appUser.setLastName(userDto.getLastName());
+        appUser.setEmail(userDto.getEmail());
+        appUser.setPhone(userDto.getPhone());
+        appUser.setUserName(userDto.getUserName());
+        appUser.setAvatar(img.getOriginalFilename());
+        saveFile(appUser.getAvatar(), img);
+
+        appUserRepository.save(appUser);
+    }
 }

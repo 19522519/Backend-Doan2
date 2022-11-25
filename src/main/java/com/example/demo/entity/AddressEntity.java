@@ -13,6 +13,9 @@ public class AddressEntity {
     private Integer id;
 
     private String street;
+    private String ward;
+    private String district;
+    private String city;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted;

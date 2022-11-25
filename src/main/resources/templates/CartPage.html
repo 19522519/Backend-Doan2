@@ -74,11 +74,8 @@
                       <div class="col">
                         <div sec:authorize="isAuthenticated()">
                           <a th:href="@{/customer}"
-                            ><p>
-                              Hi
-                              <span sec:authentication="name"></span>!
-                            </p></a
-                          >
+                            ><p sec:authentication="name"></p
+                          ></a>
                         </div>
                       </div>
                       <div class="col">
