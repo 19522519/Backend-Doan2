@@ -20,7 +20,8 @@ public class AddressEntity {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToOne(mappedBy = "address")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private AppUser appUser;
 
     @OneToOne(mappedBy = "address")

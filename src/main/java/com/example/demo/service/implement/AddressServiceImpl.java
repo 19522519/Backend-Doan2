@@ -23,7 +23,7 @@ public class AddressServiceImpl implements AddressService {
         AddressEntity addressEntity = new AddressEntity();
 
         if (appUser != null)
-            appUser.setAddress(addressEntity);
+            addressEntity.setAppUser(appUser);
         addressEntity.setStreet(checkoutDto.getStreet());
         addressEntity.setCity(checkoutDto.getCity());
         addressEntity.setDistrict(checkoutDto.getDistrict());

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.repository.AppUserRepository;
+import com.example.demo.service.OrderService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -27,6 +28,9 @@ public class CustomerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/personal-info")
     public String PersonalPage(Model model) {
@@ -89,7 +93,7 @@ public class CustomerController {
     }
 
     @GetMapping("/personal-info/orders")
-    public String UserOrderPage() {
+    public String UserOrderPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -97,7 +101,7 @@ public class CustomerController {
             AppUser appUser = appUserRepository
                     .findByUserNameAndIsDeletedIsFalse(authentication.getName());
             if (appUser != null) {
-
+                model.addAttribute("userOrders", orderService.showUserOrderPage(appUser));
                 return "customer/UserOrder";
             } else {
                 return "redirect:/login";

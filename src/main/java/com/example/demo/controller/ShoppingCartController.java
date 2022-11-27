@@ -33,7 +33,7 @@ public class ShoppingCartController {
     OrderRepository orderRepository;
 
     @GetMapping("/cart")
-    public String nonCart() {
+    public String nullCart() {
         return "NullCartPage";
     }
 
@@ -57,8 +57,12 @@ public class ShoppingCartController {
                     model.addAttribute("cartItems", cartItemDtos);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
-                    OrderEntity orderEntity = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
-                    model.addAttribute("orderId", orderEntity.getId());
+                    Integer orderId = 0;
+                    for (OrderEntity orderEntity : orderRepository.findByAppUserAndIsDeletedIsFalse(appUser)) {
+                        if (orderEntity != null)
+                            orderId = orderEntity.getId();
+                    }
+                    model.addAttribute("orderId", orderId);
                     return "CartPage";
                 }
             } else {
@@ -79,17 +83,18 @@ public class ShoppingCartController {
                 // Show Cart Item on Cart Page
                 List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
 
-                if (cartItemDtos == null)
+                if (cartItemDtos.size() == 0) {
                     return "redirect:/cart";
-                else {
+                } else {
                     model.addAttribute("cartItems", cartItemDtos);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
-                    OrderEntity orderEntity = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
-                    if (orderEntity == null)
-                        return "redirect:/cart";
-                    else
-                        model.addAttribute("orderId", orderEntity.getId());
+                    Integer orderId = 0;
+                    for (OrderEntity orderEntity : orderRepository.findByAppUserAndIsDeletedIsFalse(appUser)) {
+                        if (orderEntity != null)
+                            orderId = orderEntity.getId();
+                    }
+                    model.addAttribute("orderId", orderId);
 
                     return "CartPage";
                 }
@@ -119,8 +124,12 @@ public class ShoppingCartController {
                     model.addAttribute("cartItems", cartItemDtos);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
-                    OrderEntity orderEntity = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
-                    model.addAttribute("orderId", orderEntity.getId());
+                    Integer orderId = 0;
+                    for (OrderEntity orderEntity : orderRepository.findByAppUserAndIsDeletedIsFalse(appUser)) {
+                        if (orderEntity != null)
+                            orderId = orderEntity.getId();
+                    }
+                    model.addAttribute("orderId", orderId);
 
                     return "CartPage";
                 }

@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.dto.CheckoutDto;
+import com.example.demo.dto.UserOrderDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.OrderEntity;
 
@@ -10,4 +13,10 @@ public interface OrderService {
     CheckoutDto showCustomerInfo(Integer orderId);
 
     void updateUserOrder(AppUser appUser, CheckoutDto checkoutDto);
+
+    // Customer Page
+    List<UserOrderDto> showUserOrderPage(AppUser appUser);
+
+    // Seller Page
+    List<UserOrderDto> showUserOrderPage();
 }

@@ -43,9 +43,8 @@ public class AppUser {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private AddressEntity address;
+    @OneToMany(mappedBy = "appUser")
+    private List<AddressEntity> addresses;
 
     @OneToMany
     private Set<UserRole> userRoles;
@@ -53,6 +52,6 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser")
     private List<CartItemEntity> cartItems;
 
-    @OneToOne(mappedBy = "appUser")
-    private OrderEntity order;
+    @OneToMany(mappedBy = "appUser")
+    private List<OrderEntity> orders;
 }

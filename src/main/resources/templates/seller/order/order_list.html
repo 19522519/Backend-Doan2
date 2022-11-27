@@ -126,25 +126,25 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Image</th>
-              <th scope="col">Product name</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Price</th>
-              <th scope="col">Categories</th>
-              <th scope="col">Status</th>
+              <th scope="col">Mã đơn hàng</th>
+              <th scope="col">Tên người nhận hàng</th>
+              <th scope="col">SĐT</th>
+              <th scope="col">Ngày nhận hàng</th>
+              <th scope="col">Tổng giá</th>
+              <th scope="col">Phương thức thanh toán</th>
+              <th scope="col">Tình trạng</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td><img src="" /></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr th:each="item : ${userOrders}">
+              <td><span th:text="${item.orderId}"></span></td>
+              <td><span th:text="${item.receiver}"></span></td>
+              <td><span th:text="${item.phone}"></span></td>
+              <td><span th:text="${item.shippingDate}"></span></td>
+              <td><span th:text="${item.price}"></span></td>
+              <td><span th:text="${item.paymentMethod}"></span></td>
+              <td><span th:text="${item.status}"></span></td>
               <td>
                 <a href=""><i class="fas fa-edit"></i> Edit</a>
                 <a href=""><i class="fas fa-trash-alt"></i> Delete</a>

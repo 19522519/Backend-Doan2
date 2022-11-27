@@ -2,6 +2,8 @@ package com.example.demo.service.implement;
 
 import java.util.*;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import com.example.demo.service.OrderService;
 import com.example.demo.service.ShoppingCartService;
 
 @Service
+@Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     LaptopRepository laptopRepository;
@@ -42,17 +45,29 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         // Check cart item trùng thì quantity + 1
         CartItemEntity cartItem = cartItemRepository.findByProductAndAppUserAndIsDeletedIsFalse(productEntity, appUser);
-        // Check existing order
-        OrderEntity existOrder = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
+        // Check existing orders
+        List<OrderEntity> existOrders = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
 
-        if (existOrder != null && existOrder.getIsDeleted() == false) {
+        Boolean isExistOrder = false;
+        Integer existOrderId = 0;
+        if (existOrders != null) {
+            for (OrderEntity orderItem : existOrders) {
+                if (orderItem != null && orderItem.getIsDeleted() == false) {
+                    isExistOrder = true;
+                    existOrderId = orderItem.getId();
+                }
+            }
+        }
+
+        if (isExistOrder == true) {
             if (cartItem != null && cartItem.getIsDeleted() == false) {
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
 
                 cartItemRepository.save(cartItem);
             } else {
                 // Create Cart Item
-                cartItemService.createCartItem(appUser, productEntity, existOrder);
+                cartItemService.createCartItem(appUser, productEntity,
+                        orderRepository.findByIdAndIsDeletedIsFalse(existOrderId));
             }
         } else {
             // Create Order

@@ -96,42 +96,24 @@
           <th scope="col">Số lượng</th>
           <th scope="col">Giá tiền</th>
           <th scope="col">Ngày mua hàng</th>
-          <th scope="col">Status</th>
+          <th scope="col">Tình trạng</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
+        <tr th:each="item, iterStat : ${userOrders}">
+          <th th:text="${iterStat.count}" scope="row"></th>
           <td>
             <img
               style="width: 100px; height: 100px"
-              src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR5aux5HN_3KJC1YHxCYu2mtxOaLNkYKY1PbYEtYq2WrbOh0e10KQWGzcSLb824HflUxSE2vdHjhwvBLdy2Ox--tIANe_zAosOJPR_X86FUhkUyPtgWYJUZVA&usqp=CAE"
+              th:src="@{'/images/' + ${item.thumbnail}}"
               alt=""
             />
           </td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@fat</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
+          <td><span th:text="${item.productName}"></span></td>
+          <td><span th:text="${item.quantity}"></span></td>
+          <td><span th:text="${item.price}"></span></td>
+          <td><span th:text="${item.shippingDate}"></span></td>
+          <td><span th:text="${item.status}"></span></td>
         </tr>
       </tbody>
     </table>

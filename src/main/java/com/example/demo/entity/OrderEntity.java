@@ -39,7 +39,7 @@ public class OrderEntity {
     @OneToOne(mappedBy = "order")
     private PaymentEntity payment;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;
 }
