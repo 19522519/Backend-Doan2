@@ -45,14 +45,14 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a th:href="@{/seller/dashboard}">
+          <a th:href="@{/seller}">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
         </li>
         <li>
           <div class="iocn-link">
-            <a href="#">
+            <a href="">
               <i class="bx bxs-box"></i>
               <span class="link_name">Products</span>
             </a>
@@ -60,9 +60,9 @@
           </div>
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Products</a></li>
-            <li><a th:href="@{menu_add}">Create product</a></li>
+            <li><a th:href="@{seller/menu_add}">Create product</a></li>
             <li>
-              <a th:href="@{menu_list_product}">Product management</a>
+              <a th:href="@{seller/menu_list_product}">Product management</a>
             </li>
           </ul>
         </li>
@@ -73,7 +73,7 @@
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="./order/order_list.html">Orders</a>
+              <a class="link_name" th:href="@{seller/order}">Orders</a>
             </li>
           </ul>
         </li>
@@ -84,7 +84,7 @@
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="./customer/customer.html">Customer</a>
+              <a class="link_name" th:href="@{seller/customer}">Customer</a>
             </li>
           </ul>
         </li>
@@ -95,9 +95,7 @@
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" href="./statistic/statistic.html"
-                >Statistic</a
-              >
+              <a class="link_name" th:href="@{seller/statistic}">Statistic</a>
             </li>
           </ul>
         </li>
@@ -107,7 +105,9 @@
             <span class="link_name">Setting</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="./setting.html">Setting</a></li>
+            <li>
+              <a class="link_name" th:href="@{seller/setting}">Setting</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -119,7 +119,7 @@
               <div class="job">Design By</div>
               <div class="profile_name">@GEARVN.COM</div>
             </div>
-            <i class="bx bx-log-out"></i>
+            <a th:href="@{/logout}"><i class="bx bx-log-out"></i></a>
           </div>
         </li>
       </ul>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,13 +58,13 @@ public class GamingChairController {
     }
 
     @PostMapping("/menu_add/save-new-chair")
-    public String saveNewGamingChair(@ModelAttribute("GamingChair") GamingChairDto GamingChairDto,
+    public String saveNewGamingChair(@ModelAttribute("GamingChair") GamingChairDto GamingChairDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("GamingChair", GamingChairDto);
         // return "/seller/add-GamingChair";
         // }
-        GamingChairEntity GamingChairEntity = GamingChairService.saveNewGamingChair(GamingChairDto);
+        GamingChairEntity GamingChairEntity = GamingChairService.saveNewGamingChair(GamingChairDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new GamingChair
         // successfully!");
         return "redirect:/seller/menu_add/add_chair";
@@ -71,8 +72,8 @@ public class GamingChairController {
 
     // Insert into db
     @PostMapping("/GamingChairsPage/save-exist")
-    public String saveGamingChair(@ModelAttribute("GamingChair") GamingChairDto GamingChairDto, Model model) {
-        GamingChairEntity GamingChairEntity = GamingChairService.saveExistGamingChair(GamingChairDto);
+    public String saveGamingChair(@ModelAttribute("GamingChair") GamingChairDto GamingChairDto, Model model, @RequestParam MultipartFile img) {
+        GamingChairEntity GamingChairEntity = GamingChairService.saveExistGamingChair(GamingChairDto,img);
         return "redirect:/seller/GamingChairsPage";
     }
 

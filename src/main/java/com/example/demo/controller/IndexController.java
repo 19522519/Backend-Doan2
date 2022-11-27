@@ -17,23 +17,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.dto.LaptopDto;
+import com.example.demo.dto.MouseDto;
+import com.example.demo.dto.ScreenDto;
+import com.example.demo.service.KeyBoardService;
 import com.example.demo.service.LaptopService;
+import com.example.demo.service.MouseService;
+import com.example.demo.service.ScreenService;
 
 @Controller
 public class IndexController {
     @Autowired
     LaptopService laptopService;
 
+    @Autowired
+    ScreenService screenService;
+
+    @Autowired
+    KeyBoardService keyboardService;
+
+    @Autowired
+    MouseService mouseService;
+
     @GetMapping({ "/", "/index" })
     public String homePage(Model model) {
 
         // Laptop Gaming
         List<LaptopDto> laptopDtosGaming = laptopService.findAllLaptopGaming();
+        
         int size = laptopDtosGaming.size();
         List<LaptopDto> first = new ArrayList<>();
         List<LaptopDto> second = new ArrayList<>();
-        for (int i = 0; i < size / 2; i++)
+        for (int i = 0; i < size/2; i++)
             first.add(laptopDtosGaming.get(i));
         for (int i = size / 2; i < size; i++)
             second.add(laptopDtosGaming.get(i));
@@ -41,9 +57,21 @@ public class IndexController {
         // Laptop Van Phong
         List<LaptopDto> laptopDtosVanPhong = laptopService.findAllLaptopVanPhong();
 
+        // List Màn hình
+        List<ScreenDto> screenDtos = screenService.findAllScreen();
+
+        // List Bàn phím
+        List<KeyBoardDto> keyboardDtos = keyboardService.findAllKeyBoard();
+
+        // List Chuột
+        List<MouseDto> mouseDtos = mouseService.findAllMouse();
+        
         model.addAttribute("first", first);
         model.addAttribute("second", second);
         model.addAttribute("laptopDtosVanPhong", laptopDtosVanPhong);
+        model.addAttribute("screenDtos", screenDtos);
+        model.addAttribute("keyboardDtos", keyboardDtos);
+        model.addAttribute("mouseDtos", mouseDtos);
 
         return "index";
     }
@@ -62,6 +90,11 @@ public class IndexController {
     public String deliveryPage() {
         return "DeliveryPage";
     }
+
+    // @RequestMapping(value = "/warranty", method = RequestMethod.GET)
+    // public String warrantyPage() {
+    //     return "WarrantyPage";
+    // }
     // @GetMapping("/")
     // public String index(Model model, HttpServletRequest request) {
     // request.getSession().setAttribute("laptopGaminglist", null);
@@ -180,5 +213,65 @@ public class IndexController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "CollectionPage/OfficeLaptopsList";
+    }
+
+    @GetMapping("/collections/man-hinh")
+    public String collectionsScreenPage(@RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size, Model model) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(16);
+
+        Page<ScreenDto> screenDtos = screenService
+                .findScreenPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("screenPage", screenDtos);
+
+        int totalPages = screenDtos.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "CollectionPage/ScreenList";
+    }
+
+    @GetMapping("/collections/ban-phim")
+    public String collectionsKeyBoardPage(@RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size, Model model) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(16);
+
+        Page<KeyBoardDto> keyboardDtos = keyboardService
+                .findKeyBoardPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("keyboardPage", keyboardDtos);
+
+        int totalPages = keyboardDtos.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "CollectionPage/KeyboardList";
+    }
+
+    @GetMapping("/collections/chuot")
+    public String collectionsMousePage(@RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size, Model model) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(16);
+
+        Page<MouseDto> laptopDtos = mouseService
+                .findMousePaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("mousePage", laptopDtos);
+
+        int totalPages = laptopDtos.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "CollectionPage/MouseList";
     }
 }

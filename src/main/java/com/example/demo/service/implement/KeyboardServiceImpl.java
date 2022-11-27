@@ -2,6 +2,10 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +39,7 @@ import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.KeyBoardService;
 
 @Service
-public class KeyBoardServiceImpl implements KeyBoardService {
+public class KeyboardServiceImpl implements KeyBoardService {
     private final Integer pageSizeDefault = 5;
 
     @Autowired
@@ -52,7 +57,7 @@ public class KeyBoardServiceImpl implements KeyBoardService {
     // private String fileUpload;
 
     @Override
-    public KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto) {
+    public KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto, MultipartFile img) {
         KeyBoardEntity keyBoardEntity = new KeyBoardEntity();
         ProductEntity productEntity = new ProductEntity();
 
@@ -75,7 +80,8 @@ public class KeyBoardServiceImpl implements KeyBoardService {
         productEntity.setIsDeleted(false);
         keyBoardEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(keyBoardDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = KeyBoardDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -90,6 +96,19 @@ public class KeyBoardServiceImpl implements KeyBoardService {
         keyBoardEntity.setProduct(productEntity);
         keyBoardRepository.save(keyBoardEntity);
         return keyBoardEntity;
+    }
+
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -154,7 +173,7 @@ public class KeyBoardServiceImpl implements KeyBoardService {
     }
 
     @Override
-    public KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto) {
+    public KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto , MultipartFile img) {
         KeyBoardEntity keyBoardEntity = keyBoardRepository.findById(keyBoardDto.getKeyBoardId()).get();
         ProductEntity productEntity = productRepository.findById(keyBoardEntity.getProduct().getId()).get();
 
@@ -175,7 +194,8 @@ public class KeyBoardServiceImpl implements KeyBoardService {
         productEntity.setIsDeleted(false);
         keyBoardEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(keyBoardDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = KeyBoardDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -198,4 +218,30 @@ public class KeyBoardServiceImpl implements KeyBoardService {
         KeyBoardDto keyBoardDto = toDto(keyBoardEntity);
         return keyBoardDto;
     }
+
+    @Override
+    public Page<KeyBoardDto> findKeyBoardPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<KeyBoardDto> keyboardDtos = new ArrayList<>();
+        List<KeyBoardDto> list = new ArrayList<>();
+
+        for (KeyBoardEntity keyboardEntity : keyBoardRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
+            if (keyboardEntity != null)
+                keyboardDtos.add(toDto(keyboardEntity));
+        }
+
+        if (keyboardDtos.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, keyboardDtos.size());
+            list = keyboardDtos.subList(startItem, toIndex);
+        }
+
+        Page<KeyBoardDto> keyboardPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), keyboardDtos.size());
+        return keyboardPage;
+    }
+
 }

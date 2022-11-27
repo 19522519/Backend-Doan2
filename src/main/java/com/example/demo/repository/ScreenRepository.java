@@ -14,4 +14,6 @@ public interface ScreenRepository extends JpaRepository<ScreenEntity, Integer> {
     ScreenEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
 
     List<ScreenEntity> findByIsDeletedIsFalse(Pageable pageable);
+
+    List<ScreenEntity> findByIsDeletedIsFalseOrderByIdAsc();
 }

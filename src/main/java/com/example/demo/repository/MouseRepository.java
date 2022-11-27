@@ -14,4 +14,6 @@ public interface MouseRepository extends JpaRepository<MouseEntity, Integer> {
     MouseEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
 
     List<MouseEntity> findByIsDeletedIsFalse(Pageable pageable);
+
+    List<MouseEntity> findByIsDeletedIsFalseOrderByIdAsc();
 }

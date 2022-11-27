@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,13 +58,13 @@ public class GamingHandleController {
     }
 
     @PostMapping("/menu_add/save-new-console")
-    public String saveNewGamingHandle(@ModelAttribute("GamingHandle") GamingHandleDto GamingHandleDto,
+    public String saveNewGamingHandle(@ModelAttribute("GamingHandle") GamingHandleDto GamingHandleDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("GamingHandle", GamingHandleDto);
         // return "/seller/add-GamingHandle";
         // }
-        GamingHandleEntity GamingHandleEntity = GamingHandleService.saveNewGamingHandle(GamingHandleDto);
+        GamingHandleEntity GamingHandleEntity = GamingHandleService.saveNewGamingHandle(GamingHandleDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new GamingHandle
         // successfully!");
         return "redirect:/seller/menu_add/add_console";
@@ -71,8 +72,8 @@ public class GamingHandleController {
 
     // Insert into db
     @PostMapping("/GamingHandlesPage/save-exist")
-    public String saveGamingHandle(@ModelAttribute("GamingHandle") GamingHandleDto GamingHandleDto, Model model) {
-        GamingHandleEntity GamingHandleEntity = GamingHandleService.saveExistGamingHandle(GamingHandleDto);
+    public String saveGamingHandle(@ModelAttribute("GamingHandle") GamingHandleDto GamingHandleDto, Model model, @RequestParam MultipartFile img) {
+        GamingHandleEntity GamingHandleEntity = GamingHandleService.saveExistGamingHandle(GamingHandleDto,img);
         return "redirect:/seller/GamingHandlesPage";
     }
 

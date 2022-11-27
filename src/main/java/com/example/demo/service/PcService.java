@@ -7,12 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.PcDto;
 import com.example.demo.entity.PcEntity;
 
 public interface PcService {
-    PcEntity saveNewPC(PcDto PcDto);
+    PcEntity saveNewPC(PcDto PcDto,  MultipartFile img);
 
     PcDto toDto(PcEntity PcEntity);
 
@@ -22,6 +23,6 @@ public interface PcService {
 
     PcDto editPc(Integer id);
 
-    PcEntity saveExistPc(PcDto PcDto);
+    PcEntity saveExistPc(PcDto PcDto,  MultipartFile img);
 
 }

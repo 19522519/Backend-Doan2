@@ -2,6 +2,10 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -52,7 +57,7 @@ public class MouseServiceImpl implements MouseService {
     // private String fileUpload;
 
     @Override
-    public MouseEntity saveNewMouse(MouseDto MouseDto) {
+    public MouseEntity saveNewMouse(MouseDto MouseDto, MultipartFile img) {
         MouseEntity MouseEntity = new MouseEntity();
         ProductEntity productEntity = new ProductEntity();
 
@@ -75,7 +80,8 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(MouseDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = MouseDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -154,7 +160,7 @@ public class MouseServiceImpl implements MouseService {
     }
 
     @Override
-    public MouseEntity saveExistMouse(MouseDto MouseDto) {
+    public MouseEntity saveExistMouse(MouseDto MouseDto, MultipartFile img) {
         MouseEntity MouseEntity = MouseRepository.findById(MouseDto.getMouseId()).get();
         ProductEntity productEntity = productRepository.findById(MouseEntity.getProduct().getId()).get();
 
@@ -176,7 +182,8 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(MouseDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = MouseDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -193,6 +200,18 @@ public class MouseServiceImpl implements MouseService {
         return MouseEntity;
     }
 
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public MouseDto editMouse(Integer id) {
         MouseEntity MouseEntity = MouseRepository.findById(id).get();
@@ -200,6 +219,29 @@ public class MouseServiceImpl implements MouseService {
         return MouseDto;
     }
 
-    
+    @Override
+    public Page<MouseDto> findMousePaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<MouseDto> mouseDtos = new ArrayList<>();
+        List<MouseDto> list = new ArrayList<>();
+
+        for (MouseEntity mouseEntity : MouseRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
+            if (mouseEntity != null)
+                mouseDtos.add(toDto(mouseEntity));
+        }
+
+        if (mouseDtos.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, mouseDtos.size());
+            list = mouseDtos.subList(startItem, toIndex);
+        }
+
+        Page<MouseDto> mousePage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), mouseDtos.size());
+        return mousePage;
+    }
 }
 

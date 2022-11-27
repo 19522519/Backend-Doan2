@@ -7,12 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.GamingChairDto;
 import com.example.demo.entity.GamingChairEntity;
 
 public interface GamingChairService {
-    GamingChairEntity saveNewGamingChair(GamingChairDto GamingChairDto);
+    GamingChairEntity saveNewGamingChair(GamingChairDto GamingChairDto ,  MultipartFile img);
 
     GamingChairDto toDto(GamingChairEntity GamingChairEntity);
 
@@ -22,6 +23,6 @@ public interface GamingChairService {
 
     GamingChairDto editGamingChair(Integer id);
 
-    GamingChairEntity saveExistGamingChair(GamingChairDto GamingChairDto);
+    GamingChairEntity saveExistGamingChair(GamingChairDto GamingChairDto ,  MultipartFile img);
 
 }

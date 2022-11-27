@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET)
     public String managerPage() {
-        return "seller/SellerPage";
+        return "seller/dashboard";
     }
 
     @GetMapping("/seller")
     public String sellerPage() {
-        return "seller/SellerPage";
+        return "seller/dashboard";
     }
 
     // @GetMapping("/customer")

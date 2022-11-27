@@ -114,7 +114,7 @@
               <div class="job">Design By</div>
               <div class="profile_name">@GEARVN.COM</div>
             </div>
-            <i class="bx bx-log-out"></i>
+            <a th:href="@{/logout}"><i class="bx bx-log-out"></i></a>
           </div>
         </li>
       </ul>
@@ -126,7 +126,7 @@
       </div>
       <!-- <th:block th:unless="$#lists.isEmpty(laptops.pageList)"> -->
       <div class="home_list_product">
-        <table class="table table-striped">
+        <table class="table table-striped text-center">
           <thead>
             <tr>
               <th scope="col">No.</th>
@@ -168,7 +168,7 @@
           </tbody>
         </table>
         <!-- Pagination Section -->
-          <div class="row pagination text-center">
+          <div class="pagination text-center">
             <ul
               th:each="pageNumber : ${pageNumbers}"
               class="pagination_list"

@@ -2,6 +2,10 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +39,7 @@ import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.HeadPhoneService;
 
 @Service
-public class HeadPhoneServiceImpl implements HeadPhoneService {
+public class HeadphoneServiceImpl implements HeadPhoneService {
     private final Integer pageSizeDefault = 5;
 
     @Autowired
@@ -52,7 +57,7 @@ public class HeadPhoneServiceImpl implements HeadPhoneService {
     // private String fileUpload;
 
     @Override
-    public HeadPhoneEntity saveNewHeadPhone(HeadPhoneDto HeadPhoneDto) {
+    public HeadPhoneEntity saveNewHeadPhone(HeadPhoneDto HeadPhoneDto, MultipartFile img) {
         HeadPhoneEntity HeadPhoneEntity = new HeadPhoneEntity();
         ProductEntity productEntity = new ProductEntity();
 
@@ -76,7 +81,8 @@ public class HeadPhoneServiceImpl implements HeadPhoneService {
         productEntity.setIsDeleted(false);
         HeadPhoneEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(HeadPhoneDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = HeadPhoneDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -156,7 +162,7 @@ public class HeadPhoneServiceImpl implements HeadPhoneService {
     }
 
     @Override
-    public HeadPhoneEntity saveExistHeadPhone(HeadPhoneDto HeadPhoneDto) {
+    public HeadPhoneEntity saveExistHeadPhone(HeadPhoneDto HeadPhoneDto, MultipartFile img) {
         HeadPhoneEntity HeadPhoneEntity = HeadPhoneRepository.findById(HeadPhoneDto.getHeadPhoneId()).get();
         ProductEntity productEntity = productRepository.findById(HeadPhoneEntity.getProduct().getId()).get();
 
@@ -178,7 +184,8 @@ public class HeadPhoneServiceImpl implements HeadPhoneService {
         productEntity.setIsDeleted(false);
         HeadPhoneEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(HeadPhoneDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = HeadPhoneDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -193,6 +200,18 @@ public class HeadPhoneServiceImpl implements HeadPhoneService {
         HeadPhoneEntity.setProduct(productEntity);
         HeadPhoneRepository.save(HeadPhoneEntity);
         return HeadPhoneEntity;
+    }
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

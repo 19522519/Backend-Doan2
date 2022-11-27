@@ -114,7 +114,7 @@
               <div class="job">Design By</div>
               <div class="profile_name">@GEARVN.COM</div>
             </div>
-            <i class="bx bx-log-out"></i>
+            <a th:href="@{/logout}"><i class="bx bx-log-out"></i></a>
           </div>
         </li>
       </ul>
@@ -259,11 +259,7 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Thêm hình ảnh</p>
-              <input
-                type="text"
-                th:field="*{thumbnail}"
-                placeholder="Image link"
-              />
+              <input type="file" name="img" placeholder="Image link" />
             </div>
           </div>
           <div class="row add_product_part">

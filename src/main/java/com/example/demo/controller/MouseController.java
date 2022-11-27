@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -72,13 +73,13 @@ public class MouseController {
     }
 
     @PostMapping("/menu_add/save-new-mouse")
-    public String saveNewMouse(@ModelAttribute("mouse") MouseDto MouseDto,
+    public String saveNewMouse(@ModelAttribute("mouse") MouseDto MouseDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("Mouse", MouseDto);
         // return "/seller/add-Mouse";
         // }
-        MouseEntity MouseEntity = MouseService.saveNewMouse(MouseDto);
+        MouseEntity MouseEntity = MouseService.saveNewMouse(MouseDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new Mouse
         // successfully!");
         return "redirect:/seller/menu_add/add_mouse";
@@ -86,8 +87,8 @@ public class MouseController {
 
     // Insert into db
     @PostMapping("/MousesPage/save-exist")
-    public String saveMouse(@ModelAttribute("mouse") MouseDto MouseDto, Model model) {
-        MouseEntity MouseEntity = MouseService.saveExistMouse(MouseDto);
+    public String saveMouse(@ModelAttribute("mouse") MouseDto MouseDto, Model model ,@RequestParam MultipartFile img) {
+        MouseEntity MouseEntity = MouseService.saveExistMouse(MouseDto,img);
         return "redirect:/seller/MousesPage";
     }
 

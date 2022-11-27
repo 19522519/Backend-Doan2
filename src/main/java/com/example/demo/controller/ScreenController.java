@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -83,13 +84,13 @@ public class ScreenController {
     }
 
     @PostMapping("/menu_add/save-new-screen")
-    public String saveNewScreen(@ModelAttribute("screen") ScreenDto screenDto,
+    public String saveNewScreen(@ModelAttribute("screen") ScreenDto screenDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("screen", screenDto);
         // return "/seller/add-screen";
         // }
-        ScreenEntity screenEntity = screenService.saveNewScreen(screenDto);
+        ScreenEntity screenEntity = screenService.saveNewScreen(screenDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new screen
         // successfully!");
         return "redirect:/seller/menu_add/add_screen";
@@ -97,8 +98,8 @@ public class ScreenController {
 
     // Insert into db
     @PostMapping("/ScreensPage/save-exist")
-    public String saveScreen(@ModelAttribute("screen") ScreenDto screenDto, Model model) {
-        ScreenEntity screenEntity = screenService.saveExistScreen(screenDto);
+    public String saveScreen(@ModelAttribute("screen") ScreenDto screenDto, Model model, @RequestParam MultipartFile img) {
+        ScreenEntity screenEntity = screenService.saveExistScreen(screenDto,img);
         return "redirect:/seller/ScreensPage";
     }
 

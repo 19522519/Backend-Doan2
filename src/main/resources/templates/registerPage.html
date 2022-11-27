@@ -156,10 +156,9 @@
       </div>
     </div>
     <!-- DONE HEADER NAVIGATION -->
-    <div class="login_content">
+    <div class="login_content mt-4">
       <div class="container">
         <div class="row">
-          <div th:if="${param.success}">Đăng ký thành công</div>
           <form
             th:action="@{/register/save}"
             th:object="${user}"
@@ -228,8 +227,20 @@
               />
             </div>
             <!-- <button type="submit" id="login_btn">Đăng ký</button> -->
+            <div
+              th:if="${param.success}"
+              class="text-success mb-3"
+              style="font-weight: 500; font-size: 20px"
+            >
+              Đăng ký thành công!!!
+            </div>
             <div>
-              <input name="submit" type="submit" value="Đăng ký" />
+              <input
+                name="submit"
+                type="submit"
+                value="Đăng ký"
+                class="regist_btn"
+              />
               <a th:href="@{login}" class="back_btn">Quay về</a>
             </div>
           </form>
@@ -237,7 +248,7 @@
       </div>
     </div>
     <!-- DONE LOGIN CONTENT -->
-    <footer style="margin-top: 0px">
+    <footer class="mt-5">
       <div class="container">
         <div class="row">
           <div class="col">

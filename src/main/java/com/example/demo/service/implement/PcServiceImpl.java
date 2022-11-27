@@ -2,6 +2,10 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -52,7 +57,7 @@ public class PcServiceImpl implements PcService {
     // private String fileUpload;
 
     @Override
-    public PcEntity saveNewPC(PcDto PcDto) {
+    public PcEntity saveNewPC(PcDto PcDto, MultipartFile img) {
         PcEntity PcEntity = new PcEntity();
         ProductEntity productEntity = new ProductEntity();
 
@@ -76,7 +81,8 @@ public class PcServiceImpl implements PcService {
         productEntity.setIsDeleted(false);
         PcEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(PcDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = PcDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -91,6 +97,18 @@ public class PcServiceImpl implements PcService {
         PcEntity.setProduct(productEntity);
         PcRepository.save(PcEntity);
         return PcEntity;
+    }
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -157,7 +175,7 @@ public class PcServiceImpl implements PcService {
     }
 
     @Override
-    public PcEntity saveExistPc(PcDto PcDto) {
+    public PcEntity saveExistPc(PcDto PcDto ,  MultipartFile img) {
         PcEntity PcEntity = PcRepository.findById(PcDto.getPCId()).get();
         ProductEntity productEntity = productRepository.findById(PcEntity.getProduct().getId()).get();
 
@@ -180,7 +198,8 @@ public class PcServiceImpl implements PcService {
         productEntity.setIsDeleted(false);
         PcEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(PcDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = PcDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();

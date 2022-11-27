@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chuyên Laptop, PC, phụ kiện Gaming</title>
+    <title>Các sản phẩm laptop văn phòng</title>
     <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
@@ -37,7 +37,7 @@
           <div class="row">
             <div class="col-2">
               <div class="logo__shop">
-                <a href="./index.html" class="logo__shop-link">
+                <a th:href="@{/}" class="logo__shop-link">
                   <img
                     src="//theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=28697"
                     alt=""
@@ -63,24 +63,41 @@
                   <div class="col-6">
                     <div class="row action__info-user">
                       <div class="col">
-                        <a href="./signup.html"
+                        <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
                       </div>
                       <div class="col">
-                        <a href="./login.html"
-                          ><i class="bx bxs-user-circle"></i>Đăng nhập</a
-                        >
+                        <div sec:authorize="isAuthenticated()">
+                          <a th:href="@{/personal-info}"
+                            ><p sec:authentication="name"></p
+                          ></a>
+                        </div>
+                        <div sec:authorize="isAnonymous()">
+                          <a th:href="@{/login}"
+                            ><i class="bx bxs-user-circle"></i>Đăng nhập</a
+                          >
+                        </div>
                       </div>
                       <div class="col">
                         <a href=""><i class="bx bxs-discount"></i>Khuyến mãi</a>
                       </div>
                       <div class="col">
-                        <a href=""
-                          ><i class="bx bxs-cart"
-                            ><div class="number_product">0</div></i
-                          >Giỏ hàng</a
-                        >
+                        <div sec:authorize="isAuthenticated()">
+                          <p hidden th:text="${#authentication.name}"></p>
+                          <a th:href="@{/shopping-cart/views}"
+                            ><i class="bx bxs-cart"
+                              ><div class="number_product">0</div></i
+                            >Giỏ hàng</a
+                          >
+                        </div>
+                        <div sec:authorize="isAnonymous()">
+                          <a th:href="@{/login}"
+                            ><i class="bx bxs-cart"
+                              ><div class="number_product">0</div></i
+                            >Giỏ hàng</a
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -122,7 +139,7 @@
               <div class="row">
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a th:href="@{/guidepayment}"
                       ><i class="bx bx-money-withdraw"></i>HƯỚNG DẪN THANH
                       TOÁN</a
                     >
@@ -130,19 +147,21 @@
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a>
+                    <a th:href="@{/installment}"
+                      ><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a
+                    >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a th:href="@{/warranty}"
                       ><i class="bx bx-check-shield"></i>CHÍNH SÁCH BẢO HÀNH</a
                     >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a th:href="@{/delivery}"
                       ><i class="bx bxs-package"></i>CHÍNH SÁCH VẬN CHUYỂN</a
                     >
                   </div>
@@ -159,10 +178,14 @@
       <div class="container">
         <div class="row fixed_row">
           <div class="product__list-heading">
-            <h4 class="product__list_heading-name">LAPTOP GAMING</h4>
+            <h4 class="product__list_heading-name">LAPTOP VĂN PHÒNG</h4>
             <span
               >Sắp xếp theo:
-              <select name="" id="">
+              <select
+                name=""
+                id=""
+                style="padding: 0; width: auto; height: auto"
+              >
                 <option value="" selected>Bán chạy nhất</option>
                 <option value="">Giá: tăng dần</option>
                 <option value="">Giá: giảm dần</option>
@@ -176,7 +199,7 @@
 
           <div class="product__list_card">
             <div class="row">
-              <div th:each="laptop : ${laptopPage.content}" class="col-3">
+              <div th:each="laptop : ${laptopPage.content}" class="col-3 mb-4">
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">

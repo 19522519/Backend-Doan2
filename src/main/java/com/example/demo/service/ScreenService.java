@@ -7,12 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.ScreenEntity;
 
 public interface ScreenService {
-    ScreenEntity saveNewScreen(ScreenDto ScreenDto);
+    ScreenEntity saveNewScreen(ScreenDto ScreenDto , MultipartFile img);
 
     ScreenDto toDto(ScreenEntity ScreenEntity);
 
@@ -22,6 +23,8 @@ public interface ScreenService {
 
     ScreenDto editScreen(Integer id);
 
-    ScreenEntity saveExistScreen(ScreenDto ScreenDto);
+    ScreenEntity saveExistScreen(ScreenDto ScreenDto,   MultipartFile img);
 
+    // Collection Page
+    Page<ScreenDto> findScreenPaginated(Pageable pageable);
 }
