@@ -210,7 +210,7 @@
 }
 .home-section {
   position: relative;
-  background: #e4e9f7;
+  background: white;
   height: 100%;
   left: 260px;
   width: calc(100% - 260px);
@@ -239,6 +239,31 @@
   font-size: 26px;
   font-weight: 600;
 }
+
+#edit_ListBtn {
+  text-decoration: none;
+  background: rgb(0, 110, 254);
+  color: white;
+  padding: 4px 20px;
+  border-radius: 10px;
+}
+
+#delete_ListBtn {
+  text-decoration: none;
+  background: rgb(254, 25, 0);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 10px;
+}
+
+#edit_ListBtn:hover {
+  background: rgb(0, 66, 151);
+}
+
+#delete_ListBtn:hover {
+  background: rgb(180, 18, 0);
+}
+
 @media (max-width: 400px) {
   .sidebar.close .nav-links li .sub-menu {
     display: none;
@@ -688,3 +713,30 @@ select:focus {
   margin: auto;
 }
 /* END STATISTIC SECTION */
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: black;
+}
+/* Pagination */
+.home-section .section_403 {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 50px auto;
+}
+
+.home-section .section_403 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-section .section_403 h1 {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+/* 403 page */

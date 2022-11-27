@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -62,13 +63,13 @@ public class KeyBoardController {
     }
 
     @PostMapping("/menu_add/save-new-keyboard")
-    public String saveNewKeyBoard(@ModelAttribute("keyboard") KeyBoardDto KeyBoardDto,
+    public String saveNewKeyBoard(@ModelAttribute("keyboard") KeyBoardDto KeyBoardDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("KeyBoard", KeyBoardDto);
         // return "/seller/add-KeyBoard";
         // }
-        KeyBoardEntity KeyBoardEntity = keyBoardService.saveNewKeyBoard(KeyBoardDto);
+        KeyBoardEntity KeyBoardEntity = keyBoardService.saveNewKeyBoard(KeyBoardDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new KeyBoard
         // successfully!");
         return "redirect:/seller/menu_add/add_keyboard";
@@ -76,8 +77,8 @@ public class KeyBoardController {
 
     // Insert into db
     @PostMapping("/KeyBoardsPage/save-exist")
-    public String saveKeyBoard(@ModelAttribute("keyboard") KeyBoardDto KeyBoardDto, Model model) {
-        KeyBoardEntity KeyBoardEntity = keyBoardService.saveExistKeyBoard(KeyBoardDto);
+    public String saveKeyBoard(@ModelAttribute("keyboard") KeyBoardDto KeyBoardDto, Model model, @RequestParam MultipartFile img) {
+        KeyBoardEntity KeyBoardEntity = keyBoardService.saveExistKeyBoard(KeyBoardDto,img);
         return "redirect:/seller/KeyBoardsPage";
     }
 

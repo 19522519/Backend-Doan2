@@ -7,12 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.HeadPhoneDto;
 import com.example.demo.entity.HeadPhoneEntity;
 
 public interface HeadPhoneService {
-    HeadPhoneEntity saveNewHeadPhone(HeadPhoneDto headPhoneDto);
+    HeadPhoneEntity saveNewHeadPhone(HeadPhoneDto headPhoneDto,  MultipartFile img);
 
     HeadPhoneDto toDto(HeadPhoneEntity headPhoneEntity);
 
@@ -22,6 +23,6 @@ public interface HeadPhoneService {
 
     HeadPhoneDto editHeadPhone(Integer id);
 
-    HeadPhoneEntity saveExistHeadPhone(HeadPhoneDto headPhoneDto);
+    HeadPhoneEntity saveExistHeadPhone(HeadPhoneDto headPhoneDto ,  MultipartFile img);
 
 }

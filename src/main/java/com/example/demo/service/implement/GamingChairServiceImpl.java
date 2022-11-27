@@ -2,6 +2,10 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -52,7 +57,7 @@ public class GamingChairServiceImpl implements GamingChairService {
     // private String fileUpload;
 
     @Override
-    public GamingChairEntity saveNewGamingChair(GamingChairDto GamingChairDto) {
+    public GamingChairEntity saveNewGamingChair(GamingChairDto GamingChairDto, MultipartFile img) {
         GamingChairEntity GamingChairEntity = new GamingChairEntity();
         ProductEntity productEntity = new ProductEntity();
 
@@ -70,7 +75,8 @@ public class GamingChairServiceImpl implements GamingChairService {
         productEntity.setIsDeleted(false);
         GamingChairEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(GamingChairDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = GamingChairDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -145,7 +151,7 @@ public class GamingChairServiceImpl implements GamingChairService {
     }
 
     @Override
-    public GamingChairEntity saveExistGamingChair(GamingChairDto GamingChairDto) {
+    public GamingChairEntity saveExistGamingChair(GamingChairDto GamingChairDto, MultipartFile img) {
         GamingChairEntity GamingChairEntity = GamingChairRepository.findById(GamingChairDto.getGamingChairId()).get();
         ProductEntity productEntity = productRepository.findById(GamingChairEntity.getProduct().getId()).get();
 
@@ -164,7 +170,8 @@ public class GamingChairServiceImpl implements GamingChairService {
         productEntity.setIsDeleted(false);
         GamingChairEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(GamingChairDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = GamingChairDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -180,6 +187,19 @@ public class GamingChairServiceImpl implements GamingChairService {
         GamingChairRepository.save(GamingChairEntity);
         return GamingChairEntity;
     }
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Override
     public GamingChairDto editGamingChair(Integer id) {

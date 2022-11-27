@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         appUser.setUserName(userDto.getUserName());
         appUser.setEncrytedPassword(bCryptPasswordEncoder.encode(userDto.getEncrytedPassword()));
         appUser.setEnabled(1);
-
+        appUser.setIsDeleted(false);
         return appUserRepository.save(appUser);
     }
 

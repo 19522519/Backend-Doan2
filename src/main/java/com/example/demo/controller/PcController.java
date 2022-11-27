@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -99,13 +100,13 @@ public class PcController {
     }
 
     @PostMapping("/menu_add/save-new-pc")
-    public String saveNewPc(@ModelAttribute("Pc") PcDto PcDto,
+    public String saveNewPc(@ModelAttribute("Pc") PcDto PcDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("Pc", PcDto);
         // return "/seller/add-Pc";
         // }
-        PcEntity PcEntity = PcService.saveNewPC(PcDto);
+        PcEntity PcEntity = PcService.saveNewPC(PcDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new Pc
         // successfully!");
         return "redirect:/seller/menu_add/add_pc";
@@ -113,8 +114,8 @@ public class PcController {
 
     // Insert into db
     @PostMapping("/PcsPage/save-exist")
-    public String savePc(@ModelAttribute("Pc") PcDto PcDto, Model model) {
-        PcEntity PcEntity = PcService.saveExistPc(PcDto);
+    public String savePc(@ModelAttribute("Pc") PcDto PcDto, Model model, @RequestParam MultipartFile img) {
+        PcEntity PcEntity = PcService.saveExistPc(PcDto,img);
         return "redirect:/seller/PcsPage";
     }
 

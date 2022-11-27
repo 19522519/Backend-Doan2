@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -66,13 +67,13 @@ public class HeadPhoneController {
     }
 
     @PostMapping("/menu_add/save-new-headphone")
-    public String saveNewHeadPhone(@ModelAttribute("headphone") HeadPhoneDto HeadPhoneDto,
+    public String saveNewHeadPhone(@ModelAttribute("headphone") HeadPhoneDto HeadPhoneDto, @RequestParam MultipartFile img,
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // if (bindingResult.hasErrors()) {
         // model.addAttribute("HeadPhone", HeadPhoneDto);
         // return "/seller/add-HeadPhone";
         // }
-        HeadPhoneEntity HeadPhoneEntity = HeadPhoneService.saveNewHeadPhone(HeadPhoneDto);
+        HeadPhoneEntity HeadPhoneEntity = HeadPhoneService.saveNewHeadPhone(HeadPhoneDto,img);
         // redirectAttributes.addFlashAttribute("success", "Insert new HeadPhone
         // successfully!");
         return "redirect:/seller/menu_add/add_headphone";
@@ -80,8 +81,8 @@ public class HeadPhoneController {
 
     // Insert into db
     @PostMapping("/HeadPhonesPage/save-exist")
-    public String saveHeadPhone(@ModelAttribute("headphone") HeadPhoneDto HeadPhoneDto, Model model) {
-        HeadPhoneEntity HeadPhoneEntity = HeadPhoneService.saveExistHeadPhone(HeadPhoneDto);
+    public String saveHeadPhone(@ModelAttribute("headphone") HeadPhoneDto HeadPhoneDto, Model model, @RequestParam MultipartFile img) {
+        HeadPhoneEntity HeadPhoneEntity = HeadPhoneService.saveExistHeadPhone(HeadPhoneDto,img);
         return "redirect:/seller/HeadPhonesPage";
     }
 

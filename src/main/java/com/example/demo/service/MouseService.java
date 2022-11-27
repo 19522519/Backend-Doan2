@@ -7,12 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.MouseDto;
 import com.example.demo.entity.MouseEntity;
 
 public interface MouseService {
-    MouseEntity saveNewMouse(MouseDto MouseDto);
+    MouseEntity saveNewMouse(MouseDto MouseDto ,  MultipartFile img);
 
     MouseDto toDto(MouseEntity MouseEntity);
 
@@ -22,6 +23,9 @@ public interface MouseService {
 
     MouseDto editMouse(Integer id);
 
-    MouseEntity saveExistMouse(MouseDto MouseDto);
+    MouseEntity saveExistMouse(MouseDto MouseDto,   MultipartFile img);
+
+    // Collection Page
+    Page<MouseDto> findMousePaginated(Pageable pageable);
 
 }

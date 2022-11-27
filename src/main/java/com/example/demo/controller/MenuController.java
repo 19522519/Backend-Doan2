@@ -25,14 +25,14 @@ public class MenuController {
     @Autowired
     OrderService orderService;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/")
     public String dashboard() {
-        return "seller/Dashboard";
+        return "/seller/";
     }
 
     @GetMapping("/menu_add")
     public String menuAdd() {
-        return "seller/product/menu_add";
+        return "/seller/product/menu_add";
     }
 
     @GetMapping("/menu_list_product")

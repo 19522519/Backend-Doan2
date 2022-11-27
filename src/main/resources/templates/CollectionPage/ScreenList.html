@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Các sản phẩm laptop gaming</title>
+    <title>Các sản phẩm màn hình</title>
     <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
@@ -178,7 +178,7 @@
       <div class="container">
         <div class="row fixed_row">
           <div class="product__list-heading">
-            <h4 class="product__list_heading-name">LAPTOP GAMING</h4>
+            <h4 class="product__list_heading-name">MÀN HÌNH MÁY TÍNH</h4>
             <span
               >Sắp xếp theo:
               <select
@@ -199,12 +199,12 @@
 
           <div class="product__list_card">
             <div class="row">
-              <div th:each="laptop : ${laptopPage.content}" class="col-3 mb-3">
+              <div th:each="screen : ${screenPage.content}" class="col-3 mb-4">
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
-                      ><img th:src="@{'/images/' + ${laptop.thumbnail}}" alt=""
+                    <a th:href="@{/detail/{id}(id=${screen.ScreenId})}"
+                      ><img th:src="@{'/images/' + ${screen.thumbnail}}" alt=""
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
@@ -212,14 +212,14 @@
                     </div>
                   </div>
                   <div class="product_card-description">
-                    <p hidden th:text="${laptop.laptopId}"></p>
-                    <p th:text="${laptop.laptopName}"></p>
+                    <p hidden th:text="${screen.ScreenId}"></p>
+                    <p th:text="${screen.Screenname}"></p>
                     <div class="product_card-description-sale">
                       <div class="product_card-description-sale--price">
-                        <span th:text="${laptop.price}+đ"></span>
+                        <span th:text="${screen.price}+đ"></span>
                       </div>
                       <div class="discount">
-                        <span th:text="${laptop.discount}+'%'"></span>
+                        <span th:text="${screen.discount}+'%'"></span>
                       </div>
                     </div>
                   </div>
@@ -229,11 +229,11 @@
           </div>
           <div class="row pagination text-center">
             <ul th:each="pageNumber : ${pageNumbers}" class="pagination_list">
-              <li th:if="${laptopPage.totalPages > 0}" class="page-link">
+              <li th:if="${screenPage.totalPages > 0}" class="page-link">
                 <a
-                  th:href="@{/collections/laptop-gaming(size=${laptopPage.size}, page=${pageNumber})}"
+                  th:href="@{/collections/man-hinh(size=${screenPage.size}, page=${pageNumber})}"
                   th:text="${pageNumber}"
-                  th:class="${pageNumber == laptopPage.number + 1} ? active"
+                  th:class="${pageNumber == screenPage.number + 1} ? active"
                 ></a>
               </li>
             </ul>

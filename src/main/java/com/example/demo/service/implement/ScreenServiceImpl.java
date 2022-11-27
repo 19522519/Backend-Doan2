@@ -2,6 +2,10 @@ package com.example.demo.service.implement;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -52,7 +57,7 @@ public class ScreenServiceImpl implements ScreenService {
     // private String fileUpload;
 
     @Override
-    public ScreenEntity saveNewScreen(ScreenDto ScreenDto) {
+    public ScreenEntity saveNewScreen(ScreenDto ScreenDto, MultipartFile img) {
         ScreenEntity ScreenEntity = new ScreenEntity();
         ProductEntity productEntity = new ProductEntity();
 
@@ -76,7 +81,8 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(ScreenDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = ScreenDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -156,7 +162,7 @@ public class ScreenServiceImpl implements ScreenService {
     }
 
     @Override
-    public ScreenEntity saveExistScreen(ScreenDto ScreenDto) {
+    public ScreenEntity saveExistScreen(ScreenDto ScreenDto , MultipartFile img) {
         ScreenEntity ScreenEntity = ScreenRepository.findById(ScreenDto.getScreenId()).get();
         ProductEntity productEntity = productRepository.findById(ScreenEntity.getProduct().getId()).get();
 
@@ -179,7 +185,8 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
 
-        productEntity.setThumbnail(ScreenDto.getThumbnail());
+        productEntity.setThumbnail(img.getOriginalFilename());
+        saveFile(productEntity.getThumbnail(), img);
 
         // MultipartFile multipartFile = ScreenDto.getThumbnail();
         // String fileName = multipartFile.getOriginalFilename();
@@ -203,6 +210,40 @@ public class ScreenServiceImpl implements ScreenService {
         return ScreenDto;
     }
 
-    
-}
+    @Override
+    public Page<ScreenDto> findScreenPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
 
+        List<ScreenDto> ScreenDtos = new ArrayList<>();
+        List<ScreenDto> list = new ArrayList<>();
+
+        for (ScreenEntity ScreenEntity : ScreenRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
+            if (ScreenEntity != null)
+                ScreenDtos.add(toDto(ScreenEntity));
+        }
+
+        if (ScreenDtos.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, ScreenDtos.size());
+            list = ScreenDtos.subList(startItem, toIndex);
+        }
+
+        Page<ScreenDto> ScreenPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), ScreenDtos.size());
+        return ScreenPage;
+    }
+
+    public void saveFile(String image, MultipartFile img) {
+        if (image != null) {
+            try {
+                File saveFile = new ClassPathResource("static/images").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
+                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+   }
+}
