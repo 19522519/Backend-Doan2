@@ -23,7 +23,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public void createUserRole(AppUser appUser) {
-        AppRole appRole = appRoleRepository.findByRoleName("ROLE_USER");
+        AppRole appRole = appRoleRepository.findByRoleName("ROLE_CUSTOMER");
         UserRole userRole = new UserRole();
         userRole.setAppUser(appUser);
         userRole.setAppRole(appRole);
