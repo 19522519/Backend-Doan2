@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
     public List<UserOrderDto> showUserOrderPage(AppUser appUser) {
         List<UserOrderDto> userOrderDtos = new ArrayList<>();
 
-        List<OrderEntity> orderEntities = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
+        List<OrderEntity> orderEntities = orderRepository.findByAppUser(appUser);
         if (orderEntities != null) {
             for (OrderEntity orderEntity : orderEntities) {
                 if (orderEntity.getIsDeleted() == true) {
@@ -145,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
     public List<UserOrderDto> showUserOrderPage() {
         List<UserOrderDto> userOrderDtos = new ArrayList<>();
 
-        List<CartItemEntity> cartItemEntities = cartItemRepository.findByIsDeletedIsFalse();
+        List<CartItemEntity> cartItemEntities = cartItemRepository.findAll();
         if (cartItemEntities != null) {
             for (CartItemEntity cartItemEntity : cartItemEntities) {
                 if (cartItemEntity.getIsDeleted() == true) {

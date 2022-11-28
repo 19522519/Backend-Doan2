@@ -27,10 +27,10 @@ import com.example.demo.repository.BrandRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.KeyBoardRepository;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.service.KeyBoardService;
+import com.example.demo.service.KeyboardService;
 
 @Service
-public class KeyboardServiceImpl implements KeyBoardService {
+public class KeyboardServiceImpl implements KeyboardService {
     private final Integer pageSizeDefault = 5;
 
     @Autowired

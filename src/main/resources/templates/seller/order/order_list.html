@@ -138,13 +138,13 @@
           </thead>
           <tbody>
             <tr th:each="item : ${userOrders}">
-              <td><span th:text="${item.orderId}"></span></td>
-              <td><span th:text="${item.receiver}"></span></td>
-              <td><span th:text="${item.phone}"></span></td>
-              <td><span th:text="${item.shippingDate}"></span></td>
-              <td><span th:text="${item.price}"></span></td>
-              <td><span th:text="${item.paymentMethod}"></span></td>
-              <td><span th:text="${item.status}"></span></td>
+              <td th:text="${item.orderId}"></td>
+              <td th:text="${item.receiver}"></td>
+              <td th:text="${item.phone}"></td>
+              <td th:text="${item.shippingDate}"></td>
+              <td th:text="${item.price}"></td>
+              <td th:text="${item.paymentMethod}"></td>
+              <td th:text="${item.status}"></td>
               <td>
                 <a href=""><i class="fas fa-edit"></i> Edit</a>
                 <a href=""><i class="fas fa-trash-alt"></i> Delete</a>

@@ -36,7 +36,7 @@
           <div class="row">
             <div class="col-2">
               <div class="logo__shop">
-                <a href="./index.html" class="logo__shop-link">
+                <a th:href="@{/}" class="logo__shop-link">
                   <img
                     src="//theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=28697"
                     alt=""
@@ -62,14 +62,15 @@
                   <div class="col-6">
                     <div class="row action__info-user">
                       <div class="col">
-                        <a href="./signup.html"
+                        <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
                       </div>
                       <div class="col">
                         <div sec:authorize="isAuthenticated()">
-                          <a th:href="@{/personal-info}"
-                            ><p sec:authentication="name"></p
+                          <a th:href="@{/personal-info}" style="color: red"
+                            ><i class="bx bxs-user-circle"></i>
+                            <p sec:authentication="name"></p
                           ></a>
                         </div>
                         <div sec:authorize="isAnonymous()">
@@ -139,7 +140,7 @@
               <div class="row">
                 <div class="col">
                   <div class="col-container">
-                    <a href="./guidepayment.html"
+                    <a th:href="@{/guidepayment}"
                       ><i class="bx bx-money-withdraw"></i>HƯỚNG DẪN THANH
                       TOÁN</a
                     >
@@ -147,21 +148,21 @@
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href="installment.html"
+                    <a th:href="@{/installment}"
                       ><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a
                     >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href="warranty.html"
+                    <a th:href="@{/warranty}"
                       ><i class="bx bx-check-shield"></i>CHÍNH SÁCH BẢO HÀNH</a
                     >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href="delivery.html"
+                    <a th:href="@{/delivery}"
                       ><i class="bx bxs-package"></i>CHÍNH SÁCH VẬN CHUYỂN</a
                     >
                   </div>

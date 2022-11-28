@@ -13,4 +13,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
     OrderEntity findByIdAndIsDeletedIsFalse(Integer id);
 
     List<OrderEntity> findByAppUserAndIsDeletedIsFalse(AppUser appUser);
+
+    List<OrderEntity> findByAppUser(AppUser appUser);
+
 }

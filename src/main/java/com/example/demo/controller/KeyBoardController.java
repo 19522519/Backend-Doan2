@@ -26,14 +26,14 @@ import com.example.demo.entity.KeyBoardEntity;
 import com.example.demo.repository.KeyBoardRepository;
 import com.example.demo.service.BrandService;
 import com.example.demo.service.CategoryService;
-import com.example.demo.service.KeyBoardService;
+import com.example.demo.service.KeyboardService;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 @RequestMapping("/seller")
 public class KeyBoardController {
     @Autowired
-    KeyBoardService keyBoardService;
+    KeyboardService keyBoardService;
 
     @Autowired
     BrandService brandService;

@@ -13,7 +13,7 @@ import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.KeyBoardEntity;
 
-public interface KeyBoardService {
+public interface KeyboardService {
     KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto, MultipartFile img);
 
     KeyBoardDto toDto(KeyBoardEntity keyBoardEntity);

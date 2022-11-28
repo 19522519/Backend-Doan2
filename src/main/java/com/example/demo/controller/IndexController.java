@@ -26,7 +26,7 @@ import com.example.demo.dto.MouseDto;
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.repository.AppUserRepository;
-import com.example.demo.service.KeyBoardService;
+import com.example.demo.service.KeyboardService;
 import com.example.demo.service.LaptopService;
 import com.example.demo.service.MouseService;
 import com.example.demo.service.ScreenService;
@@ -44,7 +44,7 @@ public class IndexController {
     ScreenService screenService;
 
     @Autowired
-    KeyBoardService keyboardService;
+    KeyboardService keyboardService;
 
     @Autowired
     MouseService mouseService;
