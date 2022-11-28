@@ -117,6 +117,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public Integer countItemInCart(AppUser appUser) {
+        Integer countItem = 0;
+        List<CartItemEntity> cartItemEntities = appUser.getCartItems();
+        if (cartItemEntities != null) {
+            for (CartItemEntity cartItemEntity : cartItemEntities) {
+                if (cartItemEntity.getIsDeleted() == false)
+                    countItem += cartItemEntity.getQuantity();
+            }
+        }
+        return countItem;
+    }
+
+    @Override
     public void removeCartItem(AppUser appUser, Integer cartItemInteger) {
         CartItemEntity cartItemEntity = cartItemRepository.findByIdAndIsDeletedIsFalse(cartItemInteger);
         if (cartItemEntity != null) {

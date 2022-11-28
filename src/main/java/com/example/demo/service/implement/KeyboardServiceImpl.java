@@ -1,7 +1,6 @@
 package com.example.demo.service.implement;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,14 +8,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,12 +17,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.entity.BrandEntity;
-import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.KeyBoardEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.BrandRepository;
@@ -97,7 +88,6 @@ public class KeyboardServiceImpl implements KeyBoardService {
         keyBoardRepository.save(keyBoardEntity);
         return keyBoardEntity;
     }
-
 
     public void saveFile(String image, MultipartFile img) {
         if (image != null) {
@@ -173,7 +163,7 @@ public class KeyboardServiceImpl implements KeyBoardService {
     }
 
     @Override
-    public KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto , MultipartFile img) {
+    public KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto, MultipartFile img) {
         KeyBoardEntity keyBoardEntity = keyBoardRepository.findById(keyBoardDto.getKeyBoardId()).get();
         ProductEntity productEntity = productRepository.findById(keyBoardEntity.getProduct().getId()).get();
 
@@ -240,8 +230,15 @@ public class KeyboardServiceImpl implements KeyBoardService {
             list = keyboardDtos.subList(startItem, toIndex);
         }
 
-        Page<KeyBoardDto> keyboardPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), keyboardDtos.size());
+        Page<KeyBoardDto> keyboardPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize),
+                keyboardDtos.size());
         return keyboardPage;
     }
 
+    @Override
+    public KeyBoardDto keyboardDetail(Integer id) {
+        KeyBoardEntity keyBoardEntity = keyBoardRepository.findById(id).get();
+        KeyBoardDto keyBoardDto = toDto(keyBoardEntity);
+        return keyBoardDto;
+    }
 }

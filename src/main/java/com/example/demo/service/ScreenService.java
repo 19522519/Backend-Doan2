@@ -13,7 +13,7 @@ import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.ScreenEntity;
 
 public interface ScreenService {
-    ScreenEntity saveNewScreen(ScreenDto ScreenDto , MultipartFile img);
+    ScreenEntity saveNewScreen(ScreenDto ScreenDto, MultipartFile img);
 
     ScreenDto toDto(ScreenEntity ScreenEntity);
 
@@ -23,8 +23,10 @@ public interface ScreenService {
 
     ScreenDto editScreen(Integer id);
 
-    ScreenEntity saveExistScreen(ScreenDto ScreenDto,   MultipartFile img);
+    ScreenEntity saveExistScreen(ScreenDto ScreenDto, MultipartFile img);
 
     // Collection Page
     Page<ScreenDto> findScreenPaginated(Pageable pageable);
+
+    ScreenDto screenDetail(Integer id);
 }

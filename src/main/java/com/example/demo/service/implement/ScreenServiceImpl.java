@@ -29,7 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.BrandEntity;
-import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ScreenEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.BrandRepository;
@@ -43,7 +42,7 @@ public class ScreenServiceImpl implements ScreenService {
     private final Integer pageSizeDefault = 5;
 
     @Autowired
-    ScreenRepository ScreenRepository;
+    ScreenRepository screenRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -76,7 +75,7 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setInsurance(ScreenDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
+
         productEntity.setQuantity(ScreenDto.getQuantity());
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
@@ -95,7 +94,7 @@ public class ScreenServiceImpl implements ScreenService {
         // productEntity.setThumbnail(fileName);
 
         ScreenEntity.setProduct(productEntity);
-        ScreenRepository.save(ScreenEntity);
+        screenRepository.save(ScreenEntity);
         return ScreenEntity;
     }
 
@@ -142,7 +141,7 @@ public class ScreenServiceImpl implements ScreenService {
     @Override
     public List<ScreenDto> findAllScreen() {
         List<ScreenDto> ScreenDtos = new ArrayList<>();
-        for (ScreenEntity ScreenEntity : ScreenRepository.findByIsDeletedIsFalse(
+        for (ScreenEntity ScreenEntity : screenRepository.findByIsDeletedIsFalse(
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id")))) {
             ScreenDtos.add(toDto(ScreenEntity));
         }
@@ -151,9 +150,9 @@ public class ScreenServiceImpl implements ScreenService {
 
     @Override
     public void deleteScreen(Integer id) {
-        ScreenEntity Screen = ScreenRepository.findById(id).get();
+        ScreenEntity Screen = screenRepository.findById(id).get();
         Screen.setIsDeleted(true);
-        ScreenRepository.save(Screen);
+        screenRepository.save(Screen);
 
         Integer productId = Screen.getProduct().getId();
         ProductEntity productEntity = productRepository.findById(productId).get();
@@ -162,8 +161,8 @@ public class ScreenServiceImpl implements ScreenService {
     }
 
     @Override
-    public ScreenEntity saveExistScreen(ScreenDto ScreenDto , MultipartFile img) {
-        ScreenEntity ScreenEntity = ScreenRepository.findById(ScreenDto.getScreenId()).get();
+    public ScreenEntity saveExistScreen(ScreenDto ScreenDto, MultipartFile img) {
+        ScreenEntity ScreenEntity = screenRepository.findById(ScreenDto.getScreenId()).get();
         ProductEntity productEntity = productRepository.findById(ScreenEntity.getProduct().getId()).get();
 
         productEntity.setName(ScreenDto.getScreenname());
@@ -180,7 +179,7 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setInsurance(ScreenDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
+
         productEntity.setQuantity(ScreenDto.getQuantity());
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
@@ -199,13 +198,13 @@ public class ScreenServiceImpl implements ScreenService {
         // productEntity.setThumbnail(fileName);
 
         ScreenEntity.setProduct(productEntity);
-        ScreenRepository.save(ScreenEntity);
+        screenRepository.save(ScreenEntity);
         return ScreenEntity;
     }
 
     @Override
     public ScreenDto editScreen(Integer id) {
-        ScreenEntity ScreenEntity = ScreenRepository.findById(id).get();
+        ScreenEntity ScreenEntity = screenRepository.findById(id).get();
         ScreenDto ScreenDto = toDto(ScreenEntity);
         return ScreenDto;
     }
@@ -219,7 +218,7 @@ public class ScreenServiceImpl implements ScreenService {
         List<ScreenDto> ScreenDtos = new ArrayList<>();
         List<ScreenDto> list = new ArrayList<>();
 
-        for (ScreenEntity ScreenEntity : ScreenRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
+        for (ScreenEntity ScreenEntity : screenRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
             if (ScreenEntity != null)
                 ScreenDtos.add(toDto(ScreenEntity));
         }
@@ -245,5 +244,12 @@ public class ScreenServiceImpl implements ScreenService {
                 e.printStackTrace();
             }
         }
-   }
+    }
+
+    @Override
+    public ScreenDto screenDetail(Integer id) {
+        ScreenEntity screenEntity = screenRepository.findById(id).get();
+        ScreenDto screenDto = toDto(screenEntity);
+        return screenDto;
+    }
 }

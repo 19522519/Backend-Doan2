@@ -12,6 +12,8 @@ public interface ShoppingCartService {
 
     Integer calculateTotalMoney(AppUser appUser);
 
+    Integer countItemInCart(AppUser appUser);
+
     void removeCartItem(AppUser appUser, Integer cartItemId);
 
     void updateQuantityProduct(List<CartItemDto> cartItemDtos);

@@ -14,7 +14,7 @@ import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.KeyBoardEntity;
 
 public interface KeyBoardService {
-    KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto ,  MultipartFile img);
+    KeyBoardEntity saveNewKeyBoard(KeyBoardDto keyBoardDto, MultipartFile img);
 
     KeyBoardDto toDto(KeyBoardEntity keyBoardEntity);
 
@@ -24,9 +24,10 @@ public interface KeyBoardService {
 
     KeyBoardDto editKeyBoard(Integer id);
 
-    KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto,   MultipartFile img);
+    KeyBoardEntity saveExistKeyBoard(KeyBoardDto keyBoardDto, MultipartFile img);
 
     // Collection Page
     Page<KeyBoardDto> findKeyBoardPaginated(Pageable pageable);
 
+    KeyBoardDto keyboardDetail(Integer id);
 }

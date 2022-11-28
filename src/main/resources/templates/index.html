@@ -91,7 +91,8 @@
                           <p hidden th:text="${#authentication.name}"></p>
                           <a th:href="@{/shopping-cart/views}"
                             ><i class="bx bxs-cart"
-                              ><div class="number_product">0</div></i
+                              ><div class="number_product">
+                                <span th:text="${countItem}"></span></div></i
                             >Giỏ hàng</a
                           >
                         </div>
@@ -395,7 +396,7 @@
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                    <a th:href="@{/laptop/{id}(id=${laptop.laptopId})}"
                       ><img th:src="@{'/images/' + ${laptop.thumbnail}}" alt=""
                     /></a>
                     <div class="product_detail">
@@ -435,7 +436,7 @@
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                    <a th:href="@{/laptop/{id}(id=${laptop.laptopId})}"
                       ><img th:src="@{'/images/' + ${laptop.thumbnail}}" alt=""
                     /></a>
                     <div class="product_detail">
@@ -518,7 +519,7 @@
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${laptop.laptopId})}"
+                    <a th:href="@{/laptop/{id}(id=${laptop.laptopId})}"
                       ><img th:src="@{'/images/' + ${laptop.thumbnail}}" alt=""
                     /></a>
                     <div class="product_detail">
@@ -575,7 +576,7 @@
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${screen.ScreenId})}"
+                    <a th:href="@{/screen/{id}(id=${screen.ScreenId})}"
                       ><img th:src="@{'/images/' + ${screen.thumbnail}}" alt=""
                     /></a>
                     <div class="product_detail">
@@ -632,7 +633,7 @@
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${keyboard.KeyBoardId})}"
+                    <a th:href="@{/keyboard/{id}(id=${keyboard.KeyBoardId})}"
                       ><img
                         th:src="@{'/images/' + ${keyboard.thumbnail}}"
                         alt=""
@@ -691,7 +692,7 @@
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
                   <div class="product_card-image">
-                    <a th:href="@{/detail/{id}(id=${mouse.MouseId})}"
+                    <a th:href="@{/mouse/{id}(id=${mouse.MouseId})}"
                       ><img th:src="@{'/images/' + ${mouse.thumbnail}}" alt=""
                     /></a>
                     <div class="product_detail">

@@ -63,7 +63,10 @@ public class ShoppingCartController {
                             orderId = orderEntity.getId();
                     }
                     model.addAttribute("orderId", orderId);
-                    return "CartPage";
+
+                    // Count Item in Cart of Current User
+                    model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+                    return "redirect:/shopping-cart/views";
                 }
             } else {
                 return "redirect:/login";
@@ -95,6 +98,9 @@ public class ShoppingCartController {
                             orderId = orderEntity.getId();
                     }
                     model.addAttribute("orderId", orderId);
+
+                    // Count Item in Cart of Current User
+                    model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
 
                     return "CartPage";
                 }
@@ -131,7 +137,10 @@ public class ShoppingCartController {
                     }
                     model.addAttribute("orderId", orderId);
 
-                    return "CartPage";
+                    // Count Item in Cart of Current User
+                    model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+
+                    return "redirect:/shopping-cart/views";
                 }
             } else {
                 return "redirect:/login";

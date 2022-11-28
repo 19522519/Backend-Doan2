@@ -75,7 +75,7 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setInsurance(MouseDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
+
         productEntity.setQuantity(MouseDto.getQuantity());
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
@@ -177,7 +177,7 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setInsurance(MouseDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
+
         productEntity.setQuantity(MouseDto.getQuantity());
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
@@ -243,5 +243,11 @@ public class MouseServiceImpl implements MouseService {
         Page<MouseDto> mousePage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), mouseDtos.size());
         return mousePage;
     }
-}
 
+    @Override
+    public MouseDto mouseDetail(Integer id) {
+        MouseEntity mouseEntity = MouseRepository.findById(id).get();
+        MouseDto mouseDto = toDto(mouseEntity);
+        return mouseDto;
+    }
+}

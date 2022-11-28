@@ -9,6 +9,9 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +24,19 @@ import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.dto.LaptopDto;
 import com.example.demo.dto.MouseDto;
 import com.example.demo.dto.ScreenDto;
+import com.example.demo.entity.AppUser;
+import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.KeyBoardService;
 import com.example.demo.service.LaptopService;
 import com.example.demo.service.MouseService;
 import com.example.demo.service.ScreenService;
+import com.example.demo.service.ShoppingCartService;
 
 @Controller
 public class IndexController {
+    @Autowired
+    AppUserRepository appUserRepository;
+
     @Autowired
     LaptopService laptopService;
 
@@ -40,16 +49,19 @@ public class IndexController {
     @Autowired
     MouseService mouseService;
 
+    @Autowired
+    ShoppingCartService shoppingCartService;
+
     @GetMapping({ "/", "/index" })
     public String homePage(Model model) {
 
         // Laptop Gaming
         List<LaptopDto> laptopDtosGaming = laptopService.findAllLaptopGaming();
-        
+
         int size = laptopDtosGaming.size();
         List<LaptopDto> first = new ArrayList<>();
         List<LaptopDto> second = new ArrayList<>();
-        for (int i = 0; i < size/2; i++)
+        for (int i = 0; i < size / 2; i++)
             first.add(laptopDtosGaming.get(i));
         for (int i = size / 2; i < size; i++)
             second.add(laptopDtosGaming.get(i));
@@ -65,13 +77,22 @@ public class IndexController {
 
         // List Chuột
         List<MouseDto> mouseDtos = mouseService.findAllMouse();
-        
+
         model.addAttribute("first", first);
         model.addAttribute("second", second);
         model.addAttribute("laptopDtosVanPhong", laptopDtosVanPhong);
         model.addAttribute("screenDtos", screenDtos);
         model.addAttribute("keyboardDtos", keyboardDtos);
         model.addAttribute("mouseDtos", mouseDtos);
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
 
         return "index";
     }
@@ -93,7 +114,7 @@ public class IndexController {
 
     // @RequestMapping(value = "/warranty", method = RequestMethod.GET)
     // public String warrantyPage() {
-    //     return "WarrantyPage";
+    // return "WarrantyPage";
     // }
     // @GetMapping("/")
     // public String index(Model model, HttpServletRequest request) {
@@ -167,10 +188,68 @@ public class IndexController {
     // return "index";
     // }
 
-    @GetMapping("/detail/{id}")
-    public String detailPage(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/laptop/{id}")
+    public String LaptopDetailPage(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("laptop", laptopService.detailLaptop(id));
-        return "LaptopDetailPage";
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
+        return "product_detail/LaptopDetailPage";
+    }
+
+    @GetMapping("/keyboard/{id}")
+    public String keyboardDetailPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("keyboard", keyboardService.keyboardDetail(id));
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
+        return "product_detail/KeyboardDetailPage";
+    }
+
+    @GetMapping("/screen/{id}")
+    public String screenDetailPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("screen", screenService.screenDetail(id));
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
+        return "product_detail/ScreenDetailPage";
+    }
+
+    @GetMapping("/mouse/{id}")
+    public String mouseDetailPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("mouse", mouseService.mouseDetail(id));
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
+        return "product_detail/MouseDetailPage";
     }
 
     @GetMapping("/collections/laptop-gaming")
@@ -192,6 +271,16 @@ public class IndexController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers_Gaming);
         }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
         return "CollectionPage/GamingLaptopsList";
     }
 
@@ -212,6 +301,16 @@ public class IndexController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
         return "CollectionPage/OfficeLaptopsList";
     }
 
@@ -232,6 +331,16 @@ public class IndexController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
         return "CollectionPage/ScreenList";
     }
 
@@ -252,6 +361,16 @@ public class IndexController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
         return "CollectionPage/KeyboardList";
     }
 
@@ -272,6 +391,16 @@ public class IndexController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+        }
+
         return "CollectionPage/MouseList";
     }
 }
