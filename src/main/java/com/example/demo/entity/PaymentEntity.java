@@ -30,6 +30,6 @@ public class PaymentEntity {
     private Boolean isDeleted;
 
     @OneToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 }

@@ -19,6 +19,6 @@ public class ImageEntity {
     private Boolean isDeleted;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 }

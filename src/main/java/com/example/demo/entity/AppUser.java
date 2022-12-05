@@ -14,13 +14,13 @@ import lombok.Data;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User_Id", nullable = false, columnDefinition = "serial")
+    @Column(name = "id", nullable = false, columnDefinition = "serial")
     private Long userId;
 
     @Column(name = "User_Name", length = 36, nullable = false)
     private String userName;
 
-    @Column(name = "Encryted_Password", length = 128, nullable = false)
+    @Column(name = "password", length = 128, nullable = false)
     private String encrytedPassword;
 
     @Column(name = "Enabled", length = 1, nullable = false)
@@ -46,12 +46,12 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser")
     private List<AddressEntity> addresses;
 
-    @OneToMany
+    @OneToMany(mappedBy = "appUser")
     private Set<UserRole> userRoles;
 
     @OneToMany(mappedBy = "appUser")
-    private List<CartItemEntity> cartItems;
+    private List<OrderEntity> orders;
 
     @OneToMany(mappedBy = "appUser")
-    private List<OrderEntity> orders;
+    private List<CartItemEntity> cartItems;
 }

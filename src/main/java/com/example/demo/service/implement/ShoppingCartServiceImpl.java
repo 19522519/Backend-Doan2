@@ -2,29 +2,29 @@ package com.example.demo.service.implement;
 
 import java.util.*;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.CartItemEntity;
-import com.example.demo.entity.LaptopEntity;
 import com.example.demo.entity.OrderEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.CartItemRepository;
 import com.example.demo.repository.LaptopRepository;
 import com.example.demo.repository.OrderRepository;
+import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.CartItemService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ShoppingCartService;
 
 @Service
-@Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     LaptopRepository laptopRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Autowired
     CartItemRepository cartItemRepository;
@@ -39,41 +39,46 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     CartItemService cartItemService;
 
     @Override
-    public void createCartItem(AppUser appUser, Integer productId) {
-        LaptopEntity laptopEntity = laptopRepository.findByIdAndIsDeletedIsFalse(productId);
-        ProductEntity productEntity = laptopEntity.getProduct();
+    public void createCartItem(AppUser appUser, ProductEntity productEntity, String productType) {
+        CartItemEntity cartItemEntity = cartItemRepository.findByProductAndIsDeletedIsFalse(productEntity);
 
-        // Check cart item trùng thì quantity + 1
-        CartItemEntity cartItem = cartItemRepository.findByProductAndAppUserAndIsDeletedIsFalse(productEntity, appUser);
-        // Check existing orders
-        List<OrderEntity> existOrders = orderRepository.findByAppUserAndIsDeletedIsFalse(appUser);
-
-        Boolean isExistOrder = false;
-        Integer existOrderId = 0;
-        if (existOrders != null) {
-            for (OrderEntity orderItem : existOrders) {
-                if (orderItem != null && orderItem.getIsDeleted() == false) {
-                    isExistOrder = true;
-                    existOrderId = orderItem.getId();
+        switch (productType) {
+            case "laptop": {
+                if (cartItemEntity == null)
+                    cartItemService.createCartItem(appUser, productEntity, "laptop");
+                else {
+                    cartItemEntity.setQuantity(cartItemEntity.getQuantity() + 1);
+                    cartItemRepository.save(cartItemEntity);
                 }
+                break;
             }
-        }
-
-        if (isExistOrder == true) {
-            if (cartItem != null && cartItem.getIsDeleted() == false) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-
-                cartItemRepository.save(cartItem);
-            } else {
-                // Create Cart Item
-                cartItemService.createCartItem(appUser, productEntity,
-                        orderRepository.findByIdAndIsDeletedIsFalse(existOrderId));
+            case "screen": {
+                if (cartItemEntity == null)
+                    cartItemService.createCartItem(appUser, productEntity, "screen");
+                else {
+                    cartItemEntity.setQuantity(cartItemEntity.getQuantity() + 1);
+                    cartItemRepository.save(cartItemEntity);
+                }
+                break;
             }
-        } else {
-            // Create Order
-            OrderEntity orderEntity = orderService.createOrderBasedOnUser(appUser);
-            // Create Cart Item
-            cartItemService.createCartItem(appUser, productEntity, orderEntity);
+            case "keyboard": {
+                if (cartItemEntity == null)
+                    cartItemService.createCartItem(appUser, productEntity, "keyboard");
+                else {
+                    cartItemEntity.setQuantity(cartItemEntity.getQuantity() + 1);
+                    cartItemRepository.save(cartItemEntity);
+                }
+                break;
+            }
+            case "mouse": {
+                if (cartItemEntity == null)
+                    cartItemService.createCartItem(appUser, productEntity, "mouse");
+                else {
+                    cartItemEntity.setQuantity(cartItemEntity.getQuantity() + 1);
+                    cartItemRepository.save(cartItemEntity);
+                }
+                break;
+            }
         }
     }
 
@@ -81,60 +86,66 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public List<CartItemDto> showListCartItems(AppUser appUser) {
         List<CartItemDto> cartItemDtos = new ArrayList<>();
 
-        List<CartItemEntity> cartItemEntities = appUser.getCartItems();
-        if (cartItemEntities != null) {
-            for (CartItemEntity cartItemEntity : cartItemEntities) {
-                if (cartItemEntity.getIsDeleted() == false) {
-                    CartItemDto cartItemDto = new CartItemDto();
-                    cartItemDto.setCartItemId(cartItemEntity.getId());
-                    cartItemDto.setOrderId(cartItemEntity.getOrder().getId());
-                    cartItemDto.setImageUrl(cartItemEntity.getProduct().getThumbnail());
-                    cartItemDto.setName(cartItemEntity.getProduct().getName());
-                    cartItemDto.setQuantity(cartItemEntity.getQuantity());
-                    cartItemDto.setPrice(cartItemEntity.getProduct().getPrice());
+        List<CartItemEntity> cartItemEntities = cartItemRepository.findByAppUserAndIsDeletedIsFalse(appUser);
 
-                    cartItemDtos.add(cartItemDto);
-                }
+        if (cartItemEntities.size() != 0) {
+            for (CartItemEntity cartItemEntity : cartItemEntities) {
+                CartItemDto cartItemDto = new CartItemDto();
+
+                cartItemDto.setCartItemId(cartItemEntity.getId());
+                cartItemDto.setImageUrl(cartItemEntity.getProduct().getThumbnail());
+                cartItemDto.setName(cartItemEntity.getProduct().getName());
+                cartItemDto.setQuantity(cartItemEntity.getQuantity());
+                cartItemDto.setPrice(cartItemEntity.getProduct().getPrice());
+                cartItemDto.setProductType(cartItemEntity.getProductType());
+
+                cartItemDtos.add(cartItemDto);
             }
         }
-
         return cartItemDtos;
     }
 
     @Override
     public Integer calculateTotalMoney(AppUser appUser) {
         Integer totalMoney = 0;
-        List<CartItemEntity> cartItemEntities = appUser.getCartItems();
-        if (cartItemEntities != null) {
-            for (CartItemEntity cartItemEntity : cartItemEntities) {
-                if (cartItemEntity.getIsDeleted() == false)
-                    totalMoney += cartItemEntity.getQuantity()
-                            * Integer.parseInt(cartItemEntity.getProduct().getPrice());
-            }
-        }
 
+        List<CartItemEntity> cartItemEntities = cartItemRepository.findByAppUserAndIsDeletedIsFalse(appUser);
+
+        for (CartItemEntity cartItemEntity : cartItemEntities) {
+            if (cartItemEntity.getProduct().getDiscount() != null) {
+                Integer reductionMoney = cartItemEntity.getQuantity()
+                        * (Integer.parseInt(cartItemEntity.getProduct().getPrice())
+                                * (100 - Integer.parseInt(cartItemEntity.getProduct().getDiscount())) / 100);
+                totalMoney += reductionMoney;
+            } else {
+                totalMoney += cartItemEntity.getQuantity()
+                        * Integer.parseInt(cartItemEntity.getProduct().getPrice());
+            }
+
+        }
         return totalMoney;
     }
 
     @Override
     public Integer countItemInCart(AppUser appUser) {
         Integer countItem = 0;
-        List<CartItemEntity> cartItemEntities = appUser.getCartItems();
+
+        List<CartItemEntity> cartItemEntities = cartItemRepository.findByAppUserAndIsDeletedIsFalse(appUser);
+
         if (cartItemEntities != null) {
             for (CartItemEntity cartItemEntity : cartItemEntities) {
                 if (cartItemEntity.getIsDeleted() == false)
                     countItem += cartItemEntity.getQuantity();
             }
+
         }
         return countItem;
     }
 
     @Override
-    public void removeCartItem(AppUser appUser, Integer cartItemInteger) {
+    public void removeCartItem(Integer cartItemInteger) {
         CartItemEntity cartItemEntity = cartItemRepository.findByIdAndIsDeletedIsFalse(cartItemInteger);
         if (cartItemEntity != null) {
-            // cartItemEntity.setIsDeleted(true);
-            // cartItemRepository.save(cartItemEntity);
             cartItemRepository.delete(cartItemEntity);
         }
     }

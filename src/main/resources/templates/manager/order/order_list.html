@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADMIN PAGE</title>
+    <!-- Boxicon link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- icon page -->
+    <link
+      rel="icon"
+      href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
+      type="image/x-icon"
+    />
+    <!-- css link -->
+    <link rel="stylesheet" th:href="@{/css/seller_style.css}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="sidebar close">
+      <div class="logo-details">
+        <i class="bx bx-laptop"></i>
+        <span class="logo_name">GEARVN</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a th:href="@{/manager/dashboard}">
+            <i class="bx bx-grid-alt"></i>
+            <span class="link_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <div class="iocn-link">
+            <a href="#">
+              <i class="bx bxs-box"></i>
+              <span class="link_name">Products</span>
+            </a>
+            <i class="bx bxs-chevron-down arrow"></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Products</a></li>
+            <li><a th:href="@{menu_add}">Create product</a></li>
+            <li>
+              <a th:href="@{menu_list_product}">Product management</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{order}">
+            <i class="bx bxs-cart-alt"></i>
+            <span class="link_name">Orders</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" th:href="@{order}">Orders</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{customer}">
+            <i class="bx bxs-user"></i>
+            <span class="link_name">Customer</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" th:href="@{customer}">Customer</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{statistic}">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="link_name">Statistic</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" th:href="@{statistic}">Statistic</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{setting}">
+            <i class="bx bx-cog"></i>
+            <span class="link_name">Setting</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" th:href="@{setting}">Setting</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <!--<img src="image/profile.jpg" alt="profileImg">-->
+            </div>
+            <div class="name-job">
+              <div class="job">Design By</div>
+              <div class="profile_name">@GEARVN.COM</div>
+            </div>
+            <a th:href="@{/logout}"><i class="bx bx-log-out"></i></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <section class="home-section">
+      <div class="home-content">
+        <i class="bx bx-menu"></i>
+        <span class="text">Danh sách đơn hàng</span>
+      </div>
+      <div class="home_list_orders">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Mã đơn hàng</th>
+              <th scope="col">Tên người nhận hàng</th>
+              <th scope="col">SĐT</th>
+              <th scope="col">Ngày nhận hàng</th>
+              <th scope="col">Tổng giá</th>
+              <th scope="col">Phương thức thanh toán</th>
+              <th scope="col">Tình trạng</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="item : ${userOrders}">
+              <td th:text="${item.orderId}"></td>
+              <td th:text="${item.receiver}"></td>
+              <td th:text="${item.phone}"></td>
+              <td th:text="${item.shippingDate}"></td>
+              <td th:text="${item.price}"></td>
+              <td th:text="${item.paymentMethod}"></td>
+              <td th:text="${item.status}"></td>
+              <td>
+                <a href=""><i class="fas fa-edit"></i> Edit</a>
+                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <script>
+      let arrow = document.querySelectorAll(".arrow");
+      for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+          let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+          arrowParent.classList.toggle("showMenu");
+        });
+      }
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".bx-menu");
+      console.log(sidebarBtn);
+      sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+      });
+    </script>
+  </body>
+</html>

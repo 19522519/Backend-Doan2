@@ -16,4 +16,6 @@ public interface KeyBoardRepository extends JpaRepository<KeyBoardEntity, Intege
     List<KeyBoardEntity> findByIsDeletedIsFalse(Pageable pageable);
 
     List<KeyBoardEntity> findByIsDeletedIsFalseOrderByIdAsc();
+
+    KeyBoardEntity findByIdAndIsDeletedIsFalse(Integer id);
 }

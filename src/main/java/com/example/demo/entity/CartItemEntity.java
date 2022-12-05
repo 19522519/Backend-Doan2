@@ -13,18 +13,21 @@ public class CartItemEntity {
     private Integer id;
     private Integer quantity;
 
+    @Column(name = "product_type")
+    private String productType;
+
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
     @OneToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private AppUser appUser;
+    @JoinColumn(name = "order_id", nullable = false)
+    private OrderEntity order;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    @JoinColumn(name = "user_id", nullable = false)
+    private AppUser appUser;
 }

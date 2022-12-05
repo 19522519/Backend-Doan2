@@ -51,7 +51,7 @@ public class ProductEntity {
     private CategoryEntity category;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
+    @JoinColumn(name = "brand_id", nullable = false)
     private BrandEntity brand;
 
     @OneToMany(mappedBy = "product")

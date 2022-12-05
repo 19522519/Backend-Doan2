@@ -36,10 +36,10 @@ import com.example.demo.repository.BrandRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.HeadPhoneRepository;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.service.HeadPhoneService;
+import com.example.demo.service.HeadphoneService;
 
 @Service
-public class HeadphoneServiceImpl implements HeadPhoneService {
+public class HeadphoneServiceImpl implements HeadphoneService {
     private final Integer pageSizeDefault = 5;
 
     @Autowired
@@ -71,12 +71,12 @@ public class HeadphoneServiceImpl implements HeadPhoneService {
         productEntity.setColor(HeadPhoneDto.getColor());
         HeadPhoneEntity.setType(HeadPhoneDto.getType());
         HeadPhoneEntity.setFrequency(HeadPhoneDto.getFrequency());
-        
+
         productEntity.setWeight(HeadPhoneDto.getWeight());
         productEntity.setInsurance(HeadPhoneDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
+
         productEntity.setQuantity(HeadPhoneDto.getQuantity());
         productEntity.setIsDeleted(false);
         HeadPhoneEntity.setIsDeleted(false);
@@ -112,7 +112,7 @@ public class HeadphoneServiceImpl implements HeadPhoneService {
         HeadPhoneDto.setType(HeadPhoneEntity.getType());
         HeadPhoneDto.setColor(HeadPhoneEntity.getProduct().getColor());
         HeadPhoneDto.setFrequency(HeadPhoneEntity.getFrequency());
-       
+
         HeadPhoneDto.setWeight(HeadPhoneEntity.getProduct().getWeight());
         HeadPhoneDto.setInsurance(HeadPhoneEntity.getProduct().getInsurance());
         HeadPhoneDto.setCreateDate(HeadPhoneEntity.getProduct().getCreateDate());
@@ -179,7 +179,7 @@ public class HeadphoneServiceImpl implements HeadPhoneService {
         productEntity.setInsurance(HeadPhoneDto.getInsurance());
 
         productEntity.setCreateDate(java.time.LocalDate.now());
-        
+
         productEntity.setQuantity(HeadPhoneDto.getQuantity());
         productEntity.setIsDeleted(false);
         HeadPhoneEntity.setIsDeleted(false);
@@ -221,6 +221,3 @@ public class HeadphoneServiceImpl implements HeadPhoneService {
         return HeadPhoneDto;
     }
 }
-
-
-

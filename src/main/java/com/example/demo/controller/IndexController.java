@@ -31,6 +31,7 @@ import com.example.demo.service.LaptopService;
 import com.example.demo.service.MouseService;
 import com.example.demo.service.ScreenService;
 import com.example.demo.service.ShoppingCartService;
+import com.example.demo.service.UserService;
 
 @Controller
 public class IndexController {
@@ -52,9 +53,11 @@ public class IndexController {
     @Autowired
     ShoppingCartService shoppingCartService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping({ "/", "/index" })
     public String homePage(Model model) {
-
         // Laptop Gaming
         List<LaptopDto> laptopDtosGaming = laptopService.findAllLaptopGaming();
 

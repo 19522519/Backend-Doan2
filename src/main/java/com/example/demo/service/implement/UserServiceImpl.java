@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.UserTransaction;
 
@@ -17,8 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.CartItemEntity;
+import com.example.demo.entity.UserRole;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
+import com.example.demo.repository.CartItemRepository;
+import com.example.demo.repository.UserRoleRepository;
 import com.example.demo.service.UserService;
 
 @Service
@@ -29,6 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     AppRoleRepository appRoleRepository;
+
+    @Autowired
+    UserRoleRepository userRoleRepository;
+
+    @Autowired
+    CartItemRepository cartItemRepository;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -75,7 +87,13 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(appUser.getFirstName());
         userDto.setEmail(appUser.getEmail());
         userDto.setPhone(appUser.getPhone());
-        userDto.setUserName(appUser.getUserName());
+        userDto.setFullName(appUser.getLastName() + " " + appUser.getFirstName());
+        List<UserRole> userRoles = userRoleRepository.findByAppUser(appUser);
+        List<String> roleNames = new ArrayList<>();
+        for (UserRole userRole : userRoles) {
+            roleNames.add(userRole.getAppRole().getRoleName());
+        }
+        userDto.setRole(roleNames.toString());
 
         return userDto;
     }
@@ -98,7 +116,6 @@ public class UserServiceImpl implements UserService {
         appUser.setLastName(userDto.getLastName());
         appUser.setEmail(userDto.getEmail());
         appUser.setPhone(userDto.getPhone());
-        appUser.setUserName(userDto.getUserName());
         appUser.setAvatar(img.getOriginalFilename());
         saveFile(appUser.getAvatar(), img);
 

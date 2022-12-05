@@ -14,13 +14,13 @@ import lombok.Data;
 public class AppRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Role_Id", nullable = false, columnDefinition = "serial")
+    @Column(name = "id", nullable = false, columnDefinition = "serial")
     private Long roleId;
 
-    @Column(name = "Role_Name", length = 30, nullable = false)
+    @Column(name = "name", length = 30, nullable = false)
     private String roleName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "appRole")
     private List<UserRole> userRoles;
 
     public Long getRoleId() {

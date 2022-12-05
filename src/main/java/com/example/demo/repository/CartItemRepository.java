@@ -7,13 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.CartItemEntity;
+import com.example.demo.entity.OrderEntity;
 import com.example.demo.entity.ProductEntity;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItemEntity, Integer> {
-    CartItemEntity findByProductAndAppUserAndIsDeletedIsFalse(ProductEntity productEntity, AppUser appUser);
-
     CartItemEntity findByIdAndIsDeletedIsFalse(Integer cartItemId);
 
     List<CartItemEntity> findByIsDeletedIsFalse();
+
+    List<CartItemEntity> findByOrderAndIsDeletedIsFalse(OrderEntity orderEntity);
+
+    CartItemEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
+
+    List<CartItemEntity> findByAppUserAndIsDeletedIsFalse(AppUser appUser);
 }

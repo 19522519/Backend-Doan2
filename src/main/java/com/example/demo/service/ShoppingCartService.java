@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.ProductEntity;
 
 public interface ShoppingCartService {
-    void createCartItem(AppUser appUser, Integer productId);
+    void createCartItem(AppUser appUser, ProductEntity productEntity, String productType);
 
     List<CartItemDto> showListCartItems(AppUser appUser);
 
@@ -14,7 +15,7 @@ public interface ShoppingCartService {
 
     Integer countItemInCart(AppUser appUser);
 
-    void removeCartItem(AppUser appUser, Integer cartItemId);
+    void removeCartItem(Integer cartItemId);
 
     void updateQuantityProduct(List<CartItemDto> cartItemDtos);
     // void add(CartItemDto cartItemDto);

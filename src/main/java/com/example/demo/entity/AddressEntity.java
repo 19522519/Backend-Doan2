@@ -21,7 +21,7 @@ public class AddressEntity {
     private Boolean isDeleted;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private AppUser appUser;
 
     @OneToOne(mappedBy = "address")

@@ -11,4 +11,6 @@ import com.example.demo.entity.ProductEntity;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
     List<ProductEntity> findByCategoryAndIsDeletedIsFalseOrderByCreateDateDesc(CategoryEntity categoryEntity);
+
+    ProductEntity findByIdAndIsDeletedIsFalse(Integer id);
 }

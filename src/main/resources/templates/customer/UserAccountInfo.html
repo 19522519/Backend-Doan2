@@ -89,7 +89,10 @@
           </div>
           <div class="col-md-9">
             <div class="action">
-              <p class="user_name text-danger fw-bold">Võ Thành Phát</p>
+              <p
+                th:text="${user.fullName}"
+                class="user_name text-danger fw-bold"
+              ></p>
 
               <input name="img" type="file" />
             </div>
@@ -139,20 +142,13 @@
           </div>
           <div class="row py-2">
             <div class="col-md-6">
-              <!-- <label for="country">Đất nước</label>
+              <label for="country">Đất nước</label>
               <select name="country" id="country" class="bg-light">
                 <option value="" selected="">Việt Nam</option>
                 <option value="">Hàn Quốc</option>
                 <option value="">Nhật Bản</option>
                 <option value="">Mỹ</option>
-              </select> -->
-              <label for="phone">Username</label>
-              <input
-                th:field="*{userName}"
-                type="text"
-                class="bg-light form-control"
-                placeholder=""
-              />
+              </select>
             </div>
             <div class="col-md-6 pt-md-0 pt-3" id="lang">
               <label for="language">Ngôn ngữ</label>

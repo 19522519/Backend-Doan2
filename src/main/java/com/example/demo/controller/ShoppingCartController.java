@@ -14,11 +14,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.dto.CartItemDto;
-import com.example.demo.dto.CartItemDtoList;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.KeyBoardEntity;
+import com.example.demo.entity.LaptopEntity;
+import com.example.demo.entity.MouseEntity;
 import com.example.demo.entity.OrderEntity;
+import com.example.demo.entity.ProductEntity;
+import com.example.demo.entity.ScreenEntity;
 import com.example.demo.repository.AppUserRepository;
+import com.example.demo.repository.KeyBoardRepository;
+import com.example.demo.repository.LaptopRepository;
+import com.example.demo.repository.MouseRepository;
 import com.example.demo.repository.OrderRepository;
+import com.example.demo.repository.ScreenRepository;
 import com.example.demo.service.ShoppingCartService;
 
 @Controller
@@ -32,13 +40,29 @@ public class ShoppingCartController {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    LaptopRepository laptopRepository;
+
+    @Autowired
+    ScreenRepository screenRepository;
+
+    @Autowired
+    MouseRepository mouseRepository;
+
+    @Autowired
+    KeyBoardRepository keyBoardRepository;
+
     @GetMapping("/cart")
     public String nullCart() {
         return "NullCartPage";
     }
 
-    @GetMapping("/shopping-cart/add-item/{id}")
-    public String createCartItem(@PathVariable("id") Integer productId, Model model) {
+    // Add Laptop to Shopping Cart
+    @GetMapping("/shopping-cart/add-laptop/{id}")
+    public String insertLaptopToCart(@PathVariable("id") Integer laptopId, Model model) {
+        LaptopEntity laptopEntity = laptopRepository.findByIdAndIsDeletedIsFalse(laptopId);
+        ProductEntity productEntity = laptopEntity.getProduct();
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -48,7 +72,7 @@ public class ShoppingCartController {
 
             if (appUser != null) {
                 // Create Cart Item then show on Cart Page
-                shoppingCartService.createCartItem(appUser, productId);
+                shoppingCartService.createCartItem(appUser, productEntity, "laptop");
                 List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
 
                 if (cartItemDtos == null)
@@ -57,12 +81,107 @@ public class ShoppingCartController {
                     model.addAttribute("cartItems", cartItemDtos);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
-                    Integer orderId = 0;
-                    for (OrderEntity orderEntity : orderRepository.findByAppUserAndIsDeletedIsFalse(appUser)) {
-                        if (orderEntity != null)
-                            orderId = orderEntity.getId();
-                    }
-                    model.addAttribute("orderId", orderId);
+                    // Count Item in Cart of Current User
+                    model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+                    return "redirect:/shopping-cart/views";
+                }
+            } else {
+                return "redirect:/login";
+            }
+        }
+    }
+
+    // Add Screen to Shopping Cart
+    @GetMapping("/shopping-cart/add-screen/{id}")
+    public String insertScreenToCart(@PathVariable("id") Integer screenId, Model model) {
+        ScreenEntity screenEntity = screenRepository.findByIdAndIsDeletedIsFalse(screenId);
+        ProductEntity productEntity = screenEntity.getProduct();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
+            AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+
+            if (appUser != null) {
+                // Create Cart Item then show on Cart Page
+                shoppingCartService.createCartItem(appUser, productEntity, "screen");
+                List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
+
+                if (cartItemDtos == null)
+                    return "redirect:/cart";
+                else {
+                    model.addAttribute("cartItems", cartItemDtos);
+                    model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
+
+                    // Count Item in Cart of Current User
+                    model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+                    return "redirect:/shopping-cart/views";
+                }
+            } else {
+                return "redirect:/login";
+            }
+        }
+    }
+
+    // Add Keyboard to Shopping Cart
+    @GetMapping("/shopping-cart/add-keyboard/{id}")
+    public String insertKeyboardToCart(@PathVariable("id") Integer keyboardId, Model model) {
+        KeyBoardEntity keyBoardEntity = keyBoardRepository.findByIdAndIsDeletedIsFalse(keyboardId);
+        ProductEntity productEntity = keyBoardEntity.getProduct();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
+            AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+
+            if (appUser != null) {
+                // Create Cart Item then show on Cart Page
+                shoppingCartService.createCartItem(appUser, productEntity, "keyboard");
+                List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
+
+                if (cartItemDtos == null)
+                    return "redirect:/cart";
+                else {
+                    model.addAttribute("cartItems", cartItemDtos);
+                    model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
+
+                    // Count Item in Cart of Current User
+                    model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+                    return "redirect:/shopping-cart/views";
+                }
+            } else {
+                return "redirect:/login";
+            }
+        }
+    }
+
+    // Add Mouse to Shopping Cart
+    @GetMapping("/shopping-cart/add-mouse/{id}")
+    public String insertMouseToCart(@PathVariable("id") Integer mouseId, Model model) {
+        MouseEntity mouseEntity = mouseRepository.findByIdAndIsDeletedIsFalse(mouseId);
+        ProductEntity productEntity = mouseEntity.getProduct();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
+            AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+
+            if (appUser != null) {
+                // Create Cart Item then show on Cart Page
+                shoppingCartService.createCartItem(appUser, productEntity, "mouse");
+                List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
+
+                if (cartItemDtos == null)
+                    return "redirect:/cart";
+                else {
+                    model.addAttribute("cartItems", cartItemDtos);
+                    model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
                     // Count Item in Cart of Current User
                     model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
@@ -121,7 +240,7 @@ public class ShoppingCartController {
             if (appUser != null) {
 
                 // Remove Cart Item then show on Cart Page
-                shoppingCartService.removeCartItem(appUser, cartItemId);
+                shoppingCartService.removeCartItem(cartItemId);
                 List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
 
                 if (cartItemDtos == null)
@@ -148,31 +267,27 @@ public class ShoppingCartController {
         }
     }
 
-    @PostMapping("/shopping-cart/item/update-quantity")
-    public String updateCartItemQuantity(@ModelAttribute("CartItemDtoList") CartItemDtoList cartItemDtos, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/login";
-        } else {
-            AppUser appUser = appUserRepository
-                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
-            if (appUser != null) {
+    // @PostMapping("/shopping-cart/item/update-quantity")
+    // public String updateCartItemQuantity(@ModelAttribute("CartItemDtoList")
+    // List<CartItemDto> cartItemDtos,
+    // Model model) {
+    // Authentication authentication =
+    // SecurityContextHolder.getContext().getAuthentication();
+    // if (authentication == null || authentication instanceof
+    // AnonymousAuthenticationToken) {
+    // return "redirect:/login";
+    // } else {
+    // AppUser appUser = appUserRepository
+    // .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+    // if (appUser != null) {
 
-                // Update Quantity of Cart Item
-                List<CartItemDto> cartItems = cartItemDtos.getCartItemDtos();
-                shoppingCartService.updateQuantityProduct(cartItems);
-                return "redirect:/shopping-cart/views";
+    // // Update Quantity of Cart Item
+    // shoppingCartService.updateQuantityProduct(cartItemDtos);
+    // return "redirect:/shopping-cart/views";
 
-            } else {
-                return "redirect:/login";
-            }
-        }
-    }
-
-    // @GetMapping("/remove-item/{id}/{username}")
-    // public String removeCartItem(@PathVariable("id") Integer productId,
-    // @PathVariable("username") String username) {
-    // cartService.removeCartItem(productId, username);
-    // return "redirect:/";
+    // } else {
+    // return "redirect:/login";
+    // }
+    // }
     // }
 }
