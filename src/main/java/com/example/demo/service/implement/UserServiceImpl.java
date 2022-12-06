@@ -8,8 +8,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.UserTransaction;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.AppUser;
-import com.example.demo.entity.CartItemEntity;
 import com.example.demo.entity.UserRole;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;

@@ -40,6 +40,5 @@ public class LaptopEntity {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonManagedReference
     private ProductEntity product;
 }

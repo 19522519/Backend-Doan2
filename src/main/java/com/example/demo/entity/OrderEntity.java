@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -30,7 +32,9 @@ public class OrderEntity {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude // Không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Không sử dụng trong toString()
     private List<CartItemEntity> cartItems;
 
     @OneToOne(mappedBy = "order")

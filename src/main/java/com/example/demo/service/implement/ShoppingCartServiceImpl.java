@@ -2,18 +2,26 @@ package com.example.demo.service.implement;
 
 import java.util.*;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.CartItemEntity;
-import com.example.demo.entity.OrderEntity;
+import com.example.demo.entity.KeyBoardEntity;
+import com.example.demo.entity.LaptopEntity;
+import com.example.demo.entity.MouseEntity;
 import com.example.demo.entity.ProductEntity;
+import com.example.demo.entity.ScreenEntity;
 import com.example.demo.repository.CartItemRepository;
+import com.example.demo.repository.KeyBoardRepository;
 import com.example.demo.repository.LaptopRepository;
+import com.example.demo.repository.MouseRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.repository.ScreenRepository;
 import com.example.demo.service.CartItemService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ShoppingCartService;
@@ -22,6 +30,15 @@ import com.example.demo.service.ShoppingCartService;
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     LaptopRepository laptopRepository;
+
+    @Autowired
+    ScreenRepository screenRepository;
+
+    @Autowired
+    KeyBoardRepository keyBoardRepository;
+
+    @Autowired
+    MouseRepository mouseRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -97,6 +114,34 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartItemDto.setName(cartItemEntity.getProduct().getName());
                 cartItemDto.setQuantity(cartItemEntity.getQuantity());
                 cartItemDto.setPrice(cartItemEntity.getProduct().getPrice());
+                cartItemDto.setDiscount(cartItemEntity.getProduct().getDiscount());
+
+                // View detail of product by get id of laptop, screen, keyboard, mouse
+                ProductEntity productEntity = cartItemEntity.getProduct();
+                switch (cartItemEntity.getProductType()) {
+                    case "laptop": {
+                        LaptopEntity laptopEntity = laptopRepository.findByProductAndIsDeletedIsFalse(productEntity);
+                        cartItemDto.setProductId(laptopEntity.getId());
+                        break;
+                    }
+                    case "screen": {
+                        ScreenEntity screenEntity = screenRepository.findByProductAndIsDeletedIsFalse(productEntity);
+                        cartItemDto.setProductId(screenEntity.getId());
+                        break;
+                    }
+                    case "keyboard": {
+                        KeyBoardEntity keyBoardEntity = keyBoardRepository
+                                .findByProductAndIsDeletedIsFalse(productEntity);
+                        cartItemDto.setProductId(keyBoardEntity.getId());
+                        break;
+                    }
+                    case "mouse": {
+                        MouseEntity mouseEntity = mouseRepository.findByProductAndIsDeletedIsFalse(productEntity);
+                        cartItemDto.setProductId(mouseEntity.getId());
+                        break;
+                    }
+                }
+
                 cartItemDto.setProductType(cartItemEntity.getProductType());
 
                 cartItemDtos.add(cartItemDto);
@@ -113,10 +158,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         for (CartItemEntity cartItemEntity : cartItemEntities) {
             if (cartItemEntity.getProduct().getDiscount() != null) {
-                Integer reductionMoney = cartItemEntity.getQuantity()
+                totalMoney += cartItemEntity.getQuantity()
                         * (Integer.parseInt(cartItemEntity.getProduct().getPrice())
                                 * (100 - Integer.parseInt(cartItemEntity.getProduct().getDiscount())) / 100);
-                totalMoney += reductionMoney;
             } else {
                 totalMoney += cartItemEntity.getQuantity()
                         * Integer.parseInt(cartItemEntity.getProduct().getPrice());

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.dto.CartItemDto;
+import com.example.demo.dto.CartItemDtoForm;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.CartItemEntity;
 import com.example.demo.entity.KeyBoardEntity;
 import com.example.demo.entity.LaptopEntity;
 import com.example.demo.entity.MouseEntity;
@@ -22,6 +25,7 @@ import com.example.demo.entity.OrderEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.entity.ScreenEntity;
 import com.example.demo.repository.AppUserRepository;
+import com.example.demo.repository.CartItemRepository;
 import com.example.demo.repository.KeyBoardRepository;
 import com.example.demo.repository.LaptopRepository;
 import com.example.demo.repository.MouseRepository;
@@ -51,6 +55,9 @@ public class ShoppingCartController {
 
     @Autowired
     KeyBoardRepository keyBoardRepository;
+
+    @Autowired
+    CartItemRepository cartItemRepository;
 
     @GetMapping("/cart")
     public String nullCart() {
@@ -208,7 +215,11 @@ public class ShoppingCartController {
                 if (cartItemDtos.size() == 0) {
                     return "redirect:/cart";
                 } else {
-                    model.addAttribute("cartItems", cartItemDtos);
+                    // model.Attribute(List)
+                    CartItemDtoForm cartItemDtoForm = new CartItemDtoForm();
+                    cartItemDtoForm.setCartItemDtos(cartItemDtos);
+
+                    model.addAttribute("cartItemDtoForm", cartItemDtoForm);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
                     Integer orderId = 0;
@@ -267,27 +278,26 @@ public class ShoppingCartController {
         }
     }
 
-    // @PostMapping("/shopping-cart/item/update-quantity")
-    // public String updateCartItemQuantity(@ModelAttribute("CartItemDtoList")
-    // List<CartItemDto> cartItemDtos,
-    // Model model) {
-    // Authentication authentication =
-    // SecurityContextHolder.getContext().getAuthentication();
-    // if (authentication == null || authentication instanceof
-    // AnonymousAuthenticationToken) {
-    // return "redirect:/login";
-    // } else {
-    // AppUser appUser = appUserRepository
-    // .findByUserNameAndIsDeletedIsFalse(authentication.getName());
-    // if (appUser != null) {
+    @PostMapping("/shopping-cart/item/save")
+    public String updateCartItemQuantity(@ModelAttribute("cartItemDtoForm") CartItemDtoForm cartItemDtoForm,
+            Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
+            AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            if (appUser != null) {
+                List<CartItemDto> cartItemDtos = cartItemDtoForm.getCartItemDtos();
+                if (null != cartItemDtos && cartItemDtos.size() > 0) {
+                    // Update Quantity of Cart Item
+                    shoppingCartService.updateQuantityProduct(cartItemDtos);
+                }
+                return "redirect:/shopping-cart/views";
 
-    // // Update Quantity of Cart Item
-    // shoppingCartService.updateQuantityProduct(cartItemDtos);
-    // return "redirect:/shopping-cart/views";
-
-    // } else {
-    // return "redirect:/login";
-    // }
-    // }
-    // }
+            } else {
+                return "redirect:/login";
+            }
+        }
+    }
 }

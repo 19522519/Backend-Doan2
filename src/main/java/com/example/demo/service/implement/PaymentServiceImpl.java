@@ -19,11 +19,10 @@ public class PaymentServiceImpl implements PaymentService {
     OrderRepository orderRepository;
 
     @Override
-    public void createPaymentBasedOnOrder(CheckoutDto checkoutDto) {
-        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(checkoutDto.getOrderId());
-        if (orderEntity != null) {
-            PaymentEntity paymentEntity = new PaymentEntity();
+    public void createPaymentBasedOnOrder(OrderEntity orderEntity, CheckoutDto checkoutDto) {
+        PaymentEntity paymentEntity = new PaymentEntity();
 
+        if (orderEntity != null) {
             paymentEntity.setOrder(orderEntity);
             paymentEntity.setType(checkoutDto.getPaymentMethod());
             paymentEntity.setIsDeleted(false);

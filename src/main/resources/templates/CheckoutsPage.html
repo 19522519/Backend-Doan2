@@ -42,7 +42,6 @@
             >
               <h2><a th:href="@{/index}"> GEARVN</a></h2>
               <h4>Thông tin thanh toán</h4>
-              <input hidden th:field="*{orderId}"></input>
               <div class="row">
                 <div class="col-6">
                   <input
@@ -122,19 +121,37 @@
               </div>
               <div class="row mt-2 d-none">
                 <div class="col">
-                  <input th:field="*{city}" type="text" id="fakeCity" placeholder="city" />
+                  <input
+                    th:field="*{city}"
+                    type="text"
+                    id="fakeCity"
+                    placeholder="city"
+                  />
                 </div>
                 <div class="col">
-                  <input th:field="*{district}" type="text" id="fakeDistrict" placeholder="district" />
+                  <input
+                    th:field="*{district}"
+                    type="text"
+                    id="fakeDistrict"
+                    placeholder="district"
+                  />
                 </div>
                 <div class="col">
-                  <input th:field="*{ward}" type="text" id="fakeWard" placeholder="ward" />
+                  <input
+                    th:field="*{ward}"
+                    type="text"
+                    id="fakeWard"
+                    placeholder="ward"
+                  />
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
-                  <select th:field="*{paymentMethod}" class="form-control form-select">
-                    <option                   
+                  <select
+                    th:field="*{paymentMethod}"
+                    class="form-control form-select"
+                  >
+                    <option
                       th:each="paymentMethod : ${paymentMethod}"
                       th:value="${paymentMethod}"
                       th:text="${paymentMethod}"
@@ -228,7 +245,13 @@
                       <tr th:each="item : ${cartItems}">
                         <td>
                           <div class="item_img">
-                            <a href="" style="display: inline-block;max-width: 150px;max-height:150px"
+                            <a
+                              href=""
+                              style="
+                                display: inline-block;
+                                max-width: 150px;
+                                max-height: 150px;
+                              "
                               ><img
                                 th:src="@{'/images/' + ${item.imageUrl}}"
                                 alt=""

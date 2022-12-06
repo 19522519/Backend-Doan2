@@ -8,8 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class CheckoutDto {
-    private Integer userId;
-    private Integer orderId;
     private String receiverName;
     private String receiverPhone;
     private String email;

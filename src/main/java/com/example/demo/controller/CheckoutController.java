@@ -16,9 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CheckoutDto;
+import com.example.demo.entity.AddressEntity;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.OrderEntity;
+import com.example.demo.entity.PaymentEntity;
+import com.example.demo.entity.ShippingEntity;
 import com.example.demo.repository.AppUserRepository;
+import com.example.demo.service.AddressService;
 import com.example.demo.service.OrderService;
+import com.example.demo.service.PaymentService;
+import com.example.demo.service.ShippingService;
 import com.example.demo.service.ShoppingCartService;
 
 @Controller
@@ -32,8 +39,17 @@ public class CheckoutController {
     @Autowired
     ShoppingCartService shoppingCartService;
 
-    @GetMapping("/checkout/order/{id}")
-    public String showCheckoutPage(@PathVariable("id") Integer orderId, Model model) {
+    @Autowired
+    AddressService addressService;
+
+    @Autowired
+    PaymentService paymentService;
+
+    @Autowired
+    ShippingService shippingService;
+
+    @GetMapping("/shopping-cart/checkout")
+    public String showCheckoutPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -48,7 +64,7 @@ public class CheckoutController {
                     return "redirect:/cart";
                 else {
                     // Show Customer Info then show on Checkout Page
-                    model.addAttribute("customerInfo", orderService.showCustomerInfo(orderId));
+                    model.addAttribute("customerInfo", orderService.showCustomerInfo(appUser));
                     model.addAttribute("cartItems", cartItemDtos);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
 
@@ -80,8 +96,11 @@ public class CheckoutController {
             AppUser appUser = appUserRepository
                     .findByUserNameAndIsDeletedIsFalse(authentication.getName());
             if (appUser != null) {
+                AddressEntity addressEntity = addressService.createAddressOnAppUser(appUser, checkoutDto);
+                OrderEntity orderEntity = orderService.createOrderBasedOnUser(appUser);
+                paymentService.createPaymentBasedOnOrder(orderEntity, checkoutDto);
+                shippingService.createShippingBasedOnOrderAndAddress(addressEntity, orderEntity, checkoutDto);
 
-                orderService.updateUserOrder(appUser, checkoutDto);
                 return "redirect:/";
 
             } else {

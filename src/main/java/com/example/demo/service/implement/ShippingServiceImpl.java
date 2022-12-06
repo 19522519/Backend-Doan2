@@ -24,21 +24,18 @@ public class ShippingServiceImpl implements ShippingService {
     ShippingRepository shippingRepository;
 
     @Override
-    public void createShippingBasedOnOrderAndAddress(Integer addressId, CheckoutDto checkoutDto) {
-        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(checkoutDto.getOrderId());
-        AddressEntity addressEntity = addressRepository.findByIdAndIsDeletedIsFalse(addressId);
-
+    public void createShippingBasedOnOrderAndAddress(AddressEntity addressEntity, OrderEntity orderEntity,
+            CheckoutDto checkoutDto) {
         ShippingEntity shippingEntity = new ShippingEntity();
-        if (orderEntity != null)
-            shippingEntity.setOrder(orderEntity);
 
-        if (addressEntity != null)
-            shippingEntity.setAddress(addressEntity);
+        shippingEntity.setOrder(orderEntity);
+        shippingEntity.setAddress(addressEntity);
 
         shippingEntity.setReceiver(checkoutDto.getReceiverName());
         shippingEntity.setPhone(checkoutDto.getReceiverPhone());
         shippingEntity.setEmail(checkoutDto.getEmail());
         shippingEntity.setIsDeleted(false);
+
         shippingRepository.save(shippingEntity);
     }
 }

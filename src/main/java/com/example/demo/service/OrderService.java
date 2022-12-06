@@ -10,9 +10,7 @@ import com.example.demo.entity.OrderEntity;
 public interface OrderService {
     OrderEntity createOrderBasedOnUser(AppUser appUser);
 
-    CheckoutDto showCustomerInfo(Integer orderId);
-
-    void updateUserOrder(AppUser appUser, CheckoutDto checkoutDto);
+    CheckoutDto showCustomerInfo(AppUser appUser);
 
     // Customer Page
     List<UserOrderDto> showUserOrderPage(AppUser appUser);

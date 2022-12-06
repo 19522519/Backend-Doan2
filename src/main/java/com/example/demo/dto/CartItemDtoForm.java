@@ -1,5 +1,10 @@
 package com.example.demo.dto;
 
-public class CartItemDtoForm {
+import java.util.List;
 
+import lombok.Data;
+
+@Data
+public class CartItemDtoForm {
+    private List<CartItemDto> cartItemDtos;
 }

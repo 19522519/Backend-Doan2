@@ -192,9 +192,9 @@
           <!-- EMPTY CART -->
           <h3>GIỎ HÀNG</h3>
           <form
-            th:action="@{/shopping-cart/item/update-quantity}"
+            th:action="@{/shopping-cart/item/save}"
             method="post"
-            modelAttribute="CartItemDtoList"
+            modelAttribute="cartItemDtoForm"
           >
             <table class="text-center">
               <thead>
@@ -203,12 +203,17 @@
                   <th class="item_name">Tên sản phẩm</th>
                   <th class="item_number">Số lượng</th>
                   <th class="item_price">Giá tiền</th>
+                  <th class="item_price">Giảm giá</th>
                   <th class="item_delete">Xóa</th>
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="item : ${cartItems}">
-                  <p hidden th:text="${item.cartItemId}"></p>
+                <tr th:each="item, iterStat : ${cartItemDtoForm.cartItemDtos}">
+                  <p
+                    hidden
+                    th:text="${item.cartItemId}"
+                    name="cartItemDtoForm.cartItemDtos[${iterStat.index}].cartItemId"
+                  ></p>
                   <td>
                     <div class="item_img">
                       <a
@@ -218,15 +223,22 @@
                           max-height: 200px;
                           display: inline-block;
                         "
-                        ><img
+                      >
+                        <img
                           th:src="@{'/images/' + ${item.imageUrl}}"
                           alt=""
+                          name="cartItemDtoForm.cartItemDtos[${iterStat.index}].imageUrl"
                         />
                       </a>
                     </div>
                   </td>
                   <td>
-                    <a href="" class="product_name" th:text="${item.name}"></a>
+                    <a
+                      th:href="@{/{productType}/{id}(productType=${item.productType}, id=${item.productId})}"
+                      class="product_name"
+                      th:text="${item.name}"
+                      name="cartItemDtoForm.cartItemDtos[${iterStat.index}].name"
+                    ></a>
                   </td>
                   <td>
                     <input
@@ -234,10 +246,17 @@
                       size="4"
                       min="1"
                       th:value="${item.quantity}"
+                      name="cartItemDtoForm.cartItemDtos[${iterStat.index}].quantity"
                     />
                   </td>
                   <td>
-                    <p th:text="${item.price}+ đ"></p>
+                    <p
+                      th:text="${item.price}+ đ"
+                      name="cartItemDtoForm.cartItemDtos[${iterStat.index}].price"
+                    ></p>
+                  </td>
+                  <td>
+                    <p th:text="${item.discount}+ '%'"></p>
                   </td>
                   <td>
                     <a
@@ -248,7 +267,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="4">
+                  <td colspan="5">
                     <p class="total_price">Tổng tiền:</p>
                   </td>
                   <td>
@@ -262,7 +281,7 @@
             </table>
             <button type="submit">Cập nhật sản phẩm</button>
             <div id="cart_submit_btn">
-              <a th:href="@{/checkout/order/{id}(id=${orderId})}"
+              <a th:href="@{/shopping-cart/checkout}"
                 >Điền thông tin thanh toán</a
               >
             </div>

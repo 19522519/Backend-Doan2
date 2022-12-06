@@ -40,7 +40,6 @@ public class ProductEntity {
     private Boolean isDeleted;
 
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonBackReference
     private LaptopEntity laptop;
 
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -57,6 +56,6 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     private List<ImageEntity> images;
 
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CartItemEntity cartItem;
 }

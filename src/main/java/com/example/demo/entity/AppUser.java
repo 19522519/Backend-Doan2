@@ -5,6 +5,8 @@ import java.util.*;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -44,14 +46,20 @@ public class AppUser {
     private Boolean isDeleted;
 
     @OneToMany(mappedBy = "appUser")
-    private List<AddressEntity> addresses;
-
-    @OneToMany(mappedBy = "appUser")
     private Set<UserRole> userRoles;
 
-    @OneToMany(mappedBy = "appUser")
-    private List<OrderEntity> orders;
-
-    @OneToMany(mappedBy = "appUser")
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude // Không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Không sử dụng trong toString()
     private List<CartItemEntity> cartItems;
+
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude // Không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Không sử dụng trong toString()
+    private List<AddressEntity> addresses;
+
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude // Không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Không sử dụng trong toString()
+    private List<OrderEntity> orders;
 }

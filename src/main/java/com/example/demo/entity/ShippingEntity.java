@@ -22,10 +22,10 @@ public class ShippingEntity {
     private Boolean isDeleted;
 
     @OneToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private OrderEntity order;
-
-    @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
+
+    @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private OrderEntity order;
 }

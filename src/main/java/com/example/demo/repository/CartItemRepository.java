@@ -21,4 +21,6 @@ public interface CartItemRepository extends JpaRepository<CartItemEntity, Intege
     CartItemEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
 
     List<CartItemEntity> findByAppUserAndIsDeletedIsFalse(AppUser appUser);
+
+    List<CartItemEntity> findByAppUserAndIsDeletedIsTrue(AppUser appUser);
 }

@@ -4,15 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CheckoutDto;
-import com.example.demo.dto.UserDto;
 import com.example.demo.dto.UserOrderDto;
-import com.example.demo.entity.AddressEntity;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.CartItemEntity;
 import com.example.demo.entity.OrderEntity;
@@ -27,7 +24,6 @@ import com.example.demo.service.ShippingService;
 import com.example.demo.service.ShoppingCartService;
 
 @Service
-@Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepository orderRepository;
@@ -53,90 +49,59 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderEntity createOrderBasedOnUser(AppUser appUser) {
         OrderEntity orderEntity = new OrderEntity();
+
         orderEntity.setOrderDate(LocalDate.now());
         orderEntity.setOrderStatus("Not delivery");
         orderEntity.setShippingDate(LocalDate.now().plusDays(3));
-        orderEntity.setOrderTotal(null);
+        orderEntity.setOrderTotal(shoppingCartService.calculateTotalMoney(appUser).toString());
         orderEntity.setAppUser(appUser);
         orderEntity.setIsDeleted(false);
 
         orderRepository.save(orderEntity);
 
+        List<CartItemDto> cartItemDtos = shoppingCartService.showListCartItems(appUser);
+        for (CartItemDto cartItemDto : cartItemDtos) {
+            CartItemEntity cartItemEntity = cartItemRepository.findByIdAndIsDeletedIsFalse(cartItemDto.getCartItemId());
+            cartItemEntity.setOrder(orderEntity);
+            cartItemEntity.setIsDeleted(true);
+            cartItemRepository.save(cartItemEntity);
+
+            ProductEntity productEntity = cartItemEntity.getProduct();
+            productEntity.setInventory(productEntity.getInventory() - cartItemEntity.getQuantity());
+            productRepository.save(productEntity);
+        }
+
         return orderEntity;
     }
 
     @Override
-    public CheckoutDto showCustomerInfo(Integer orderId) {
-        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(orderId);
+    public CheckoutDto showCustomerInfo(AppUser appUser) {
         CheckoutDto checkoutDto = new CheckoutDto();
 
-        if (orderEntity != null) {
-            checkoutDto.setOrderId(orderId);
-            checkoutDto.setReceiverName(
-                    orderEntity.getAppUser().getLastName() + " " + orderEntity.getAppUser().getFirstName());
-            checkoutDto.setReceiverPhone(orderEntity.getAppUser().getPhone());
-            checkoutDto.setEmail(orderEntity.getAppUser().getEmail());
-        }
+        checkoutDto.setReceiverName(appUser.getLastName() + " " + appUser.getFirstName());
+        checkoutDto.setReceiverPhone(appUser.getPhone());
+        checkoutDto.setEmail(appUser.getEmail());
 
         return checkoutDto;
-    }
-
-    @Override
-    public void updateUserOrder(AppUser appUser, CheckoutDto checkoutDto) {
-        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(checkoutDto.getOrderId());
-
-        if (orderEntity != null) {
-            orderEntity.setOrderTotal(shoppingCartService.calculateTotalMoney(appUser).toString());
-            orderRepository.save(orderEntity);
-
-            AddressEntity addressEntity = addressService.createAddressOnAppUser(appUser, checkoutDto);
-
-            if (addressEntity != null)
-                shippingService.createShippingBasedOnOrderAndAddress(addressEntity.getId(), checkoutDto);
-
-            paymentService.createPaymentBasedOnOrder(checkoutDto);
-
-            // After user clicks checkout, CartItem is deleted, Order is deleted
-            for (CartItemEntity cartItemEntity : orderEntity.getCartItems()) {
-                // Update Inventory of Product
-                ProductEntity productEntity = cartItemEntity.getProduct();
-                productEntity.setInventory(productEntity.getQuantity() - cartItemEntity.getQuantity());
-                productRepository.save(productEntity);
-
-                cartItemEntity.setIsDeleted(true);
-                cartItemRepository.save(cartItemEntity);
-            }
-            orderEntity.setIsDeleted(true);
-            orderRepository.save(orderEntity);
-        }
     }
 
     @Override
     public List<UserOrderDto> showUserOrderPage(AppUser appUser) {
         List<UserOrderDto> userOrderDtos = new ArrayList<>();
 
-        List<OrderEntity> orderEntities = orderRepository.findByAppUser(appUser);
-        if (orderEntities != null) {
-            for (OrderEntity orderEntity : orderEntities) {
-                if (orderEntity.getIsDeleted() == true) {
-                    List<CartItemEntity> cartItemEntities = orderEntity.getCartItems();
-                    if (cartItemEntities != null) {
-                        for (CartItemEntity cartItemEntity : cartItemEntities) {
-                            if (cartItemEntity.getIsDeleted() == true) {
-                                UserOrderDto userOrderDto = new UserOrderDto();
-                                userOrderDto.setThumbnail(cartItemEntity.getProduct().getThumbnail());
-                                userOrderDto.setProductName(cartItemEntity.getProduct().getName());
-                                userOrderDto.setQuantity(cartItemEntity.getQuantity());
-                                userOrderDto.setPrice(Integer.parseInt(cartItemEntity.getProduct().getPrice()));
-                                userOrderDto.setShippingDate(cartItemEntity.getOrder().getShippingDate());
-                                userOrderDto.setStatus(cartItemEntity.getOrder().getOrderStatus());
+        List<CartItemEntity> cartItemEntities = cartItemRepository.findByAppUserAndIsDeletedIsTrue(appUser);
+        for (CartItemEntity cartItemEntity : cartItemEntities) {
+            UserOrderDto userOrderDto = new UserOrderDto();
 
-                                userOrderDtos.add(userOrderDto);
-                            }
-                        }
-                    }
-                }
-            }
+            userOrderDto.setThumbnail(cartItemEntity.getProduct().getThumbnail());
+            userOrderDto.setProductName(cartItemEntity.getProduct().getName());
+            userOrderDto.setQuantity(cartItemEntity.getQuantity());
+            userOrderDto.setPrice(Integer.parseInt(cartItemEntity.getProduct().getPrice()));
+            userOrderDto.setShippingDate(cartItemEntity.getOrder().getShippingDate());
+            userOrderDto.setStatus(cartItemEntity.getOrder().getOrderStatus());
+
+            userOrderDtos.add(userOrderDto);
+
         }
         return userOrderDtos;
     }
@@ -145,22 +110,20 @@ public class OrderServiceImpl implements OrderService {
     public List<UserOrderDto> showUserOrderPage() {
         List<UserOrderDto> userOrderDtos = new ArrayList<>();
 
-        List<CartItemEntity> cartItemEntities = cartItemRepository.findAll();
-        if (cartItemEntities != null) {
-            for (CartItemEntity cartItemEntity : cartItemEntities) {
-                if (cartItemEntity.getIsDeleted() == true) {
-                    UserOrderDto userOrderDto = new UserOrderDto();
-                    userOrderDto.setOrderId(cartItemEntity.getOrder().getId());
-                    userOrderDto.setReceiver(cartItemEntity.getOrder().getShipping().getReceiver());
-                    userOrderDto.setPhone(cartItemEntity.getOrder().getShipping().getPhone());
-                    userOrderDto.setPrice(Integer.parseInt(cartItemEntity.getProduct().getPrice()));
-                    userOrderDto.setPaymentMethod(cartItemEntity.getOrder().getPayment().getType());
-                    userOrderDto.setShippingDate(cartItemEntity.getOrder().getShippingDate());
-                    userOrderDto.setStatus(cartItemEntity.getOrder().getOrderStatus());
+        List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
+        for (OrderEntity orderEntity : orderEntities) {
+            UserOrderDto userOrderDto = new UserOrderDto();
 
-                    userOrderDtos.add(userOrderDto);
-                }
-            }
+            userOrderDto.setOrderId(orderEntity.getId());
+            userOrderDto.setReceiver(orderEntity.getShipping().getReceiver());
+            userOrderDto.setPhone(orderEntity.getShipping().getPhone());
+            userOrderDto.setPrice(Integer.parseInt(orderEntity.getOrderTotal()));
+            userOrderDto.setPaymentMethod(orderEntity.getPayment().getType());
+            userOrderDto.setShippingDate(orderEntity.getShippingDate());
+            userOrderDto.setStatus(orderEntity.getOrderStatus());
+
+            userOrderDtos.add(userOrderDto);
+
         }
         return userOrderDtos;
     }
