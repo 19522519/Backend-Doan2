@@ -289,6 +289,8 @@ public class ShoppingCartController {
                     .findByUserNameAndIsDeletedIsFalse(authentication.getName());
             if (appUser != null) {
                 List<CartItemDto> cartItemDtos = cartItemDtoForm.getCartItemDtos();
+                // Update Quantity of Cart Item
+                shoppingCartService.updateQuantityProduct(cartItemDtos);
                 if (null != cartItemDtos && cartItemDtos.size() > 0) {
                     // Update Quantity of Cart Item
                     shoppingCartService.updateQuantityProduct(cartItemDtos);

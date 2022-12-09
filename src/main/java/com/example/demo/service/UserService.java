@@ -15,4 +15,6 @@ public interface UserService {
     UserDto showUserInfo(AppUser appUser);
 
     void saveUser(AppUser appUser, UserDto userDto, MultipartFile img);
+
+    String displayUserName(AppUser appUser);
 }

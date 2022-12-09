@@ -118,4 +118,9 @@ public class UserServiceImpl implements UserService {
 
         appUserRepository.save(appUser);
     }
+
+    @Override
+    public String displayUserName(AppUser appUser) {
+        return appUser.getFirstName();
+    }
 }

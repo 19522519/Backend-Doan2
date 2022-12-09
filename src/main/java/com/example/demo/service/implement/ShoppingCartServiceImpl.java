@@ -116,6 +116,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartItemDto.setPrice(cartItemEntity.getProduct().getPrice());
                 cartItemDto.setDiscount(cartItemEntity.getProduct().getDiscount());
 
+                cartItemDto.setProductId(cartItemEntity.getProduct().getId());
+
                 // View detail of product by get id of laptop, screen, keyboard, mouse
                 ProductEntity productEntity = cartItemEntity.getProduct();
                 switch (cartItemEntity.getProductType()) {
@@ -198,10 +200,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void updateQuantityProduct(List<CartItemDto> cartItemDtos) {
         for (CartItemDto cartItemDto : cartItemDtos) {
             CartItemEntity cartItemEntity = cartItemRepository.findByIdAndIsDeletedIsFalse(cartItemDto.getCartItemId());
-            if (cartItemEntity != null) {
-                cartItemEntity.setQuantity(cartItemDto.getQuantity());
-                cartItemRepository.save(cartItemEntity);
-            }
+
+            cartItemEntity.setQuantity(cartItemDto.getQuantity());
+            cartItemRepository.save(cartItemEntity);
+
         }
     }
 

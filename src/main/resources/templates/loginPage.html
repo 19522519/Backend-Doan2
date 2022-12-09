@@ -166,12 +166,7 @@
             <h2 class="login_form-title">Đăng nhập</h2>
             <div class="login_email">
               <span><i class="bx bxs-envelope"></i></span>
-              <input
-                type="text"
-                name="username"
-                placeholder="Tên người dùng"
-                required
-              />
+              <input type="text" name="username" placeholder="Email" required />
             </div>
 
             <div class="login_password">
@@ -184,7 +179,7 @@
               />
             </div>
             <p th:if="${param.error}" class="error">
-              Invalid username or password
+              Invalid email or password
             </p>
             <div>
               <span>Ghi nhớ mật khẩu?</span>

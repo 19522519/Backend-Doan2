@@ -194,7 +194,7 @@
           <form
             th:action="@{/shopping-cart/item/save}"
             method="post"
-            modelAttribute="cartItemDtoForm"
+            th:object="${cartItemDtoForm}"
           >
             <table class="text-center">
               <thead>
@@ -209,11 +209,11 @@
               </thead>
               <tbody>
                 <tr th:each="item, iterStat : ${cartItemDtoForm.cartItemDtos}">
-                  <p
-                    hidden
+                  <div hidden><input 
                     th:text="${item.cartItemId}"
-                    name="cartItemDtoForm.cartItemDtos[${iterStat.index}].cartItemId"
-                  ></p>
+                    th:field="*{cartItemDtos[__${iterStat.index}__].cartItemId}"
+                  ></input></div>
+                  <p hidden th:text="${item.productId}"></p>
                   <td>
                     <div class="item_img">
                       <a
@@ -224,11 +224,7 @@
                           display: inline-block;
                         "
                       >
-                        <img
-                          th:src="@{'/images/' + ${item.imageUrl}}"
-                          alt=""
-                          name="cartItemDtoForm.cartItemDtos[${iterStat.index}].imageUrl"
-                        />
+                        <img th:src="@{'/images/' + ${item.imageUrl}}" alt="" />
                       </a>
                     </div>
                   </td>
@@ -237,7 +233,6 @@
                       th:href="@{/{productType}/{id}(productType=${item.productType}, id=${item.productId})}"
                       class="product_name"
                       th:text="${item.name}"
-                      name="cartItemDtoForm.cartItemDtos[${iterStat.index}].name"
                     ></a>
                   </td>
                   <td>
@@ -246,14 +241,11 @@
                       size="4"
                       min="1"
                       th:value="${item.quantity}"
-                      name="cartItemDtoForm.cartItemDtos[${iterStat.index}].quantity"
+                      th:field="*{cartItemDtos[__${iterStat.index}__].quantity}"
                     />
                   </td>
                   <td>
-                    <p
-                      th:text="${item.price}+ đ"
-                      name="cartItemDtoForm.cartItemDtos[${iterStat.index}].price"
-                    ></p>
+                    <p th:text="${item.price}+ đ"></p>
                   </td>
                   <td>
                     <p th:text="${item.discount}+ '%'"></p>

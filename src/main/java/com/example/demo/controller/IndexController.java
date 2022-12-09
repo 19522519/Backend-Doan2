@@ -39,6 +39,9 @@ public class IndexController {
     AppUserRepository appUserRepository;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     LaptopService laptopService;
 
     @Autowired
@@ -52,9 +55,6 @@ public class IndexController {
 
     @Autowired
     ShoppingCartService shoppingCartService;
-
-    @Autowired
-    UserService userService;
 
     @GetMapping({ "/", "/index" })
     public String homePage(Model model) {
@@ -95,6 +95,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "index";

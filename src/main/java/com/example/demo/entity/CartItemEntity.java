@@ -19,7 +19,7 @@ public class CartItemEntity {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 

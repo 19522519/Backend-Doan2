@@ -30,7 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AppUser appUser = this.appUserRepository.findByUserNameAndIsDeletedIsFalse(userName);
+        // AppUser appUser =
+        // this.appUserRepository.findByUserNameAndIsDeletedIsFalse(userName);
+        AppUser appUser = appUserRepository.findByEmailAndIsDeletedIsFalse(userName);
 
         if (appUser == null) {
             System.out.println("User not found! " + userName);
