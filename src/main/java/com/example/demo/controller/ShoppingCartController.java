@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemDtoForm;
 import com.example.demo.entity.AppUser;
-import com.example.demo.entity.CartItemEntity;
 import com.example.demo.entity.KeyBoardEntity;
 import com.example.demo.entity.LaptopEntity;
 import com.example.demo.entity.MouseEntity;
@@ -32,11 +30,15 @@ import com.example.demo.repository.MouseRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ScreenRepository;
 import com.example.demo.service.ShoppingCartService;
+import com.example.demo.service.UserService;
 
 @Controller
 public class ShoppingCartController {
     @Autowired
     ShoppingCartService shoppingCartService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     AppUserRepository appUserRepository;
@@ -90,6 +92,7 @@ public class ShoppingCartController {
 
                     // Count Item in Cart of Current User
                     model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+                    model.addAttribute("userName", userService.displayUserName(appUser));
                     return "redirect:/shopping-cart/views";
                 }
             } else {
@@ -269,6 +272,7 @@ public class ShoppingCartController {
 
                     // Count Item in Cart of Current User
                     model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+                    model.addAttribute("userName", userService.displayUserName(appUser));
 
                     return "redirect:/shopping-cart/views";
                 }

@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,10 +26,12 @@ import com.example.demo.dto.LaptopDto;
 import com.example.demo.dto.MouseDto;
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.KeyboardService;
 import com.example.demo.service.LaptopService;
 import com.example.demo.service.MouseService;
+import com.example.demo.service.ProductService;
 import com.example.demo.service.ScreenService;
 import com.example.demo.service.ShoppingCartService;
 import com.example.demo.service.UserService;
@@ -55,6 +58,9 @@ public class IndexController {
 
     @Autowired
     ShoppingCartService shoppingCartService;
+
+    @Autowired
+    ProductService productService;
 
     @GetMapping({ "/", "/index" })
     public String homePage(Model model) {
@@ -203,6 +209,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "product_detail/LaptopDetailPage";
@@ -219,6 +226,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "product_detail/KeyboardDetailPage";
@@ -235,6 +243,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "product_detail/ScreenDetailPage";
@@ -251,6 +260,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "product_detail/MouseDetailPage";
@@ -283,6 +293,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "CollectionPage/GamingLaptopsList";
@@ -313,6 +324,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "CollectionPage/OfficeLaptopsList";
@@ -343,6 +355,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "CollectionPage/ScreenList";
@@ -373,6 +386,7 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "CollectionPage/KeyboardList";
@@ -403,8 +417,42 @@ public class IndexController {
         } else {
             AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
             model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
         }
 
         return "CollectionPage/MouseList";
+    }
+
+    @GetMapping("/search")
+    public String viewFilteredPage(Model model, @Param("keyword") String keyword,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(16);
+
+        Page<ProductEntity> productPage = productService.findProductBasedOnKeyword(keyword,
+                PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("searchPage", productPage);
+        model.addAttribute("keyword", keyword);
+
+        int totalPages = productPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
+        }
+
+        return "SearchPage";
     }
 }

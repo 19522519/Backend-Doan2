@@ -70,7 +70,7 @@
                       <div class="col">
                         <div sec:authorize="isAuthenticated()">
                           <a th:href="@{/personal-info}"
-                            ><p sec:authentication="name"></p
+                            ><p th:text="${userName}"></p
                           ></a>
                         </div>
                         <div sec:authorize="isAnonymous()">

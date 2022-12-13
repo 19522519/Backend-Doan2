@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chuyên Laptop, PC, phụ kiện Gaming</title>
+    <title>Các sản phẩm laptop gaming</title>
     <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
@@ -16,6 +16,7 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
+
     <!-- CSS only -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
@@ -68,9 +69,8 @@
                       </div>
                       <div class="col">
                         <div sec:authorize="isAuthenticated()">
-                          <a th:href="@{/personal-info}" style="color: red"
-                            ><i class="bx bxs-user-circle"></i>
-                            <p th:text="${userName}"></p
+                          <a th:href="@{/personal-info}"
+                            ><p th:text="${userName}"></p
                           ></a>
                         </div>
                         <div sec:authorize="isAnonymous()">
@@ -174,80 +174,78 @@
       </div>
     </div>
     <!-- DONE HEADER NAVIGATION -->
-    <div class="product_detail_contain">
+
+    <div class="product__list">
       <div class="container">
-        <div class="row">
-          <div class="product_detail-status-name">
-            <h2 th:text="${keyboard.KeyBoardname}"></h2>
-            <div class="product_detail-status">Còn hàng</div>
+        <div class="row fixed_row">
+          <div class="product__list-heading">
+            <h4 class="product__list_heading-name">Tìm kiếm</h4>
+            <span
+              >Sắp xếp theo:
+              <select
+                name=""
+                id=""
+                style="padding: 0; width: auto; height: auto"
+              >
+                <option value="" selected>Bán chạy nhất</option>
+                <option value="">Giá: tăng dần</option>
+                <option value="">Giá: giảm dần</option>
+                <option value="">Tên A -> Z</option>
+                <option value="">Tên Z -> A</option>
+                <option value="">Cũ Nhất</option>
+                <option value="">Mới Nhất</option>
+              </select>
+            </span>
           </div>
-          <div class="row">
-            <div class="col">
-              <div class="image_product_big">
-                <img th:src="@{'/images/' + ${keyboard.thumbnail}}" alt="" />
+          <p>
+            Kết quả tìm kiếm cho <b>"</b><b th:text="${keyword}"></b><b>"</b>.
+          </p>
+          <div class="product__list_card">
+            <div class="row">
+              <div th:each="laptop : ${searchPage.content}" class="col-3 mb-3">
+                <div class="product_card">
+                  <div class="best_seller">Best Seller</div>
+                  <div class="product_card-image">
+                    <a href=""
+                      ><img th:src="@{'/images/' + ${laptop.thumbnail}}" alt=""
+                    /></a>
+                    <div class="product_detail">
+                      <p>Click để xem chi tiết</p>
+                      <button>Đặt hàng</button>
+                    </div>
+                  </div>
+                  <div class="product_card-description">
+                    <p hidden th:text="${laptop.id}"></p>
+                    <p th:text="${laptop.name}"></p>
+                    <div class="product_card-description-sale">
+                      <div class="product_card-description-sale--price">
+                        <span th:text="${laptop.price}+đ"></span>
+                      </div>
+                      <div class="discount">
+                        <span th:text="${laptop.discount}+'%'"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="multiple-items"></div>
-            </div>
-            <div class="col product_detail_infoAction">
-              <div class="product_detail_price">
-                <p>Mua ngay</p>
-                <p th:text="${keyboard.price}+đ" class="price"></p>
-              </div>
-              <div class="product_detail_sale">
-                <p class="color_special">Khuyến mãi</p>
-                <p>Nhận thêm combo quà tặng: <span></span></p>
-              </div>
-              <button class="product_detail_buy">
-                <p style="font-size: 20px">ĐẶT NGAY</p>
-                <p>Giao hàng tận nơi hoặc nhận tại cửa hàng</p>
-              </button>
             </div>
           </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col">
-            <div class="product_detail_info">
-              <h3>THÔNG SỐ KỸ THUẬT</h3>
-              <table style="width: 100%">
-                <tr>
-                  <td>Type</td>
-                  <td th:text="${keyboard.type}"></td>
-                </tr>
-                <tr>
-                  <td>Led</td>
-                  <td th:text="${keyboard.led}"></td>
-                </tr>
-                <tr>
-                  <td>Trọng lượng</td>
-                  <td th:text="${keyboard.weight}"></td>
-                </tr>
-                <tr class="background_tr">
-                  <td>Bảo hành</td>
-                  <td th:text="${keyboard.insurance}"></td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="col">
-            <div class="product_detail_description">
-              <h3>MÔ TẢ SẢN PHẨM</h3>
-              <h2>LENOVO LEGION 5</h2>
-              <p>
-                Lenovo Legion 5 15ACH6 (82JW00JPVN) kết hợp khả năng xử lý AMD
-                R5 5600H và GTX 16 series sẵn sàng cho mọi cuộc chiến. Laptop
-                gaming sở hữu 165Hz siêu mượt. Kết hợp với âm thanh Nahimic 3D
-                xác định chính xác bước chân trong không gian. Nghe và đưa mục
-                tiêu vào trong tầm bắn.
-              </p>
-              <div class="product_detail_description-img">
-                <!-- <img src="./images/product_description.png" alt="" /> -->
-              </div>
-            </div>
+          <div class="row pagination text-center">
+            <ul th:each="pageNumber : ${pageNumbers}" class="pagination_list">
+              <li th:if="${searchPage.totalPages > 0}" class="page-link">
+                <a
+                  th:href="@{/collections/laptop-gaming(size=${searchPage.size}, page=${pageNumber})}"
+                  th:text="${pageNumber}"
+                  th:class="${pageNumber == searchPage.number + 1} ? active"
+                ></a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    <!-- END PRODUCT_DETAIL_PAGE -->
+    <!-- END LIST LAPTOP -->
+
     <footer>
       <div class="container">
         <div class="row">
@@ -324,6 +322,7 @@
         </div>
       </div>
     </footer>
-    <!-- End Footer-->
+    <!-- End Footer -->
   </body>
+  <script src="script.js"></script>
 </html>

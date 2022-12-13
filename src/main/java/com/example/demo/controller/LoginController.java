@@ -44,10 +44,4 @@ public class LoginController {
     public String accessDeniedPage() {
         return "403Page";
     }
-
-    @GetMapping("/forgotPassword")
-    public String forgotPassword() {
-        return "ForgotPasswordPage";
-    }
-
 }

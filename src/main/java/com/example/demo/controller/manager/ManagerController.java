@@ -1,11 +1,8 @@
 package com.example.demo.controller.manager;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,10 +59,38 @@ public class ManagerController {
         }
     }
 
-    @GetMapping("/customer")
-    public String customerPage() {
+    @GetMapping("/customer-management")
+    public String customerPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
+            AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            if (appUser != null) {
+                model.addAttribute("customer", userService.findAllCustomer());
+                return "manager/user/customer_list";
+            } else {
+                return "redirect:/login";
+            }
+        }
+    }
 
-        return "manager/user/customer";
+    @GetMapping("/seller-management")
+    public String sellerPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
+            AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            if (appUser != null) {
+                model.addAttribute("customer", userService.findAllSeller());
+                return "manager/user/seller_list";
+            } else {
+                return "redirect:/login";
+            }
+        }
     }
 
     @GetMapping("/statistic")

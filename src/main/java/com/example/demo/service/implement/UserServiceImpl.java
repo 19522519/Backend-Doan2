@@ -16,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.entity.AppRole;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.UserRole;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.repository.CartItemRepository;
@@ -122,5 +124,88 @@ public class UserServiceImpl implements UserService {
     @Override
     public String displayUserName(AppUser appUser) {
         return appUser.getFirstName();
+    }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) throws NotFoundException {
+        AppUser appUser = appUserRepository.findByEmailAndIsDeletedIsFalse(email);
+
+        if (appUser != null) {
+            appUser.setResetPasswordToken(token);
+            appUserRepository.save(appUser);
+        } else {
+            throw new NotFoundException("Could not find any customer with the email " + email);
+        }
+    }
+
+    @Override
+    public AppUser getByResetPasswordToken(String token) {
+        return appUserRepository.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public void updatePassword(AppUser appUser, String newPassword) {
+        String encodePassword = bCryptPasswordEncoder.encode(newPassword);
+        appUser.setEncrytedPassword(encodePassword);
+        appUser.setResetPasswordToken(null);
+        appUserRepository.save(appUser);
+    }
+
+    @Override
+    public List<UserDto> findAllCustomer() {
+        List<UserDto> userDtos = new ArrayList<>();
+
+        AppRole appRole = appRoleRepository.findByRoleName("ROLE_CUSTOMER");
+        List<AppUser> appUsers = appUserRepository.findByIsDeletedIsFalseOrderByFirstNameAsc();
+
+        for (AppUser appUser : appUsers) {
+            List<UserRole> userRoles = userRoleRepository.findByAppUser(appUser);
+
+            for (UserRole userRole : userRoles) {
+                if (userRole.getAppRole().getRoleId() == appRole.getRoleId()) {
+                    UserDto userDto = new UserDto();
+
+                    userDto.setUserId(appUser.getUserId());
+                    userDto.setAvatar(appUser.getAvatar());
+                    userDto.setLastName(appUser.getLastName());
+                    userDto.setFirstName(appUser.getFirstName());
+                    userDto.setEmail(appUser.getEmail());
+                    userDto.setPhone(appUser.getPhone());
+
+                    userDtos.add(userDto);
+                }
+            }
+        }
+
+        return userDtos;
+    }
+
+    @Override
+    public List<UserDto> findAllSeller() {
+        List<UserDto> userDtos = new ArrayList<>();
+
+        AppRole appRole = appRoleRepository.findByRoleName("ROLE_SELLER");
+        List<AppUser> appUsers = appUserRepository.findByIsDeletedIsFalseOrderByFirstNameAsc();
+
+        for (AppUser appUser : appUsers) {
+            List<UserRole> userRoles = userRoleRepository.findByAppUser(appUser);
+
+            for (UserRole userRole : userRoles) {
+                if (userRole.getAppRole().getRoleId() == appRole.getRoleId()) {
+                    UserDto userDto = new UserDto();
+
+                    userDto.setUserId(appUser.getUserId());
+                    userDto.setAvatar(appUser.getAvatar());
+                    userDto.setLastName(appUser.getLastName());
+                    userDto.setFirstName(appUser.getFirstName());
+                    userDto.setEmail(appUser.getEmail());
+                    userDto.setPhone(appUser.getPhone());
+
+                    userDtos.add(userDto);
+                }
+            }
+        }
+
+        return userDtos;
     }
 }

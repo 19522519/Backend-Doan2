@@ -45,6 +45,9 @@ public class AppUser {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @OneToMany(mappedBy = "appUser")
     private Set<UserRole> userRoles;
 

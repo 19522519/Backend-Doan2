@@ -54,9 +54,11 @@
               <div class="action__info">
                 <div class="row">
                   <div class="col-6">
-                    <form action="" class="search__form">
+                    <form th:action="@{/search}" class="search__form">
                       <input
                         type="text"
+                        name="keyword"
+                        th:value="${keyword}"
                         placeholder="Nhập mã hoặc tên sản phẩm..."
                       />
                       <button type="submit" class="search__btn">

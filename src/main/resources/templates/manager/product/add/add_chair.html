@@ -73,13 +73,18 @@
           </ul>
         </li>
         <li>
-          <a th:href="@{/manager/customers}">
-            <i class="bx bxs-user"></i>
-            <span class="link_name">Customer</span>
-          </a>
-          <ul class="sub-menu blank">
+          <div class="iocn-link">
+            <a href="">
+              <i class="bx bxs-box"></i>
+              <span class="link_name">Users management</span>
+            </a>
+            <i class="bx bxs-chevron-down arrow"></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Users management</a></li>
+            <li><a th:href="@{/manager/customer-management}">Customer</a></li>
             <li>
-              <a class="link_name" th:href="@{/manager/customer}">Customer</a>
+              <a th:href="@{/manager/seller-management}">Seller</a>
             </li>
           </ul>
         </li>

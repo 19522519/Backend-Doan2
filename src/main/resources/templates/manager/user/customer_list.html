@@ -60,13 +60,18 @@
           </ul>
         </li>
         <li>
-          <a th:href="@{customer}">
-            <i class="bx bxs-user"></i>
-            <span class="link_name">Customer</span>
-          </a>
-          <ul class="sub-menu blank">
+          <div class="iocn-link">
+            <a href="">
+              <i class="bx bxs-box"></i>
+              <span class="link_name">Users management</span>
+            </a>
+            <i class="bx bxs-chevron-down arrow"></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Users management</a></li>
+            <li><a th:href="@{/manager/customer-management}">Customer</a></li>
             <li>
-              <a class="link_name" th:href="@{customer}">Customer</a>
+              <a th:href="@{/manager/seller-management}">Seller</a>
             </li>
           </ul>
         </li>
@@ -108,6 +113,34 @@
       <div class="home-content">
         <i class="bx bx-menu"></i>
         <span class="text">Danh sách khách hàng</span>
+      </div>
+      <div class="home_list_orders">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Ảnh đại diện</th>
+              <th scope="col">Họ</th>
+              <th scope="col">Tên</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="item, iterStat : ${customer}">
+              <td th:text="${iterStat.count}"></td>
+              <td th:text="${item.avatar}"></td>
+              <td th:text="${item.lastName}"></td>
+              <td th:text="${item.firstName}"></td>
+              <td th:text="${item.email}"></td>
+              <td th:text="${item.phone}"></td>
+              <td>
+                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
     <script>
