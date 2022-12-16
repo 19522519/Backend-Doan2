@@ -7,4 +7,6 @@ import com.example.demo.entity.OrderEntity;
 public interface ShippingService {
     void createShippingBasedOnOrderAndAddress(AddressEntity addressEntity, OrderEntity orderEntity,
             CheckoutDto checkoutDto);
+
+    void deleteShippingBasedOnOrder(Integer orderId);
 }

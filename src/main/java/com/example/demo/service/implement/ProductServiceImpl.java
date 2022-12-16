@@ -50,4 +50,9 @@ public class ProductServiceImpl implements ProductService {
 
         return searchPage;
     }
+
+    @Override
+    public Integer countProducts() {
+        return productRepository.findByIsDeletedIsFalse().size();
+    }
 }

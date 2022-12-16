@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
     @Query("select p from ProductEntity p where concat(p.name, p.price) like %?1% and p.isDeleted=false")
     List<ProductEntity> search(String keyword);
+
+    List<ProductEntity> findByIsDeletedIsFalseOrderByIdDesc(Pageable pageable);
+
+    List<ProductEntity> findByIsDeletedIsFalse();
 }

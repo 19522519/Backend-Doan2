@@ -17,4 +17,18 @@ public interface OrderService {
 
     // Seller Page
     List<UserOrderDto> showUserOrderPage();
+
+    List<UserOrderDto> displayEightRecentOrders();
+
+    Integer countOrders();
+
+    Integer calculateRevenue();
+
+    void deleteOrder(Integer orderId);
+
+    Integer getRevenueByLastMonth();
+
+    Integer getRevenueByLastWeek();
+
+    Integer getRevenueByToday();
 }

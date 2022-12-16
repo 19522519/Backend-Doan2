@@ -1,10 +1,14 @@
 package com.example.demo.service.implement;
 
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CartItemDto;
@@ -126,5 +130,97 @@ public class OrderServiceImpl implements OrderService {
 
         }
         return userOrderDtos;
+    }
+
+    @Override
+    public List<UserOrderDto> displayEightRecentOrders() {
+        List<UserOrderDto> userOrderDtos = new ArrayList<>();
+        Pageable topEight = PageRequest.of(0, 8);
+
+        List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalseOrderByOrderDateDesc(topEight);
+        for (OrderEntity orderEntity : orderEntities) {
+            UserOrderDto userOrderDto = new UserOrderDto();
+
+            userOrderDto.setOrderId(orderEntity.getId());
+            userOrderDto.setReceiver(orderEntity.getShipping().getReceiver());
+            userOrderDto.setQuantity(orderEntity.getCartItems().size());
+            userOrderDto.setPrice(Integer.parseInt(orderEntity.getOrderTotal()));
+
+            userOrderDtos.add(userOrderDto);
+        }
+
+        return userOrderDtos;
+    }
+
+    @Override
+    public Integer countOrders() {
+        return orderRepository.findByIsDeletedIsFalse().size();
+    }
+
+    @Override
+    public Integer calculateRevenue() {
+        Integer sum = 0;
+        List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
+        for (OrderEntity orderEntity : orderEntities) {
+            if (orderEntity.getOrderStatus().equals("Delivered")
+                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear())
+                sum += Integer.parseInt(orderEntity.getOrderTotal());
+        }
+        return sum;
+    }
+
+    @Override
+    public void deleteOrder(Integer orderId) {
+        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(orderId);
+        orderRepository.delete(orderEntity);
+    }
+
+    @Override
+    public Integer getRevenueByLastMonth() {
+        Integer sum = 0;
+        List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
+        Integer currentMonth = LocalDate.now().getMonthValue();
+
+        for (OrderEntity orderEntity : orderEntities) {
+            if (orderEntity.getOrderStatus().equals("Delivered")
+                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getOrderDate().getMonthValue() == currentMonth - 1)
+                    sum += Integer.parseInt(orderEntity.getOrderTotal());
+            }
+        }
+
+        return sum;
+    }
+
+    @Override
+    public Integer getRevenueByLastWeek() {
+        Integer sum = 0;
+        List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        Integer currentWeek = LocalDate.now().get(weekFields.weekOfWeekBasedYear());
+
+        for (OrderEntity orderEntity : orderEntities) {
+            if (orderEntity.getOrderStatus().equals("Delivered")
+                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getOrderDate().get(weekFields.weekOfWeekBasedYear()) == currentWeek - 1)
+                    sum += Integer.parseInt(orderEntity.getOrderTotal());
+            }
+        }
+
+        return sum;
+    }
+
+    @Override
+    public Integer getRevenueByToday() {
+        Integer sum = 0;
+        List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
+
+        for (OrderEntity orderEntity : orderEntities) {
+            if (orderEntity.getOrderStatus().equals("Delivered")
+                    && orderEntity.getOrderDate().isEqual(LocalDate.now()))
+                sum += Integer.parseInt(orderEntity.getOrderTotal());
+        }
+
+        return sum;
     }
 }

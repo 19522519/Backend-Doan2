@@ -124,20 +124,16 @@
               <th scope="col">Tên</th>
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
-              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="item, iterStat : ${customer}">
               <td th:text="${iterStat.count}"></td>
-              <td th:text="${item.avatar}"></td>
+              <td><img th:src="@{'/images/' + ${item.avatar}}" /></td>
               <td th:text="${item.lastName}"></td>
               <td th:text="${item.firstName}"></td>
               <td th:text="${item.email}"></td>
               <td th:text="${item.phone}"></td>
-              <td>
-                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
-              </td>
             </tr>
           </tbody>
         </table>

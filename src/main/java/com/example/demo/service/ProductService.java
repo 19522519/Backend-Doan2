@@ -7,4 +7,6 @@ import com.example.demo.entity.ProductEntity;
 
 public interface ProductService {
     Page<ProductEntity> findProductBasedOnKeyword(String keyword, Pageable pageable);
+
+    Integer countProducts();
 }

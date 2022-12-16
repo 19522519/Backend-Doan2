@@ -6,4 +6,6 @@ import com.example.demo.entity.AppUser;
 
 public interface AddressService {
     AddressEntity createAddressOnAppUser(AppUser appUser, CheckoutDto checkoutDto);
+
+    void deleteAddressBasedOnShippingBasedOnOrder(Integer orderId);
 }

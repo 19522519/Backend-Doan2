@@ -128,16 +128,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="item, iterStat : ${customer}">
+            <tr th:each="item, iterStat : ${seller}">
+              <p hidden>[[${item.userId}]]</p>
               <td th:text="${iterStat.count}"></td>
-              <td th:text="${item.avatar}"></td>
+              <td><img th:src="@{'/images/' + ${item.avatar}}" /></td>
               <td th:text="${item.lastName}"></td>
               <td th:text="${item.firstName}"></td>
               <td th:text="${item.email}"></td>
               <td th:text="${item.phone}"></td>
               <td>
-                <a href=""><i class="fas fa-edit"></i> Edit</a>
-                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
+                <a th:href="@{/manager/delete-user/{id}(id=${item.userId})}"
+                  ><i class="fas fa-trash-alt"></i> Delete</a
+                >
               </td>
             </tr>
           </tbody>

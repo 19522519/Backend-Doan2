@@ -30,4 +30,10 @@ public interface UserService {
     List<UserDto> findAllCustomer();
 
     List<UserDto> findAllSeller();
+
+    List<UserDto> displayFiveRecentCustomers();
+
+    Integer countCustomers();
+
+    void deleteUser(Integer id);
 }

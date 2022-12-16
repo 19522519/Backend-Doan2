@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -207,5 +209,44 @@ public class UserServiceImpl implements UserService {
         }
 
         return userDtos;
+    }
+
+    @Override
+    public List<UserDto> displayFiveRecentCustomers() {
+        List<UserDto> userDtos = new ArrayList<>();
+        Pageable topFive = PageRequest.of(0, 5);
+
+        AppRole appRole = appRoleRepository.findByRoleName("ROLE_CUSTOMER");
+        List<UserRole> userRoles = userRoleRepository.findByAppRoleOrderByIdDesc(appRole, topFive);
+
+        for (UserRole userRole : userRoles) {
+            UserDto userDto = new UserDto();
+
+            userDto.setUserId(userRole.getAppUser().getUserId());
+            userDto.setAvatar(userRole.getAppUser().getAvatar());
+            userDto.setFullName(userRole.getAppUser().getLastName() + " " + userRole.getAppUser().getFirstName());
+
+            userDtos.add(userDto);
+        }
+
+        return userDtos;
+    }
+
+    @Override
+    public Integer countCustomers() {
+        AppRole appRole = appRoleRepository.findByRoleName("ROLE_CUSTOMER");
+        return userRoleRepository.findByAppRole(appRole).size();
+    }
+
+    @Override
+    public void deleteUser(Integer id) {
+        AppUser appUser = appUserRepository.findByUserIdAndIsDeletedIsFalse(id);
+
+        List<UserRole> userRoles = userRoleRepository.findByAppUser(appUser);
+        for (UserRole userRole : userRoles) {
+            userRoleRepository.delete(userRole);
+        }
+
+        appUserRepository.delete(appUser);
     }
 }

@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADMIN PAGE</title>
+    <title>SELLER PAGE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <!-- Boxicon link -->
     <link
@@ -45,7 +45,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a th:href="@{/seller}">
+          <a th:href="@{/seller/dashboard}">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -60,31 +60,42 @@
           </div>
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Products</a></li>
-            <li><a th:href="@{seller/menu_add}">Create product</a></li>
+            <li><a th:href="@{/seller/menu_add}">Create product</a></li>
             <li>
-              <a th:href="@{seller/menu_list_product}">Product management</a>
+              <a th:href="@{/seller/menu_list_product}">Product management</a>
             </li>
           </ul>
         </li>
         <li>
-          <a th:href="@{seller/order}">
+          <a th:href="@{/seller/order}">
             <i class="bx bxs-cart-alt"></i>
             <span class="link_name">Orders</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" th:href="@{seller/order}">Orders</a>
+              <a class="link_name" th:href="@{/seller/order}">Orders</a>
             </li>
           </ul>
         </li>
         <li>
-          <a th:href="@{seller/setting}">
+          <a th:href="@{/seller/customer}">
+            <i class="bx bxs-user"></i>
+            <span class="link_name">Customers</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" th:href="@{/seller/customer}">Customers</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{/seller/setting}">
             <i class="bx bx-cog"></i>
             <span class="link_name">Setting</span>
           </a>
           <ul class="sub-menu blank">
             <li>
-              <a class="link_name" th:href="@{seller/setting}">Setting</a>
+              <a class="link_name" th:href="@{/seller/setting}">Setting</a>
             </li>
           </ul>
         </li>
@@ -113,16 +124,18 @@
             <div class="col-md-3">
               <div class="user_box box">
                 <div class="box_title">
-                  <h6>USERS</h6>
+                  <h6>CUSTOMERS</h6>
                   <div class="box_rate">
                     <i class="bx bx-chevron-up"></i>+5 %
                   </div>
                 </div>
                 <div class="box_value">
-                  <h3>700</h3>
+                  <h3 th:text="${countCustomers}"></h3>
                 </div>
                 <div class="box_action">
-                  <a href="">See all users</a>
+                  <a th:href="@{/seller/customer-management}"
+                    >See all customers</a
+                  >
                   <div class="box_action--icon">
                     <i class="bx bx-user-circle user_icon icon"></i>
                   </div>
@@ -138,10 +151,10 @@
                   </div>
                 </div>
                 <div class="box_value">
-                  <h3>200</h3>
+                  <h3 th:text="${countOrders}"></h3>
                 </div>
                 <div class="box_action">
-                  <a href="">View all orders</a>
+                  <a th:href="@{/seller/order}">View all orders</a>
                   <div class="box_action--icon">
                     <i class="bx bx-cart-alt order_icon icon"></i>
                   </div>
@@ -157,10 +170,12 @@
                   </div>
                 </div>
                 <div class="box_value">
-                  <h3>2300</h3>
+                  <h3 th:text="${countProducts}"></h3>
                 </div>
                 <div class="box_action">
-                  <a href="">View all products</a>
+                  <a th:href="@{/seller/menu_list_product}"
+                    >View all products</a
+                  >
                   <div class="box_action--icon">
                     <i class="bx bx-package product_icon icon"></i>
                   </div>
@@ -176,10 +191,10 @@
                   </div>
                 </div>
                 <div class="box_value">
-                  <h3>50.000.000<span>Đ</span></h3>
+                  <h3 th:text="${revenue} + đ"><span>Đ</span></h3>
                 </div>
-                <div class="box_action">
-                  <a href="">See detail</a>
+                <div hidden class="box_action">
+                  <a th:href="@{/seller/statistic}">See detail</a>
                   <div class="box_action--icon">
                     <i class="bx bx-money-withdraw money_icon icon"></i>
                   </div>
@@ -206,6 +221,7 @@
               <div class="recent_payment" style="padding-bottom: 40px">
                 <div class="recent_payment_title">
                   <h3>Recent Payments</h3>
+                  <a th:href="@{/seller/order}">View All</a>
                 </div>
                 <div class="recent_payment_table">
                   <table class="table table-borderless text-center">
@@ -215,18 +231,16 @@
                         <th scope="col">Name</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Phát</td>
-                        <td>3</td>
-                        <td>3.000.000</td>
-                        <td><a href="">View</a></td>
+                      <tr th:each="item : ${orders}">
+                        <th th:text="${item.orderId}" scope="row"></th>
+                        <td th:text="${item.receiver}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td th:text="${item.price} + đ"></td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <th scope="row">2</th>
                         <td>Việt</td>
                         <td>5</td>
@@ -267,7 +281,7 @@
                         <td>5</td>
                         <td>4.000.000</td>
                         <td><a href="">View</a></td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>
@@ -276,7 +290,8 @@
             <div class="col-lg-4">
               <div class="recent_user">
                 <div class="recent_user_title">
-                  <h3>Recent Users</h3>
+                  <h3>Recent Customers</h3>
+                  <a th:href="@{/seller/customer-management}">View All</a>
                 </div>
                 <div class="recent_user_table">
                   <table class="table table-borderless text-center">
@@ -285,22 +300,20 @@
                         <th scope="col">#</th>
                         <th scope="col">Avatar</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="align-middle">
-                        <th scope="row">1</th>
+                      <tr
+                        class="align-middle"
+                        th:each="item, iterStat : ${customers}"
+                      >
+                        <th th:text="${iterStat.count}" scope="row"></th>
                         <td class="recent_user_table--avatar">
-                          <img
-                            src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
-                            alt=""
-                          />
+                          <img th:src="@{'/images/' + ${item.avatar}}" alt="" />
                         </td>
-                        <td>Phát</td>
-                        <td><a href="">View</a></td>
+                        <td th:text="${item.fullName}"></td>
                       </tr>
-                      <tr class="align-middle">
+                      <!-- <tr class="align-middle">
                         <th scope="row">2</th>
                         <td class="recent_user_table--avatar">
                           <img
@@ -343,7 +356,7 @@
                         </td>
                         <td>Phát</td>
                         <td><a href="">View</a></td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>
@@ -352,10 +365,17 @@
           </div>
         </div>
       </div>
+      <p hidden th:text="${keySet}"></p>
+      <p hidden th:text="${values}" id="num"></p>
+      <p hidden th:text="${revenueValues}" id="val"></p>
     </section>
     <script>
+      const num = document.getElementById("num").innerHTML;
+      const newNum = num.slice(1, num.length - 1);
       var xValues = ["Laptop", "PC", "Màn hình", "Chuột", "Bàn phím"];
-      var yValues = [55, 49, 44, 24, 15];
+      // var yValues = [55, 49, 44, 24, 15];
+      // var xValues = "[[${keySet}]]";
+      var yValues = newNum.split(",");
       var barColors = ["red", "green", "blue", "orange", "brown"];
 
       new Chart("myChart1", {
@@ -377,6 +397,9 @@
           },
         },
       });
+
+      const val = document.getElementById("val").innerHTML;
+      const newVal = val.slice(1, val.length - 1);
       var xValues2 = [
         "Jan",
         "Feb",
@@ -391,7 +414,8 @@
         "Nov",
         "Dec",
       ];
-      var yValues2 = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+      // var yValues2 = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+      var yValues2 = newVal.split(",");
 
       new Chart("myChart2", {
         type: "line",
@@ -409,9 +433,9 @@
         },
         options: {
           legend: { display: false },
-          scales: {
-            yAxes: [{ ticks: { min: 6, max: 16 } }],
-          },
+          // scales: {
+          //   yAxes: [{ ticks: { min: 6, max: 16 } }],
+          // },
           title: {
             display: true,
             text: "Doanh thu theo tháng",

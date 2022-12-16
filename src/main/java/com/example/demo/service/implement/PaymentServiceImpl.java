@@ -1,5 +1,7 @@
 package com.example.demo.service.implement;
 
+import javax.persistence.criteria.Order;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,12 @@ public class PaymentServiceImpl implements PaymentService {
             paymentEntity.setIsDeleted(false);
             paymentRepository.save(paymentEntity);
         }
+    }
+
+    @Override
+    public void deletePaymentBasedOnOrder(Integer orderId) {
+        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(orderId);
+        PaymentEntity paymentEntity = paymentRepository.findByOrder(orderEntity);
+        paymentRepository.delete(paymentEntity);
     }
 }

@@ -147,12 +147,19 @@
               <td th:text="${item.receiver}"></td>
               <td th:text="${item.phone}"></td>
               <td th:text="${item.shippingDate}"></td>
-              <td th:text="${item.price}"></td>
+              <td th:text="${item.price} + đ"></td>
               <td th:text="${item.paymentMethod}"></td>
-              <td th:text="${item.status}"></td>
+              <td>
+                <div th:switch="${item.status}">
+                  <span th:case="'Delivered'">Đã giao</span>
+                  <span th:case="'Not delivery'">Chưa giao</span>
+                </div>
+              </td>
               <td>
                 <a href=""><i class="fas fa-edit"></i> Edit</a>
-                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
+                <a th:href="@{/manager/delete-order/{id} (id=${item.orderId})}"
+                  ><i class="fas fa-trash-alt"></i> Delete</a
+                >
               </td>
             </tr>
           </tbody>

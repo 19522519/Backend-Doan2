@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADMIN PAGE</title>
+    <title>SELLER PAGE</title>
     <!-- Boxicon link -->
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
@@ -40,7 +40,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a th:href="@{/seller}">
+          <a th:href="@{/seller/dashboard}">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -69,6 +69,17 @@
           <ul class="sub-menu blank">
             <li>
               <a class="link_name" th:href="@{order}">Orders</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{/seller/customer}">
+            <i class="bx bxs-user"></i>
+            <span class="link_name">Customers</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" th:href="@{/seller/customer}">Customers</a>
             </li>
           </ul>
         </li>
@@ -125,7 +136,9 @@
               <td th:text="${item.status}"></td>
               <td>
                 <a href=""><i class="fas fa-edit"></i> Edit</a>
-                <a href=""><i class="fas fa-trash-alt"></i> Delete</a>
+                <a th:href="@{/seller/delete-order/{id} (id=${item.orderId})}"
+                  ><i class="fas fa-trash-alt"></i> Delete</a
+                >
               </td>
             </tr>
           </tbody>

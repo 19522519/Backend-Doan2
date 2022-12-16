@@ -40,7 +40,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a th:href="@{/seller}">
+          <a th:href="@{/seller/dashboard}">
             <i class="bx bx-grid-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -67,6 +67,17 @@
           <ul class="sub-menu blank">
             <li>
               <a class="link_name" th:href="@{order}">Orders</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{/seller/customer}">
+            <i class="bx bxs-user"></i>
+            <span class="link_name">Customers</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li>
+              <a class="link_name" th:href="@{/seller/customer}">Customers</a>
             </li>
           </ul>
         </li>

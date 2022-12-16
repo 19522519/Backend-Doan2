@@ -140,16 +140,18 @@
             <div class="total_revenue_section">
               <h4>Tổng doanh thu</h4>
               <div class="value_info text-center">
-                <p class="value"><span>50%</span></p>
+                <p hidden class="value"><span>50%</span></p>
                 <p class="value_statement">Total sales made today</p>
-                <p class="value_money"><span>50.000.000</span>Đ</p>
+                <p class="value_money">
+                  <span th:text="${todayRevenue}"></span>Đ
+                </p>
                 <p class="value_description">
                   Previous transaction processing. Last payments may not be
                   included
                 </p>
               </div>
               <div class="row text-center">
-                <div class="col">
+                <!-- <div class="col">
                   <h4 class="target_info">Target</h4>
                   <p
                     class="text-info"
@@ -157,24 +159,22 @@
                   >
                     100.000.000đ
                   </p>
-                </div>
+                </div> -->
                 <div class="col">
                   <h4 class="target_info">Last week</h4>
                   <p
                     class="text-success"
                     style="font-weight: 500; font-size: 20px"
-                  >
-                    120.000.000đ
-                  </p>
+                    th:text="${lastWeekRevenue} + đ"
+                  ></p>
                 </div>
                 <div class="col">
                   <h4 class="target_info">Last month</h4>
                   <p
                     class="text-danger"
                     style="font-weight: 500; font-size: 20px"
-                  >
-                    80.000.000đ
-                  </p>
+                    th:text="${lastMonthRevenue} + đ"
+                  ></p>
                 </div>
               </div>
             </div>
@@ -184,10 +184,14 @@
           </div>
         </div>
       </div>
+      <p th:text="${values}" id="num"></p>
     </section>
     <script>
+      const num = document.getElementById("num").innerHTML;
+      const newNum = num.slice(1, num.length - 1);
       var xValues = ["PC", "Laptop", "Chuột", "Bàn phím", "Màn hình"];
-      var yValues = [55, 49, 44, 24, 15];
+      // var yValues = [55, 49, 44, 24, 15];
+      var yValues = newNum.split(",");
       var barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9", "#1e7145"];
 
       new Chart("statisChart", {

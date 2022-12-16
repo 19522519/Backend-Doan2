@@ -38,4 +38,11 @@ public class ShippingServiceImpl implements ShippingService {
 
         shippingRepository.save(shippingEntity);
     }
+
+    @Override
+    public void deleteShippingBasedOnOrder(Integer orderId) {
+        OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(orderId);
+        ShippingEntity shippingEntity = shippingRepository.findByOrder(orderEntity);
+        shippingRepository.delete(shippingEntity);
+    }
 }
