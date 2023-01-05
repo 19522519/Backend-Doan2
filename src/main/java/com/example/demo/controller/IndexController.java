@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.dto.LaptopDto;
 import com.example.demo.dto.MouseDto;
+import com.example.demo.dto.PcDto;
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.ProductEntity;
@@ -31,6 +32,7 @@ import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.KeyboardService;
 import com.example.demo.service.LaptopService;
 import com.example.demo.service.MouseService;
+import com.example.demo.service.PcService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ScreenService;
 import com.example.demo.service.ShoppingCartService;
@@ -46,6 +48,10 @@ public class IndexController {
 
     @Autowired
     LaptopService laptopService;
+
+
+    @Autowired
+    PcService pcService;
 
     @Autowired
     ScreenService screenService;
@@ -421,6 +427,38 @@ public class IndexController {
         }
 
         return "CollectionPage/MouseList";
+    }
+
+
+    @GetMapping("/collections/pc")
+    public String collectionsPCPage(@RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size, Model model) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(16);
+
+        Page<PcDto> pcDtos = pcService
+                .findPcPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("PCPage", pcDtos);
+
+        int totalPages = pcDtos.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        // Count Item in Cart of Current User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("countItem", "0");
+        } else {
+            AppUser appUser = appUserRepository.findByUserNameAndIsDeletedIsFalse(authentication.getName());
+            model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
+            model.addAttribute("userName", userService.displayUserName(appUser));
+        }
+
+        return "CollectionPage/PCList";
     }
 
     @GetMapping("/search")

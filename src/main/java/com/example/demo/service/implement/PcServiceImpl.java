@@ -162,6 +162,32 @@ public class PcServiceImpl implements PcService {
         return PcDtos;
     }
 
+
+    @Override
+    public Page<PcDto> findPcPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<PcDto> mouseDtos = new ArrayList<>();
+        List<PcDto> list = new ArrayList<>();
+
+        for (PcEntity mouseEntity : PcRepository.findByIsDeletedIsFalseOrderByIdAsc()) {
+            if (mouseEntity != null)
+                mouseDtos.add(toDto(mouseEntity));
+        }
+
+        if (mouseDtos.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, mouseDtos.size());
+            list = mouseDtos.subList(startItem, toIndex);
+        }
+
+        Page<PcDto> mousePage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), mouseDtos.size());
+        return mousePage;
+    }
+
     @Override
     public void deletePc(Integer id) {
         PcEntity Pc = PcRepository.findById(id).get();

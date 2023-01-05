@@ -13,6 +13,16 @@ body {
   background: white;
 }
 
+.banner_top {
+  width: 100%;
+}
+
+.banner_top img {
+  width: 100%;
+
+  object-fit: cover;
+}
+
 .header_navigation {
   background: #f1f0f1;
   z-index: 9999;
@@ -362,6 +372,17 @@ header {
   font-size: 14px;
   background: black;
   color: white;
+}
+
+.product_detail button a {
+  text-decoration: none;
+  color: white;
+  opacity: 0.75;
+}
+
+.product_detail button a:hover {
+  opacity: 1;
+  transition: 1s;
 }
 
 .product_card:hover .product_detail {
@@ -1607,12 +1628,12 @@ footer h4 {
 
 .checkout_section {
   background: url(https://yt3.ggpht.com/ytc/AMLnZu8v9duJyRvU2yqidM2-zyJ6SozxBMoXHEehTp8=s900-c-k-c0x00ffffff-no-rj);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .form_checkout {
   width: 80%;
   border: 1px solid #cccccc;
-
-  height: 100vh;
   padding: 20px;
   background: white;
 }

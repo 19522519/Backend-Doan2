@@ -35,6 +35,13 @@
     />
   </head>
   <body>
+    <div class="banner_top">
+      <img
+        src="https://theme.hstatic.net/1000026716/1000440777/14/bn-top3.jpg?v=32517"
+        alt=""
+      />
+    </div>
+    <!-- Banner Top -->
     <div class="header_navigation sticky-top">
       <header>
         <div class="container">
@@ -68,7 +75,7 @@
                   </div>
                   <div class="col-6">
                     <div class="row action__info-user">
-                      <div class="col">
+                      <div class="col" sec:authorize="isAnonymous()">
                         <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
@@ -192,7 +199,7 @@
               </li>
               <li class="list_menu-item">
                 <i class="bx bx-laptop"></i>
-                <a th:href="@{/collections/laptop-gaming}">PC</a>
+                <a th:href="@{/collections/pc}">PC</a>
               </li>
               <li class="list_menu-item">
                 <i class="bx bx-slideshow"></i>
@@ -226,7 +233,8 @@
                 <div
                   id="carouselExampleIndicators"
                   class="carousel slide"
-                  data-bs-ride="true"
+                  data-bs-ride="carousel"
+                  data-mdb-interval="false"
                 >
                   <div class="carousel-indicators">
                     <button

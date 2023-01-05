@@ -40,12 +40,12 @@
     />
   </head>
   <body>
-    <div id="payment_header" style="border-bottom: 1px solid #eeee">
+    <div id="payment_header">
       <div class="container header_container">
         <div class="row">
           <div class="col icon__shop">
             <a
-              href="./index.html"
+              th:href="@{/}"
               id="IMAGE4"
               class="ladi-element"
               data-replace-href="https://gearvn.com/"
@@ -56,9 +56,9 @@
           </div>
           <div class="col-7">
             <div class="row link_payment">
-              <div class="col"><a href="./index.html">Trang chủ</a></div>
+              <div class="col"><a th:href="@{/}">Trang chủ</a></div>
               <div class="col"><a href="">Tin tức</a></div>
-              <div class="col"><a href="./warranty.html">Bảo hành</a></div>
+              <div class="col"><a th:href="@{/warranty}">Bảo hành</a></div>
               <div class="col"><a href="">Tuyển dụng</a></div>
               <div class="col"><a href="">Liên hệ</a></div>
             </div>
@@ -162,6 +162,7 @@
               </div>
             </div>
           </div>
+          <p th:if="${saveuser}"><span th:text="${saveuser}"></span></p>
           <div class="py-3 pb-4 border-bottom">
             <button type="submit" class="btn btn-primary mr-3">
               Save Changes

@@ -41,7 +41,7 @@ public class CustomerController {
             AppUser appUser = appUserRepository
                     .findByUserNameAndIsDeletedIsFalse(authentication.getName());
             if (appUser != null) {
-                model.addAttribute("username", appUser.getUserName());
+                model.addAttribute("firstname", appUser.getFirstName());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 String formattedString = LocalDate.now().format(formatter);
                 model.addAttribute("today", formattedString);
@@ -71,7 +71,7 @@ public class CustomerController {
     }
 
     @PostMapping("/personal-info/save-user")
-    public String saveUser(@ModelAttribute("user") UserDto userDto, @RequestParam MultipartFile img) {
+    public String saveUser(@ModelAttribute("user") UserDto userDto, @RequestParam MultipartFile img, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -79,6 +79,7 @@ public class CustomerController {
             AppUser appUser = appUserRepository
                     .findByUserNameAndIsDeletedIsFalse(authentication.getName());
             if (appUser != null) {
+                model.addAttribute("saveuser","Cập nhật thành công");
                 userService.saveUser(appUser, userDto, img);
                 return "redirect:/personal-info/account";
             } else {

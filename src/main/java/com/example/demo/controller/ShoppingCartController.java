@@ -62,7 +62,13 @@ public class ShoppingCartController {
     CartItemRepository cartItemRepository;
 
     @GetMapping("/cart")
-    public String nullCart() {
+    public String nullCart(Model model) {
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = appUserRepository
+                    .findByUserNameAndIsDeletedIsFalse(authentication.getName());
+        model.addAttribute("userName", userService.displayUserName(appUser));
+        model.addAttribute("countItem", shoppingCartService.countItemInCart(appUser));
         return "NullCartPage";
     }
 
@@ -224,6 +230,7 @@ public class ShoppingCartController {
 
                     model.addAttribute("cartItemDtoForm", cartItemDtoForm);
                     model.addAttribute("totalMoney", shoppingCartService.calculateTotalMoney(appUser));
+                    model.addAttribute("userName", userService.displayUserName(appUser));
 
                     Integer orderId = 0;
                     for (OrderEntity orderEntity : orderRepository.findByAppUserAndIsDeletedIsFalse(appUser)) {

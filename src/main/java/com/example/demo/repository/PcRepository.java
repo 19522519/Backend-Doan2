@@ -14,4 +14,8 @@ public interface PcRepository extends JpaRepository<PcEntity, Integer> {
     PcEntity findByProductAndIsDeletedIsFalse(ProductEntity productEntity);
 
     List<PcEntity> findByIsDeletedIsFalse(Pageable pageable);
+
+    List<PcEntity> findByIsDeletedIsFalseOrderByIdAsc();
+
+    PcEntity findByIdAndIsDeletedIsFalse(Integer id);
 }

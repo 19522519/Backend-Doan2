@@ -17,6 +17,7 @@ public class UserOrderDto {
     private Integer quantity;
 
     private Integer price;
+    private LocalDate orderDate;
     private LocalDate shippingDate;
     private String status;
 

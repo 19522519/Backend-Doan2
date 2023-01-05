@@ -50,9 +50,11 @@
               <div class="action__info">
                 <div class="row">
                   <div class="col-6">
-                    <form action="" class="search__form">
+                    <form th:action="@{/search}" class="search__form">
                       <input
                         type="text"
+                        name="keyword"
+                        th:value="${keyword}"
                         placeholder="Nhập mã hoặc tên sản phẩm..."
                       />
                       <button type="submit" class="search__btn">
@@ -62,15 +64,16 @@
                   </div>
                   <div class="col-6">
                     <div class="row action__info-user">
-                      <div class="col">
+                      <div class="col" sec:authorize="isAnonymous()">
                         <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
                       </div>
                       <div class="col">
                         <div sec:authorize="isAuthenticated()">
-                          <a th:href="@{/personal-info}"
-                            ><p th:text="${userName}"></p
+                          <a th:href="@{/personal-info}" style="color: red"
+                            ><i class="bx bxs-user-circle"></i>
+                            <p th:text="${userName}"></p
                           ></a>
                         </div>
                         <div sec:authorize="isAnonymous()">
@@ -209,7 +212,19 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button>Đặt hàng</button>
+                      <button sec:authorize="isAuthenticated()">
+                        <a
+                          th:href="@{/shopping-cart/add-mouse/{id}(id=${mouse.MouseId})}"
+                          >Đặt hàng</a
+                        >
+                      </button>
+                      <button sec:authorize="isAnonymous()">
+                        <a
+                          style="text-decoration: none; color: white"
+                          th:href="@{/login}"
+                          >Đặt hàng</a
+                        >
+                      </button>
                     </div>
                   </div>
                   <div class="product_card-description">

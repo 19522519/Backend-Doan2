@@ -117,9 +117,12 @@ public class UserServiceImpl implements UserService {
         appUser.setLastName(userDto.getLastName());
         appUser.setEmail(userDto.getEmail());
         appUser.setPhone(userDto.getPhone());
-        appUser.setAvatar(img.getOriginalFilename());
-        saveFile(appUser.getAvatar(), img);
+        if(!img.isEmpty()) {
 
+            appUser.setAvatar(img.getOriginalFilename());
+            saveFile(appUser.getAvatar(), img);
+        }
+        
         appUserRepository.save(appUser);
     }
 

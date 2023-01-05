@@ -154,22 +154,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public Integer calculateTotalMoney(AppUser appUser) {
-        Integer totalMoney = 0;
+        Double totalMoney = 0.0;
+
+      
 
         List<CartItemEntity> cartItemEntities = cartItemRepository.findByAppUserAndIsDeletedIsFalse(appUser);
 
         for (CartItemEntity cartItemEntity : cartItemEntities) {
             if (cartItemEntity.getProduct().getDiscount() != null) {
                 totalMoney += cartItemEntity.getQuantity()
-                        * (Integer.parseInt(cartItemEntity.getProduct().getPrice())
-                                * (100 - Integer.parseInt(cartItemEntity.getProduct().getDiscount())) / 100);
+                        * (Double.parseDouble(cartItemEntity.getProduct().getPrice())
+                                * (100 - Double.parseDouble(cartItemEntity.getProduct().getDiscount())) / 100);
             } else {
                 totalMoney += cartItemEntity.getQuantity()
-                        * Integer.parseInt(cartItemEntity.getProduct().getPrice());
+                        * Double.parseDouble(cartItemEntity.getProduct().getPrice());
             }
 
         }
-        return totalMoney;
+        return totalMoney.intValue();
     }
 
     @Override

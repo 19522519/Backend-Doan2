@@ -49,9 +49,11 @@
               <div class="action__info">
                 <div class="row">
                   <div class="col-6">
-                    <form action="" class="search__form">
+                    <form th:action="@{/search}" class="search__form">
                       <input
                         type="text"
+                        name="keyword"
+                        th:value="${keyword}"
                         placeholder="Nhập mã hoặc tên sản phẩm..."
                       />
                       <button type="submit" class="search__btn">
@@ -61,7 +63,7 @@
                   </div>
                   <div class="col-6">
                     <div class="row action__info-user">
-                      <div class="col">
+                      <div class="col" sec:authorize="isAnonymous()">
                         <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
@@ -195,10 +197,31 @@
               </div>
               <div class="product_detail_sale">
                 <p class="color_special">Khuyến mãi</p>
-                <p>Nhận thêm combo quà tặng: <span></span></p>
+                <p class="text-center">
+                  <span th:text="${screen.discount}+'%'"></span>
+                </p>
               </div>
-              <button class="product_detail_buy">
-                <p style="font-size: 20px">ĐẶT NGAY</p>
+              <button
+                class="product_detail_buy"
+                sec:authorize="isAuthenticated()"
+              >
+                <p style="font-size: 20px">
+                  <a
+                    style="text-decoration: none; color: white"
+                    th:href="@{/shopping-cart/add-screen/{id}(id=${screen.ScreenId})}"
+                    >Đặt ngay</a
+                  >
+                </p>
+                <p>Giao hàng tận nơi hoặc nhận tại cửa hàng</p>
+              </button>
+              <button class="product_detail_buy" sec:authorize="isAnonymous()">
+                <p style="font-size: 20px">
+                  <a
+                    th:href="@{/login}"
+                    style="text-decoration: none; color: white"
+                    >ĐẶT NGAY</a
+                  >
+                </p>
                 <p>Giao hàng tận nơi hoặc nhận tại cửa hàng</p>
               </button>
             </div>
@@ -243,8 +266,8 @@
           <div class="col">
             <div class="product_detail_description">
               <h3>MÔ TẢ SẢN PHẨM</h3>
-              <h2>LENOVO LEGION 5</h2>
-              <p>
+              <h2 th:text="${screen.Screenname}">LENOVO LEGION 5</h2>
+              <p th:text="${screen.description}">
                 Lenovo Legion 5 15ACH6 (82JW00JPVN) kết hợp khả năng xử lý AMD
                 R5 5600H và GTX 16 series sẵn sàng cho mọi cuộc chiến. Laptop
                 gaming sở hữu 165Hz siêu mượt. Kết hợp với âm thanh Nahimic 3D

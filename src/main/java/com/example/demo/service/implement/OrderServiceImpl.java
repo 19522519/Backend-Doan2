@@ -102,6 +102,7 @@ public class OrderServiceImpl implements OrderService {
             userOrderDto.setQuantity(cartItemEntity.getQuantity());
             userOrderDto.setPrice(Integer.parseInt(cartItemEntity.getProduct().getPrice()));
             userOrderDto.setShippingDate(cartItemEntity.getOrder().getShippingDate());
+            userOrderDto.setOrderDate(cartItemEntity.getOrder().getOrderDate());
             userOrderDto.setStatus(cartItemEntity.getOrder().getOrderStatus());
 
             userOrderDtos.add(userOrderDto);

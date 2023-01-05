@@ -25,4 +25,6 @@ public interface PcService {
 
     PcEntity saveExistPc(PcDto PcDto,  MultipartFile img);
 
+    Page<PcDto> findPcPaginated(Pageable pageable);
+
 }

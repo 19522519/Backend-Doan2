@@ -37,7 +37,7 @@
           <div class="row">
             <div class="col-2">
               <div class="logo__shop">
-                <a th:href="@{index}" class="logo__shop-link">
+                <a th:href="@{/}" class="logo__shop-link">
                   <img
                     src="//theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=28697"
                     alt=""
@@ -50,9 +50,11 @@
               <div class="action__info">
                 <div class="row">
                   <div class="col-6">
-                    <form action="" class="search__form">
+                    <form th:action="@{/search}" class="search__form">
                       <input
                         type="text"
+                        name="keyword"
+                        th:value="${keyword}"
                         placeholder="Nhập mã hoặc tên sản phẩm..."
                       />
                       <button type="submit" class="search__btn">
@@ -62,25 +64,44 @@
                   </div>
                   <div class="col-6">
                     <div class="row action__info-user">
-                      <div class="col">
+                      <div class="col" sec:authorize="isAnonymous()">
                         <a th:href="@{/register}"
                           ><i class="bx bxs-edit"></i>Đăng ký</a
                         >
                       </div>
                       <div class="col">
-                        <a th:href="@{/login}"
-                          ><i class="bx bxs-user-circle"></i>Đăng nhập</a
-                        >
+                        <div sec:authorize="isAuthenticated()">
+                          <a th:href="@{/personal-info}" style="color: red"
+                            ><i class="bx bxs-user-circle"></i>
+                            <p th:text="${userName}"></p
+                          ></a>
+                        </div>
+                        <div sec:authorize="isAnonymous()">
+                          <a th:href="@{/login}"
+                            ><i class="bx bxs-user-circle"></i>Đăng nhập</a
+                          >
+                        </div>
                       </div>
                       <div class="col">
                         <a href=""><i class="bx bxs-discount"></i>Khuyến mãi</a>
                       </div>
                       <div class="col">
-                        <a th:href="@{/cart}"
-                          ><i class="bx bxs-cart"
-                            ><div class="number_product">0</div></i
-                          >Giỏ hàng</a
-                        >
+                        <div sec:authorize="isAuthenticated()">
+                          <p hidden th:text="${#authentication.name}"></p>
+                          <a th:href="@{/shopping-cart/views}"
+                            ><i class="bx bxs-cart"
+                              ><div class="number_product">
+                                <span th:text="${countItem}"></span></div></i
+                            >Giỏ hàng</a
+                          >
+                        </div>
+                        <div sec:authorize="isAnonymous()">
+                          <a th:href="@{/login}"
+                            ><i class="bx bxs-cart"
+                              ><div class="number_product">0</div></i
+                            >Giỏ hàng</a
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -130,21 +151,21 @@
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a th:href="@{installment}"
+                    <a th:href="@{/installment}"
                       ><i class="bx bxs-bank"></i>HƯỚNG DẪN TRẢ GÓP</a
                     >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a href=""
+                    <a th:href="@{/warranty}"
                       ><i class="bx bx-check-shield"></i>CHÍNH SÁCH BẢO HÀNH</a
                     >
                   </div>
                 </div>
                 <div class="col">
                   <div class="col-container">
-                    <a th:href="@{delivery}"
+                    <a th:href="@{/delivery}"
                       ><i class="bx bxs-package"></i>CHÍNH SÁCH VẬN CHUYỂN</a
                     >
                   </div>

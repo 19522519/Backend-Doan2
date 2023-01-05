@@ -32,7 +32,7 @@ public class OrderEntity {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @EqualsAndHashCode.Exclude // Không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Không sử dụng trong toString()
     private List<CartItemEntity> cartItems;
