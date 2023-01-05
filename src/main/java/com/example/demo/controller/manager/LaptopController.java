@@ -102,7 +102,7 @@ public class LaptopController {
         model.addAttribute("brandList", brandList);
         model.addAttribute("categoryList", categoryList);
 
-        return "seller/product/add/add_laptop";
+        return "manager/product/add/add_laptop";
     }
 
     @PostMapping("/menu_add/save-new")
@@ -115,7 +115,7 @@ public class LaptopController {
         LaptopEntity laptopEntity = laptopService.saveNewLaptop(laptopDto, img);
         // redirectAttributes.addFlashAttribute("success", "Insert new laptop
         // successfully!");
-        return "redirect:/seller/menu_add/add_laptop?success";
+        return "redirect:/manager/menu_add/add_laptop?success";
     }
 
     // Insert into db
@@ -123,7 +123,7 @@ public class LaptopController {
     public String saveLaptop(@ModelAttribute("laptop") LaptopDto laptopDto, @RequestParam MultipartFile img,
             Model model) {
         LaptopEntity laptopEntity = laptopService.saveExistLaptop(laptopDto, img);
-        return "redirect:/seller/LaptopsPage";
+        return "redirect:/manager/LaptopsPage";
     }
 
     // Pagination Section
@@ -151,7 +151,7 @@ public class LaptopController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "/seller/product/list/list_laptop";
+        return "/manager/product/list/list_laptop";
     }
 
     // List Laptop old version
@@ -210,7 +210,7 @@ public class LaptopController {
     @GetMapping("LaptopsPage/delete/{id}")
     public String deleteLaptop(@PathVariable("id") Integer id, Model model) {
         laptopService.deleteLaptop(id);
-        return "redirect:/seller/LaptopsPage"; // Đường dẫn get all laptops
+        return "redirect:/manager/LaptopsPage"; // Đường dẫn get all laptops
     }
 
     @GetMapping("LaptopsPage/edit/{id}")
@@ -269,6 +269,6 @@ public class LaptopController {
         model.addAttribute("categoryList", categoryList);
 
         model.addAttribute("laptop", laptopService.detailLaptop(id));
-        return "seller/product/edit/EditLaptopPage";
+        return "manager/product/edit/EditLaptopPage";
     }
 }

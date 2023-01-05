@@ -9,10 +9,12 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CheckoutDto;
+import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.UserOrderDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.CartItemEntity;
@@ -180,13 +182,26 @@ public class OrderServiceImpl implements OrderService {
     public Integer getRevenueByLastMonth() {
         Integer sum = 0;
         List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
+        LocalDate now = LocalDate.now(); // 2015-11-24
+        LocalDate earlier = now.minusMonths(1); // 2015-10-24
+
+        Integer month =earlier.getMonth().getValue(); // 
+     
+       
         Integer currentMonth = LocalDate.now().getMonthValue();
+        Integer currentYear = LocalDate.now().getYear();
 
         for (OrderEntity orderEntity : orderEntities) {
-            if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == currentMonth - 1)
-                    sum += Integer.parseInt(orderEntity.getOrderTotal());
+            if (orderEntity.getOrderStatus().equals("Delivered")) {
+                if (orderEntity.getShippingDate().getMonthValue() == 1) {
+                    if (orderEntity.getShippingDate().getMonthValue() == 12 && orderEntity.getShippingDate()
+                            .getYear() == currentYear - 1)
+                        sum += Integer.parseInt(orderEntity.getOrderTotal());
+                } else {
+                    if (orderEntity.getShippingDate().getMonthValue() == currentMonth - 1){
+                        sum += Integer.parseInt(orderEntity.getOrderTotal());
+                    }
+                }
             }
         }
 
@@ -223,5 +238,14 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return sum;
+    }
+
+    @Override
+    public void saveOrder(List<UserOrderDto> orderDtos) {
+        for(UserOrderDto orderDto : orderDtos) { 
+            OrderEntity orderEntity = orderRepository.findByIdAndIsDeletedIsFalse(orderDto.getOrderId());
+            orderEntity.setOrderStatus(orderDto.getStatus());
+            orderRepository.save(orderEntity);}
+    
     }
 }

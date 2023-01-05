@@ -78,6 +78,7 @@ public class LaptopServiceImpl implements LaptopService {
         CategoryEntity categoryEntity = categoryRepository.findByName(laptopDto.getCategory());
         productEntity.setCategory(categoryEntity);
         productEntity.setQuantity(laptopDto.getQuantity());
+        productEntity.setInventory(laptopDto.getQuantity());
         productEntity.setIsDeleted(false);
         laptopEntity.setIsDeleted(false);
 
@@ -207,7 +208,7 @@ public class LaptopServiceImpl implements LaptopService {
         CategoryEntity categoryEntity = categoryRepository.findByName(laptopDto.getCategory());
         productEntity.setCategory(categoryEntity);
         productEntity.setQuantity(laptopDto.getQuantity());
-        productEntity.setInventory(laptopDto.getInventory());
+        productEntity.setInventory(laptopDto.getQuantity());
         productEntity.setIsDeleted(false);
         laptopEntity.setIsDeleted(false);
 

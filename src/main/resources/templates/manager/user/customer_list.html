@@ -5,6 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADMIN PAGE</title>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
     <!-- Boxicon link -->
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
@@ -115,9 +129,12 @@
         <span class="text">Danh sách khách hàng</span>
       </div>
       <div class="home_list_orders">
-        <table class="table table-striped">
+        <table
+          class="table table-striped"
+          style="width: 100%; text-align: center"
+        >
           <thead>
-            <tr>
+            <tr class="text-danger">
               <th scope="col">STT</th>
               <th scope="col">Ảnh đại diện</th>
               <th scope="col">Họ</th>
@@ -127,9 +144,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="item, iterStat : ${customer}">
+            <tr th:each="item, iterStat : ${customer}" class="align-middle">
               <td th:text="${iterStat.count}"></td>
-              <td><img th:src="@{'/images/' + ${item.avatar}}" /></td>
+              <td>
+                <img
+                  style="width: 100px; height: 100px; object-fit: cover"
+                  th:src="@{'/images/' + ${item.avatar}}"
+                />
+              </td>
               <td th:text="${item.lastName}"></td>
               <td th:text="${item.firstName}"></td>
               <td th:text="${item.email}"></td>

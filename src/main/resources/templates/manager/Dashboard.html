@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
     <!-- icon page -->
-    <linkimage.png
+    <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
       type="image/x-icon"
@@ -235,9 +235,16 @@
           <div class="row row_payment">
             <div class="col-lg-8 mb-2">
               <div class="recent_payment" style="padding-bottom: 40px">
-                <div class="recent_payment_title">
+                <div
+                  class="recent_payment_title d-flex justify-content-between align-items-center"
+                >
                   <h3>Recent Payments</h3>
-                  <a th:href="@{/manager/order}">View All</a>
+                  <a
+                    class="text-danger"
+                    th:href="@{/manager/order}"
+                    style="text-decoration: none"
+                    >View All</a
+                  >
                 </div>
                 <div class="recent_payment_table">
                   <table class="table table-borderless text-center">
@@ -253,8 +260,11 @@
                       <tr th:each="item : ${orders}">
                         <th th:text="${item.orderId}" scope="row"></th>
                         <td th:text="${item.receiver}"></td>
-                        <td th:text="${item.quantity}"></td>
-                        <td th:text="${item.price} + đ"></td>
+                        <td class="text-danger" th:text="${item.quantity}"></td>
+                        <td
+                          class="text-success"
+                          th:text="${item.price} + đ"
+                        ></td>
                       </tr>
                       <!-- <tr>
                         <th scope="row">2</th>
@@ -305,9 +315,16 @@
             </div>
             <div class="col-lg-4">
               <div class="recent_user">
-                <div class="recent_user_title">
+                <div
+                  class="recent_user_title d-flex justify-content-between align-items-center"
+                >
                   <h3>Recent Customers</h3>
-                  <a th:href="@{/manager/customer-management}">View All</a>
+                  <a
+                    class="text-danger"
+                    th:href="@{/manager/customer-management}"
+                    style="text-decoration: none"
+                    >View All</a
+                  >
                 </div>
                 <div class="recent_user_table">
                   <table class="table table-borderless text-center">

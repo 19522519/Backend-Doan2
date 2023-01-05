@@ -77,6 +77,7 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setCreateDate(java.time.LocalDate.now());
 
         productEntity.setQuantity(ScreenDto.getQuantity());
+        productEntity.setInventory(ScreenDto.getQuantity());
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
 
@@ -181,6 +182,7 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setCreateDate(java.time.LocalDate.now());
 
         productEntity.setQuantity(ScreenDto.getQuantity());
+        productEntity.setInventory(ScreenDto.getQuantity());
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
 

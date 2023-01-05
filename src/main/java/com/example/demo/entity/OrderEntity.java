@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -37,10 +38,10 @@ public class OrderEntity {
     @ToString.Exclude // Không sử dụng trong toString()
     private List<CartItemEntity> cartItems;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private ShippingEntity shipping;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private PaymentEntity payment;
 
     @ManyToOne

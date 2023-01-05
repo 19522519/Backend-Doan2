@@ -77,6 +77,7 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setCreateDate(java.time.LocalDate.now());
 
         productEntity.setQuantity(MouseDto.getQuantity());
+        productEntity.setInventory(MouseDto.getQuantity());
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
 
@@ -179,6 +180,8 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setCreateDate(java.time.LocalDate.now());
 
         productEntity.setQuantity(MouseDto.getQuantity());
+        productEntity.setInventory(MouseDto.getQuantity());
+        
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
 

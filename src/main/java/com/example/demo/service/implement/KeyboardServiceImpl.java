@@ -68,6 +68,7 @@ public class KeyboardServiceImpl implements KeyboardService {
         productEntity.setCreateDate(java.time.LocalDate.now());
 
         productEntity.setQuantity(keyBoardDto.getQuantity());
+        productEntity.setInventory(keyBoardDto.getQuantity());
         productEntity.setIsDeleted(false);
         keyBoardEntity.setIsDeleted(false);
 
@@ -181,6 +182,8 @@ public class KeyboardServiceImpl implements KeyboardService {
         productEntity.setCreateDate(java.time.LocalDate.now());
 
         productEntity.setQuantity(keyBoardDto.getQuantity());
+        productEntity.setInventory(keyBoardDto.getQuantity());
+        
         productEntity.setIsDeleted(false);
         keyBoardEntity.setIsDeleted(false);
 

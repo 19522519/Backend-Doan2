@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADMIN PAGE</title>
+    <title>MANAGER PAGE</title>
     <!-- Boxicon link -->
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
@@ -31,6 +31,19 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
+    <style>
+      #update--Order {
+        outline: none;
+        border: none;
+        background: rgb(45, 99, 215);
+        color: white;
+      }
+      #update--Order:hover {
+        background: green;
+        color: white;
+        transition: 0.2s;
+      }
+    </style>
   </head>
   <body>
     <div class="sidebar close">
@@ -123,48 +136,102 @@
       </ul>
     </div>
     <section class="home-section">
-      <div class="home-content">
-        <i class="bx bx-menu"></i>
-        <span class="text">Danh sách đơn hàng</span>
-      </div>
-      <div class="home_list_orders">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Mã đơn hàng</th>
-              <th scope="col">Tên người nhận hàng</th>
-              <th scope="col">SĐT</th>
-              <th scope="col">Ngày nhận hàng</th>
-              <th scope="col">Tổng giá</th>
-              <th scope="col">Phương thức thanh toán</th>
-              <th scope="col">Tình trạng</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="item : ${userOrders}">
-              <td th:text="${item.orderId}"></td>
-              <td th:text="${item.receiver}"></td>
-              <td th:text="${item.phone}"></td>
-              <td th:text="${item.shippingDate}"></td>
-              <td th:text="${item.price} + đ"></td>
-              <td th:text="${item.paymentMethod}"></td>
-              <td>
-                <div th:switch="${item.status}">
-                  <span th:case="'Delivered'">Đã giao</span>
-                  <span th:case="'Not delivery'">Chưa giao</span>
+      <!-- th:action="@{/manager/save-order/{id}(id=${item.orderId})}"
+        method="post"
+        th:object="${order}" -->
+      <form
+        th:action="@{/manager/save-order}"
+        method="post"
+        th:object="${orderDtoForm}"
+      >
+        <div class="home-content">
+          <i class="bx bx-menu"></i>
+          <div
+            class="d-flex justify-content-between"
+            style="width: 100%; padding-right: 28px"
+          >
+            <span class="text">Danh sách đơn hàng</span>
+            <button
+              id="update--Order"
+              type="submit"
+              class="rounded"
+              style="padding: 6px"
+            >
+              Cập nhật đơn hàng
+            </button>
+          </div>
+        </div>
+        <div class="home_list_orders">
+          <table class="table table-striped text-center">
+            <thead>
+              <tr>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Tên người nhận hàng</th>
+                <th scope="col">SĐT</th>
+                <th scope="col">Ngày nhận hàng</th>
+                <th scope="col">Tổng giá</th>
+                <th scope="col">Phương thức thanh toán</th>
+                <th scope="col">Tình trạng</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="item , iterStat : ${orderDtoForm.userOrderDtos}">
+                <div hidden>
+                  <input
+                    th:text="${item.orderId}"
+                    th:field="*{userOrderDtos[__${iterStat.index}__].orderId}"
+                  />
                 </div>
-              </td>
-              <td>
-                <a href=""><i class="fas fa-edit"></i> Edit</a>
-                <a th:href="@{/manager/delete-order/{id} (id=${item.orderId})}"
-                  ><i class="fas fa-trash-alt"></i> Delete</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                <td th:text="${item.orderId}"></td>
+                <td th:text="${item.receiver}"></td>
+                <td th:text="${item.phone}"></td>
+                <td th:text="${item.shippingDate}"></td>
+                <td th:text="${item.price} + đ"></td>
+                <td th:text="${item.paymentMethod}"></td>
+                <td>
+                  <!--  th:case="'Delivered'" th:case="'Not
+                    delivery'" -->
+                  <select
+                    id=""
+                    th:field="*{userOrderDtos[__${iterStat.index}__].status}"
+                  >
+                    <option
+                      th:each="status : ${statusList}"
+                      th:value="${status}"
+                      th:text="${status}"
+                    ></option>
+                  </select>
+                </td>
+                <td>
+                  <!-- <a
+                    th:href="@{/manager/save-order/{id}(id=${item.orderId})}"
+                    style="
+                      text-decoration: none;
+                      background: rgb(42, 120, 223);
+                      color: white;
+                      padding: 6px;
+                      border-radius: 10px;
+                    "
+                    ><i class="bx bx-edit-alt"></i> Edit</a
+                  > -->
+                  <a
+                    style="
+                      text-decoration: none;
+                      background: red;
+                      color: white;
+                      padding: 6px;
+                      border-radius: 10px;
+                    "
+                    th:href="@{/manager/delete-order/{id} (id=${item.orderId})}"
+                    ><i class="bx bx-trash"></i> Delete</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
     </section>
     <script>
       let arrow = document.querySelectorAll(".arrow");

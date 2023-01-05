@@ -22,8 +22,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 1)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 1)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -38,8 +38,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 2)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 2)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -54,8 +54,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 3)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 3)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -70,8 +70,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 4)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 4)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -86,8 +86,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 5)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 5)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -102,8 +102,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 6)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 6)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -118,8 +118,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 7)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 7)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -134,8 +134,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 8)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 8)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -150,8 +150,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 9)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 9)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -166,8 +166,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 10)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 10)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -182,8 +182,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 11)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 11)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -198,8 +198,8 @@ public class RevenueServiceImpl implements RevenueService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().getMonthValue() == 12)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()) {
+                if (orderEntity.getShippingDate().getMonthValue() == 12)
                     revenue += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }

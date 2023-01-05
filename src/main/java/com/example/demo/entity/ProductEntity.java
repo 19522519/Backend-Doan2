@@ -54,6 +54,6 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     private List<ImageEntity> images;
 
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private CartItemEntity cartItem;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CartItemEntity> cartItems;
 }
