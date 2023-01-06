@@ -183,17 +183,13 @@ public class OrderServiceImpl implements OrderService {
         Integer sum = 0;
         List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
         LocalDate now = LocalDate.now(); // 2015-11-24
-        LocalDate earlier = now.minusMonths(1); // 2015-10-24
 
-        Integer month =earlier.getMonth().getValue(); // 
-     
-       
         Integer currentMonth = LocalDate.now().getMonthValue();
         Integer currentYear = LocalDate.now().getYear();
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")) {
-                if (orderEntity.getShippingDate().getMonthValue() == 1) {
+                if (currentMonth == 1) {
                     if (orderEntity.getShippingDate().getMonthValue() == 12 && orderEntity.getShippingDate()
                             .getYear() == currentYear - 1)
                         sum += Integer.parseInt(orderEntity.getOrderTotal());
@@ -212,13 +208,13 @@ public class OrderServiceImpl implements OrderService {
     public Integer getRevenueByLastWeek() {
         Integer sum = 0;
         List<OrderEntity> orderEntities = orderRepository.findByIsDeletedIsFalse();
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        Integer currentWeek = LocalDate.now().get(weekFields.weekOfWeekBasedYear());
+        // WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        // Integer currentWeek = LocalDate.now().get(weekFields.weekOfWeekBasedYear());
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().getYear() == LocalDate.now().getYear()) {
-                if (orderEntity.getOrderDate().get(weekFields.weekOfWeekBasedYear()) == currentWeek - 1)
+                    && orderEntity.getShippingDate().getYear() == LocalDate.now().getYear()-1) {
+                // if (orderEntity.getOrderDate().get(weekFields.weekOfWeekBasedYear()) == currentWeek - 1)
                     sum += Integer.parseInt(orderEntity.getOrderTotal());
             }
         }
@@ -233,7 +229,7 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderEntity orderEntity : orderEntities) {
             if (orderEntity.getOrderStatus().equals("Delivered")
-                    && orderEntity.getOrderDate().isEqual(LocalDate.now()))
+                    && orderEntity.getShippingDate().isEqual(LocalDate.now()))
                 sum += Integer.parseInt(orderEntity.getOrderTotal());
         }
 

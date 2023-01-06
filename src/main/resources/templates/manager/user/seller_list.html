@@ -76,8 +76,8 @@
         <li>
           <div class="iocn-link">
             <a href="">
-              <i class="bx bxs-box"></i>
-              <span class="link_name">Users management</span>
+              <i class="bx bxs-user-circle"></i>
+              <span class="link_name">Users</span>
             </a>
             <i class="bx bxs-chevron-down arrow"></i>
           </div>
@@ -129,7 +129,7 @@
         <span class="text">Danh sách nhân viên</span>
       </div>
       <div class="home_list_orders">
-        <table class="table table-striped">
+        <table class="table table-striped text-center align-middle">
           <thead>
             <tr>
               <th scope="col">STT</th>
@@ -151,8 +151,16 @@
               <td th:text="${item.email}"></td>
               <td th:text="${item.phone}"></td>
               <td>
-                <a th:href="@{/manager/delete-user/{id}(id=${item.userId})}"
-                  ><i class="fas fa-trash-alt"></i> Delete</a
+                <a
+                  style="
+                    padding: 6px;
+                    border-radius: 10px;
+                    background: red;
+                    color: white;
+                    text-decoration: none;
+                  "
+                  th:href="@{/manager/delete-user/{id}(id=${item.userId})}"
+                  ><i class="bx bx-trash"></i> Delete</a
                 >
               </td>
             </tr>

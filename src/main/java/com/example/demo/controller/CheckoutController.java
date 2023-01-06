@@ -87,6 +87,11 @@ public class CheckoutController {
         return "redirect:/cart";
     }
 
+
+    @GetMapping("/checkout-success")
+    public String checkoutSuccess() {
+        return "CheckoutsSuccess";
+    }
     @PostMapping("/order/purchase")
     public String OrderApprovedPage(@ModelAttribute("customerInfo") CheckoutDto checkoutDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -101,7 +106,7 @@ public class CheckoutController {
                 paymentService.createPaymentBasedOnOrder(orderEntity, checkoutDto);
                 shippingService.createShippingBasedOnOrderAndAddress(addressEntity, orderEntity, checkoutDto);
 
-                return "redirect:/";
+                return "redirect:/checkout-success";
 
             } else {
                 return "redirect:/login";

@@ -183,22 +183,6 @@
         <div class="row fixed_row">
           <div class="product__list-heading">
             <h4 class="product__list_heading-name">Tìm kiếm</h4>
-            <span
-              >Sắp xếp theo:
-              <select
-                name=""
-                id=""
-                style="padding: 0; width: auto; height: auto"
-              >
-                <option value="" selected>Bán chạy nhất</option>
-                <option value="">Giá: tăng dần</option>
-                <option value="">Giá: giảm dần</option>
-                <option value="">Tên A -> Z</option>
-                <option value="">Tên Z -> A</option>
-                <option value="">Cũ Nhất</option>
-                <option value="">Mới Nhất</option>
-              </select>
-            </span>
           </div>
           <p>
             Kết quả tìm kiếm cho <b>"</b><b th:text="${keyword}"></b><b>"</b>.
@@ -208,10 +192,53 @@
               <div th:each="laptop : ${searchPage.content}" class="col-3 mb-3">
                 <div class="product_card">
                   <div class="best_seller">Best Seller</div>
+
                   <div class="product_card-image">
-                    <a href=""
-                      ><img th:src="@{'/images/' + ${laptop.thumbnail}}" alt=""
-                    /></a>
+                    <div th:switch="${laptop.category.name}">
+                      <div th:case="'Gaming'">
+                        <a th:href="@{/laptop/{id}(id=${laptop.laptop.id})}"
+                          ><img
+                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                            alt=""
+                        /></a>
+                      </div>
+                      <div th:case="'Office'">
+                        <a th:href="@{/laptop/{id}(id=${laptop.laptop.id})}"
+                          ><img
+                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                            alt=""
+                        /></a>
+                      </div>
+                      <div th:case="'Mouse'">
+                        <a th:href="@{/mouse/{id}(id=${laptop.mouse.id})}"
+                          ><img
+                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                            alt=""
+                        /></a>
+                      </div>
+                      <div th:case="'Keyboard'">
+                        <a th:href="@{/keyboard/{id}(id=${laptop.keyboard.id})}"
+                          ><img
+                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                            alt=""
+                        /></a>
+                      </div>
+                      <div th:case="'Screen'">
+                        <a th:href="@{/screen/{id}(id=${laptop.screen.id})}"
+                          ><img
+                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                            alt=""
+                        /></a>
+                      </div>
+                    </div>
+                    <!-- <div th:if="${laptop.category.name == 'Mouse'}">
+                                        <a th:href="@{/mouse/{id}(id=${laptop.mouse.id})}"
+                                          ><img
+                                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                                            alt=""
+                                        /></a>
+                                      </div> -->
+
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
                       <button>Đặt hàng</button>

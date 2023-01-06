@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
     <!-- icon page -->
-    <linkimage.png
+    <link
       rel="icon"
       href="https://file.hstatic.net/1000026716/file/favicon_0db2583fad1443e482491c7db08765e6.png"
       type="image/x-icon"
@@ -133,9 +133,7 @@
                   <h3 th:text="${countCustomers}"></h3>
                 </div>
                 <div class="box_action">
-                  <a th:href="@{/seller/customer-management}"
-                    >See all customers</a
-                  >
+                  <a th:href="@{/seller/customer}">See all customers</a>
                   <div class="box_action--icon">
                     <i class="bx bx-user-circle user_icon icon"></i>
                   </div>
@@ -219,9 +217,16 @@
           <div class="row row_payment">
             <div class="col-lg-8 mb-2">
               <div class="recent_payment" style="padding-bottom: 40px">
-                <div class="recent_payment_title">
+                <div
+                  class="recent_payment_title d-flex justify-content-between align-items-center"
+                >
                   <h3>Recent Payments</h3>
-                  <a th:href="@{/seller/order}">View All</a>
+                  <a
+                    class="text-danger"
+                    th:href="@{/seller/order}"
+                    style="text-decoration: none"
+                    >View All</a
+                  >
                 </div>
                 <div class="recent_payment_table">
                   <table class="table table-borderless text-center">
@@ -289,9 +294,16 @@
             </div>
             <div class="col-lg-4">
               <div class="recent_user">
-                <div class="recent_user_title">
+                <div
+                  class="recent_user_title d-flex justify-content-between align-items-center"
+                >
                   <h3>Recent Customers</h3>
-                  <a th:href="@{/seller/customer-management}">View All</a>
+                  <a
+                    class="text-danger"
+                    th:href="@{/seller/customer}"
+                    style="text-decoration: none"
+                    >View All</a
+                  >
                 </div>
                 <div class="recent_user_table">
                   <table class="table table-borderless text-center">

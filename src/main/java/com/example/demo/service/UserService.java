@@ -35,5 +35,5 @@ public interface UserService {
 
     Integer countCustomers();
 
-    void deleteUser(Integer id);
+    void deleteUser(Long id);
 }

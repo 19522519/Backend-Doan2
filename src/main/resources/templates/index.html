@@ -84,7 +84,7 @@
                         <div sec:authorize="isAuthenticated()">
                           <a th:href="@{/personal-info}" style="color: red"
                             ><i class="bx bxs-user-circle"></i>
-                            <p th:text="${userName}"></p
+                            <p style="margin: 0" th:text="${userName}"></p
                           ></a>
                         </div>
                         <div sec:authorize="isAnonymous()">
@@ -412,10 +412,24 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button sec:authorize="isAuthenticated()">
+                      <button
+                        th:unless="${laptop.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                      >
                         <a
                           th:href="@{/shopping-cart/add-laptop/{id}(id=${laptop.laptopId})}"
                           >Đặt hàng</a
+                        >
+                      </button>
+                      <button
+                        th:if="${laptop.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                        style="cursor: auto"
+                      >
+                        <a
+                          style="pointer-events: none"
+                          th:href="@{/shopping-cart/add-laptop/{id}(id=${laptop.laptopId})}"
+                          >Hết hàng</a
                         >
                       </button>
                       <button sec:authorize="isAnonymous()">
@@ -452,10 +466,24 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button sec:authorize="isAuthenticated()">
+                      <button
+                        th:unless="${laptop.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                      >
                         <a
                           th:href="@{/shopping-cart/add-laptop/{id}(id=${laptop.laptopId})}"
                           >Đặt hàng</a
+                        >
+                      </button>
+                      <button
+                        th:if="${laptop.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                        style="cursor: auto"
+                      >
+                        <a
+                          style="pointer-events: none"
+                          th:href="@{/shopping-cart/add-laptop/{id}(id=${laptop.laptopId})}"
+                          >Hết hàng</a
                         >
                       </button>
                       <button sec:authorize="isAnonymous()">
@@ -535,10 +563,24 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button sec:authorize="isAuthenticated()">
+                      <button
+                        th:unless="${laptop.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                      >
                         <a
                           th:href="@{/shopping-cart/add-laptop/{id}(id=${laptop.laptopId})}"
                           >Đặt hàng</a
+                        >
+                      </button>
+                      <button
+                        th:if="${laptop.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                        style="cursor: auto"
+                      >
+                        <a
+                          style="pointer-events: none"
+                          th:href="@{/shopping-cart/add-laptop/{id}(id=${laptop.laptopId})}"
+                          >Hết hàng</a
                         >
                       </button>
                       <button sec:authorize="isAnonymous()">
@@ -604,12 +646,27 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button sec:authorize="isAuthenticated()">
+                      <button
+                        th:unless="${screen.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                      >
                         <a
                           th:href="@{/shopping-cart/add-screen/{id}(id=${screen.ScreenId})}"
                           >Đặt hàng</a
                         >
                       </button>
+                      <button
+                        th:if="${screen.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                        style="cursor: auto"
+                      >
+                        <a
+                          style="pointer-events: none"
+                          th:href="@{/shopping-cart/add-screen/{id}(id=${screen.ScreenId})}"
+                          >Hết hàng</a
+                        >
+                      </button>
+
                       <button sec:authorize="isAnonymous()">
                         <a
                           style="text-decoration: none; color: white"
@@ -675,12 +732,27 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button sec:authorize="isAuthenticated()">
+                      <button
+                        th:unless="${keyboard.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                      >
                         <a
                           th:href="@{/shopping-cart/add-keyboard/{id}(id=${keyboard.KeyBoardId})}"
                           >Đặt hàng</a
                         >
                       </button>
+                      <button
+                        th:if="${keyboard.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                        style="cursor: auto"
+                      >
+                        <a
+                          style="pointer-events: none"
+                          th:href="@{/shopping-cart/add-keyboard/{id}(id=${keyboard.KeyBoardId})}"
+                          >Hết hàng</a
+                        >
+                      </button>
+
                       <button sec:authorize="isAnonymous()">
                         <a
                           style="text-decoration: none; color: white"
@@ -744,12 +816,27 @@
                     /></a>
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>
-                      <button sec:authorize="isAuthenticated()">
+                      <button
+                        th:unless="${mouse.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                      >
                         <a
                           th:href="@{/shopping-cart/add-mouse/{id}(id=${mouse.MouseId})}"
                           >Đặt hàng</a
                         >
                       </button>
+                      <button
+                        th:if="${mouse.inventory == 0}"
+                        sec:authorize="isAuthenticated()"
+                        style="cursor: auto"
+                      >
+                        <a
+                          style="pointer-events: none"
+                          th:href="@{/shopping-cart/add-mouse/{id}(id=${mouse.MouseId})}"
+                          >Hết hàng</a
+                        >
+                      </button>
+
                       <button sec:authorize="isAnonymous()">
                         <a
                           style="text-decoration: none; color: white"

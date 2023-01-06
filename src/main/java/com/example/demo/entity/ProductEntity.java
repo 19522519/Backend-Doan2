@@ -43,6 +43,16 @@ public class ProductEntity {
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PcEntity pc;
 
+
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private MouseEntity mouse;
+
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private ScreenEntity screen;
+
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private KeyBoardEntity keyboard;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;

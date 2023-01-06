@@ -13,7 +13,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     AppUser findByEmailAndIsDeletedIsFalse(String email);
 
-    AppUser findByUserIdAndIsDeletedIsFalse(Integer id);
+    AppUser findByUserIdAndIsDeletedIsFalse(Long id);
 
     AppUser findByResetPasswordToken(String resetPasswordToken);
 

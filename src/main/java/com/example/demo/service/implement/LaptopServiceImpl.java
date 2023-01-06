@@ -152,6 +152,7 @@ public class LaptopServiceImpl implements LaptopService {
         laptopDto.setBrand(laptopEntity.getProduct().getBrand().getName());
         laptopDto.setCategory(laptopEntity.getProduct().getCategory().getName());
         laptopDto.setQuantity(laptopEntity.getProduct().getQuantity());
+        laptopDto.setInventory(laptopEntity.getProduct().getInventory());
 
         return laptopDto;
     }

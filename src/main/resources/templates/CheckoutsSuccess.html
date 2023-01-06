@@ -68,40 +68,38 @@
       </div>
     </div>
     <!-- END USER PAGE HEADER -->
-    <div class="user_menu text-center">
+    <div class="user_menu text-center align-middle">
       <div class="container">
-        <h1>Hi, <span class="text-danger" th:text="${firstname}"></span></h1>
-        <h4>
-          Hôm nay là ngày <span class="text-info" th:text="${today}"></span>
-        </h4>
         <div class="row py-5">
-          <div class="col-md-4">
-            <div class="order_user_page">
-              <div class="icon_user">
-                <i class="bx bxs-cart-download text-warning"></i>
+          <h1 class="text-success">Mua hàng thành công</h1>
+          <div class="success_img" style="width: 400px; height: 380px">
+            <img
+              style="width: 100%; height: 100%; object-fit: contain"
+              src="https://w.ladicdn.com/s750x750/5bf3dc7edc60303c34e4991f/tong-dai-02-20210726090011.png"
+              alt=""
+            />
+            <h3>Cảm ơn bạn đã mua hàng</h3>
+            <div class="group_action row">
+              <div class="mt-4 back_home--btn col">
+                <a
+                  class="p-2 mb-2 bg-warning text-white rounded"
+                  style="text-decoration: none; display: inline-block"
+                  th:href="@{/personal-info/orders}"
+                  ><i class="bx bx-history"></i>Xem lịch sử mua hàng</a
+                >
               </div>
-              <a th:href="@{personal-info/orders}">Thông tin các đơn hàng</a>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="account_user_page">
-              <div class="icon_user">
-                <i class="bx bxs-user-circle text-info"></i>
+              <div class="mt-4 back_home--btn col">
+                <a
+                  class="p-2 mb-2 bg-primary text-white rounded"
+                  style="
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 100%;
+                  "
+                  th:href="@{/}"
+                  ><i class="bx bxs-door-open"></i>Quay về trang chủ</a
+                >
               </div>
-              <a th:href="@{/personal-info/account}"
-                >Quản lý tài khoản cá nhân</a
-              >
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="logout">
-              <div class="icon_user">
-                <i
-                  class="bx bx-log-out text-danger"
-                  style="margin-left: 18px; transform: rotate(180deg)"
-                ></i>
-              </div>
-              <a th:href="@{/logout}">Đăng xuất</a>
             </div>
           </div>
         </div>

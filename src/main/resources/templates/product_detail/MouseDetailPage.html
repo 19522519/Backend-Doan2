@@ -181,7 +181,18 @@
         <div class="row">
           <div class="product_detail-status-name">
             <h2 th:text="${mouse.Mousename}"></h2>
-            <div class="product_detail-status">Còn hàng</div>
+            <div
+              th:if="${mouse.inventory == 0}"
+              class="bg-danger product_detail-status"
+            >
+              Hết hàng
+            </div>
+            <div
+              th:unless="${mouse.inventory == 0}"
+              class="product_detail-status"
+            >
+              Còn hàng
+            </div>
           </div>
           <div class="row">
             <div class="col">
@@ -202,8 +213,28 @@
                 </p>
               </div>
               <button
+                style="background: rgb(149, 145, 145); cursor: auto"
                 class="product_detail_buy"
                 sec:authorize="isAuthenticated()"
+                th:if="${mouse.inventory == 0}"
+              >
+                <p style="font-size: 20px">
+                  <a
+                    style="
+                      text-decoration: none;
+                      color: white;
+                      pointer-events: none;
+                    "
+                    th:href="@{/shopping-cart/add-mouse/{id}(id=${mouse.MouseId})}"
+                    >Đặt ngay</a
+                  >
+                </p>
+                <p>Giao hàng tận nơi hoặc nhận tại cửa hàng</p>
+              </button>
+              <button
+                class="product_detail_buy"
+                sec:authorize="isAuthenticated()"
+                th:unless="${mouse.inventory == 0}"
               >
                 <p style="font-size: 20px">
                   <a
@@ -214,6 +245,7 @@
                 </p>
                 <p>Giao hàng tận nơi hoặc nhận tại cửa hàng</p>
               </button>
+
               <button class="product_detail_buy" sec:authorize="isAnonymous()">
                 <p style="font-size: 20px">
                   <a

@@ -235,7 +235,7 @@ public class ManagerController {
     }
 
     @GetMapping("/delete-user/{id}")
-    public String deleteUser(Model model, @PathVariable("id") Integer userId) {
+    public String deleteUser(Model model, @PathVariable("id") Long userId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";

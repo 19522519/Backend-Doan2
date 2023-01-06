@@ -120,6 +120,7 @@ public class KeyboardServiceImpl implements KeyboardService {
         keyBoardDto.setCreateDate(keyBoardEntity.getProduct().getCreateDate());
         keyBoardDto.setThumbnail(keyBoardEntity.getProduct().getThumbnail());
         keyBoardDto.setQuantity(keyBoardEntity.getProduct().getQuantity());
+        keyBoardDto.setInventory(keyBoardEntity.getProduct().getInventory());
 
         return keyBoardDto;
     }

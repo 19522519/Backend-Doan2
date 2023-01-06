@@ -118,6 +118,7 @@ public class ScreenServiceImpl implements ScreenService {
         ScreenDto.setCreateDate(ScreenEntity.getProduct().getCreateDate());
         ScreenDto.setThumbnail(ScreenEntity.getProduct().getThumbnail());
         ScreenDto.setQuantity(ScreenEntity.getProduct().getQuantity());
+        ScreenDto.setInventory(ScreenEntity.getProduct().getInventory());
 
         return ScreenDto;
     }

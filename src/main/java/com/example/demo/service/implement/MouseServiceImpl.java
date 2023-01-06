@@ -117,6 +117,7 @@ public class MouseServiceImpl implements MouseService {
         MouseDto.setCreateDate(MouseEntity.getProduct().getCreateDate());
         MouseDto.setThumbnail(MouseEntity.getProduct().getThumbnail());
         MouseDto.setQuantity(MouseEntity.getProduct().getQuantity());
+        MouseDto.setInventory(MouseEntity.getProduct().getInventory());
 
         return MouseDto;
     }
