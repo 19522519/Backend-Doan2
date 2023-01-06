@@ -212,9 +212,11 @@ public class LaptopServiceImpl implements LaptopService {
         productEntity.setInventory(laptopDto.getQuantity());
         productEntity.setIsDeleted(false);
         laptopEntity.setIsDeleted(false);
-
-        productEntity.setThumbnail(img.getOriginalFilename());
-        saveFile(productEntity.getThumbnail(), img);
+        if(!img.isEmpty()){
+            productEntity.setThumbnail(img.getOriginalFilename());
+            saveFile(productEntity.getThumbnail(), img);
+        }
+        
 
         laptopEntity.setProduct(productEntity);
         laptopRepository.save(laptopEntity);

@@ -83,7 +83,7 @@ public class SellerController {
                 // Bar Chart
                 Map<String, Integer> dataBarChart = new LinkedHashMap<>();
                 dataBarChart.put("Laptop", cartItemService.getSumLaptops().size());
-                dataBarChart.put("PC", cartItemService.getSumPCs().size());
+                // dataBarChart.put("PC", cartItemService.getSumPCs().size());
                 dataBarChart.put("Màn hình", cartItemService.getSumScreens().size());
                 dataBarChart.put("Chuột", cartItemService.getSumMouses().size());
                 dataBarChart.put("Bàn phím", cartItemService.getSumKeyboards().size());

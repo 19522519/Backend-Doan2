@@ -19,6 +19,8 @@ public interface MouseService {
 
     List<MouseDto> findAllMouse();
 
+    List<MouseDto> findFiveMouse();
+
     void deleteMouse(Integer id);
 
     MouseDto editMouse(Integer id);

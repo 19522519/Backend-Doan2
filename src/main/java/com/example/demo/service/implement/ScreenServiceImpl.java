@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ScreenDto;
 import com.example.demo.entity.BrandEntity;
+import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ScreenEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.BrandRepository;
@@ -80,6 +81,9 @@ public class ScreenServiceImpl implements ScreenService {
         productEntity.setInventory(ScreenDto.getQuantity());
         productEntity.setIsDeleted(false);
         ScreenEntity.setIsDeleted(false);
+        CategoryEntity categoryEntity = categoryRepository.findByName("Screen");
+
+        productEntity.setCategory(categoryEntity);
 
         productEntity.setThumbnail(img.getOriginalFilename());
         saveFile(productEntity.getThumbnail(), img);
@@ -141,14 +145,25 @@ public class ScreenServiceImpl implements ScreenService {
 
     // Limit 10 product in a page
     @Override
-    public List<ScreenDto> findAllScreen() {
+    public List<ScreenDto> findFiveScreen() {
         List<ScreenDto> ScreenDtos = new ArrayList<>();
         for (ScreenEntity ScreenEntity : screenRepository.findByIsDeletedIsFalse(
-                PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id")))) {
+                PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "id")))) {
             ScreenDtos.add(toDto(ScreenEntity));
         }
         return ScreenDtos;
     }
+
+    @Override
+    public List<ScreenDto> findAllScreen() {
+        List<ScreenDto> ScreenDtos = new ArrayList<>();
+        for (ScreenEntity ScreenEntity : screenRepository.findByIsDeletedIsFalse(
+                PageRequest.of(0, 20, Sort.by(Sort.Direction.ASC, "id")))) {
+            ScreenDtos.add(toDto(ScreenEntity));
+        }
+        return ScreenDtos;
+    }
+
 
     @Override
     public void deleteScreen(Integer id) {

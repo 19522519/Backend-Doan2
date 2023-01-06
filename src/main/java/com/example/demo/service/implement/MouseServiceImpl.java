@@ -80,7 +80,10 @@ public class MouseServiceImpl implements MouseService {
         productEntity.setInventory(MouseDto.getQuantity());
         productEntity.setIsDeleted(false);
         MouseEntity.setIsDeleted(false);
+        CategoryEntity categoryEntity = categoryRepository.findByName("Mouse");
 
+        productEntity.setCategory(categoryEntity);
+        
         productEntity.setThumbnail(img.getOriginalFilename());
         saveFile(productEntity.getThumbnail(), img);
 
@@ -143,7 +146,18 @@ public class MouseServiceImpl implements MouseService {
     public List<MouseDto> findAllMouse() {
         List<MouseDto> MouseDtos = new ArrayList<>();
         for (MouseEntity MouseEntity : MouseRepository.findByIsDeletedIsFalse(
-                PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id")))) {
+                PageRequest.of(0, 20, Sort.by(Sort.Direction.ASC, "id")))) {
+            MouseDtos.add(toDto(MouseEntity));
+        }
+        return MouseDtos;
+    }
+
+
+    @Override
+    public List<MouseDto> findFiveMouse() {
+        List<MouseDto> MouseDtos = new ArrayList<>();
+        for (MouseEntity MouseEntity : MouseRepository.findByIsDeletedIsFalse(
+                PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "id")))) {
             MouseDtos.add(toDto(MouseEntity));
         }
         return MouseDtos;

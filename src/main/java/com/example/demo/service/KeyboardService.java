@@ -19,6 +19,7 @@ public interface KeyboardService {
     KeyBoardDto toDto(KeyBoardEntity keyBoardEntity);
 
     List<KeyBoardDto> findAllKeyBoard();
+    List<KeyBoardDto> findFiveKeyBoard();
 
     void deleteKeyBoard(Integer id);
 

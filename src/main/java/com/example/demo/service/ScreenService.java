@@ -18,6 +18,8 @@ public interface ScreenService {
     ScreenDto toDto(ScreenEntity ScreenEntity);
 
     List<ScreenDto> findAllScreen();
+    
+    List<ScreenDto> findFiveScreen();
 
     void deleteScreen(Integer id);
 

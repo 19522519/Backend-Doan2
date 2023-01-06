@@ -84,7 +84,7 @@ public class ManagerController {
                 // Bar Chart
                 Map<String, Integer> dataBarChart = new LinkedHashMap<>();
                 dataBarChart.put("Laptop", cartItemService.getSumLaptops().size());
-                dataBarChart.put("PC", cartItemService.getSumPCs().size());
+                // dataBarChart.put("PC", cartItemService.getSumPCs().size());
                 dataBarChart.put("Màn hình", cartItemService.getSumScreens().size());
                 dataBarChart.put("Chuột", cartItemService.getSumMouses().size());
                 dataBarChart.put("Bàn phím", cartItemService.getSumKeyboards().size());
@@ -267,7 +267,7 @@ public class ManagerController {
                 // Pie Chart
                 Map<String, Integer> dataPieChart = new LinkedHashMap<>();
                 dataPieChart.put("Laptop", cartItemService.getSumLaptops().size());
-                dataPieChart.put("PC", cartItemService.getSumPCs().size());
+                // dataPieChart.put("PC", cartItemService.getSumPCs().size());
                 dataPieChart.put("Màn hình", cartItemService.getSumScreens().size());
                 dataPieChart.put("Chuột", cartItemService.getSumMouses().size());
                 dataPieChart.put("Bàn phím", cartItemService.getSumKeyboards().size());

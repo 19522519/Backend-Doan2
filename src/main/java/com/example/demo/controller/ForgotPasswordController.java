@@ -45,7 +45,7 @@ public class ForgotPasswordController {
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset-password?token=" + token;
             System.out.println(resetPasswordLink);
             sendEmail(email, resetPasswordLink);
-            model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
+            model.addAttribute("message", "Đã gửi 1 link reset mật khẩu đến email của bạn. Vui lòng kiểm tra");
         } catch (NotFoundException ex) {
             model.addAttribute("error", ex.getMessage());
         } catch (UnsupportedEncodingException | MessagingException e) {
@@ -78,7 +78,7 @@ public class ForgotPasswordController {
             return "ChangePasswordPage";
         } else {
             userService.updatePassword(appUser, password);
-            model.addAttribute("message", "You have successfully changed your password.");
+            model.addAttribute("message", "Đổi mật khẩu thành công");
         }
         return "ChangePasswordPage";
     }

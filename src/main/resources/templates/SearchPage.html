@@ -212,7 +212,7 @@
                       <div th:case="'Mouse'">
                         <a th:href="@{/mouse/{id}(id=${laptop.mouse.id})}"
                           ><img
-                            th:src="@{'/images/' + ${laptop.thumbnail}}"
+                            src="https://product.hstatic.net/1000026716/product/artboard_1-recovered_879a810c890547f094a156e5808cea00.png"
                             alt=""
                         /></a>
                       </div>
@@ -231,13 +231,6 @@
                         /></a>
                       </div>
                     </div>
-                    <!-- <div th:if="${laptop.category.name == 'Mouse'}">
-                                        <a th:href="@{/mouse/{id}(id=${laptop.mouse.id})}"
-                                          ><img
-                                            th:src="@{'/images/' + ${laptop.thumbnail}}"
-                                            alt=""
-                                        /></a>
-                                      </div> -->
 
                     <div class="product_detail">
                       <p>Click để xem chi tiết</p>

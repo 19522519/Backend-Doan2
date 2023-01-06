@@ -85,13 +85,13 @@ public class IndexController {
         List<LaptopDto> laptopDtosVanPhong = laptopService.findAllLaptopVanPhong();
 
         // List Màn hình
-        List<ScreenDto> screenDtos = screenService.findAllScreen();
+        List<ScreenDto> screenDtos = screenService.findFiveScreen();
 
         // List Bàn phím
-        List<KeyBoardDto> keyboardDtos = keyboardService.findAllKeyBoard();
+        List<KeyBoardDto> keyboardDtos = keyboardService.findFiveKeyBoard();
 
         // List Chuột
-        List<MouseDto> mouseDtos = mouseService.findAllMouse();
+        List<MouseDto> mouseDtos = mouseService.findFiveMouse();
 
         model.addAttribute("first", first);
         model.addAttribute("second", second);

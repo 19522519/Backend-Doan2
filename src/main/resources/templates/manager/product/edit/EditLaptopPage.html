@@ -364,7 +364,16 @@
             </div>
             <div class="col-7 add_product_info_input">
               <p>Thêm hình ảnh</p>
+              <div style="width: 160px; height: 160px">
+                <img
+                  th:src="@{'/images/' + ${laptop.thumbnail}}"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                  alt=""
+                />
+              </div>
+
               <input type="file" name="img" placeholder="Image link" />
+              <input th:field="*{thumbnail}" hidden type="text" />
             </div>
           </div>
           <div class="row add_product_part">

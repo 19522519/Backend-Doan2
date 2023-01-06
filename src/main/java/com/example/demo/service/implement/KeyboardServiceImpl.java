@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.KeyBoardDto;
 import com.example.demo.entity.BrandEntity;
+import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.KeyBoardEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.BrandRepository;
@@ -71,6 +72,9 @@ public class KeyboardServiceImpl implements KeyboardService {
         productEntity.setInventory(keyBoardDto.getQuantity());
         productEntity.setIsDeleted(false);
         keyBoardEntity.setIsDeleted(false);
+        CategoryEntity categoryEntity = categoryRepository.findByName("Keyboard");
+
+        productEntity.setCategory(categoryEntity);
 
         productEntity.setThumbnail(img.getOriginalFilename());
         saveFile(productEntity.getThumbnail(), img);
@@ -146,7 +150,17 @@ public class KeyboardServiceImpl implements KeyboardService {
     public List<KeyBoardDto> findAllKeyBoard() {
         List<KeyBoardDto> keyBoardDtos = new ArrayList<>();
         for (KeyBoardEntity keyBoardEntity : keyBoardRepository.findByIsDeletedIsFalse(
-                PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id")))) {
+                PageRequest.of(0, 20, Sort.by(Sort.Direction.ASC, "id")))) {
+            keyBoardDtos.add(toDto(keyBoardEntity));
+        }
+        return keyBoardDtos;
+    }
+
+    @Override
+    public List<KeyBoardDto> findFiveKeyBoard() {
+        List<KeyBoardDto> keyBoardDtos = new ArrayList<>();
+        for (KeyBoardEntity keyBoardEntity : keyBoardRepository.findByIsDeletedIsFalse(
+                PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "id")))) {
             keyBoardDtos.add(toDto(keyBoardEntity));
         }
         return keyBoardDtos;
